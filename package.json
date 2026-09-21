@@ -132,6 +132,23 @@
     "hld:consistent-hashing": "node system-design/03-consistent-hashing/simulate.js",
     "hld:sharding-replication": "node system-design/04-database-sharding-replication/simulate.js",
     "hld:cap-theorem": "node system-design/05-cap-theorem-and-consistency/simulate.js",
-    "hld:message-queues": "node system-design/06-message-queues-async-processing/simulate.js"
+    "hld:message-queues": "node system-design/06-message-queues-async-processing/simulate.js",
+
+    "dsa:linked-list": "node dsa/data-structures/01-linked-list/implementation.js",
+    "dsa:stack-queue": "node dsa/data-structures/02-stack-queue/implementation.js",
+    "dsa:hash-map": "node dsa/data-structures/03-hash-map/implementation.js",
+    "dsa:bst": "node dsa/data-structures/04-binary-search-tree/implementation.js",
+    "dsa:heap": "node dsa/data-structures/05-heap/implementation.js",
+    "dsa:graph": "node dsa/data-structures/06-graph/implementation.js",
+
+    "dsa:two-pointers": "node dsa/patterns/01-two-pointers/pattern.js",
+    "dsa:sliding-window": "node dsa/patterns/02-sliding-window/pattern.js",
+    "dsa:fast-slow-pointers": "node dsa/patterns/03-fast-slow-pointers/pattern.js",
+    "dsa:binary-search": "node dsa/patterns/04-binary-search/pattern.js",
+    "dsa:backtracking": "node dsa/patterns/05-backtracking/pattern.js",
+    "dsa:dynamic-programming": "node dsa/patterns/06-dynamic-programming/pattern.js",
+    "dsa:greedy": "node dsa/patterns/07-greedy/pattern.js",
+    "dsa:union-find-topo-sort": "node dsa/patterns/08-union-find-topological-sort/pattern.js",
+    "dsa:top-k-heap": "node dsa/patterns/09-top-k-heap-pattern/pattern.js"
   }
 }

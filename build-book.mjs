@@ -79,6 +79,37 @@ const PARTS = [
       ],
     }],
   },
+  {
+    title: 'Part V — DSA (Data Structures & Algorithms)',
+    intro: 'dsa/README.md',
+    categories: [
+      {
+        name: 'Data Structures',
+        lessons: [
+          'dsa/data-structures/01-linked-list',
+          'dsa/data-structures/02-stack-queue',
+          'dsa/data-structures/03-hash-map',
+          'dsa/data-structures/04-binary-search-tree',
+          'dsa/data-structures/05-heap',
+          'dsa/data-structures/06-graph',
+        ],
+      },
+      {
+        name: 'Algorithmic Patterns',
+        lessons: [
+          'dsa/patterns/01-two-pointers',
+          'dsa/patterns/02-sliding-window',
+          'dsa/patterns/03-fast-slow-pointers',
+          'dsa/patterns/04-binary-search',
+          'dsa/patterns/05-backtracking',
+          'dsa/patterns/06-dynamic-programming',
+          'dsa/patterns/07-greedy',
+          'dsa/patterns/08-union-find-topological-sort',
+          'dsa/patterns/09-top-k-heap-pattern',
+        ],
+      },
+    ],
+  },
 ];
 
 function esc(s) {
@@ -208,6 +239,8 @@ function fileLabel(filename) {
   if (filename === '2-fixed.js') return `✅ ${filename} — the fix`;
   if (filename === 'design.js') return `✅ ${filename} — the full design`;
   if (filename === 'simulate.js') return `✅ ${filename} — the simulation`;
+  if (filename === 'implementation.js') return `✅ ${filename} — from scratch`;
+  if (filename === 'pattern.js') return `✅ ${filename} — the pattern`;
   return `✅ ${filename} — the pattern`;
 }
 

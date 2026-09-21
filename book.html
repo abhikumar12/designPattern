@@ -161,6 +161,12 @@
 <p>ek runnable simulation ke saath (in mein se kai concept "it depends" hote hain, isliye</p>
 <p>zyada zor tradeoffs samajhne pe hai, sirf code pe nahi). Poora index:</p>
 <p><a href="system-design/README.md"><code>system-design/README.md</code></a>.</p>
+<h3>DSA — the coding round</h3>
+<p>Coding-round track: 6 core data structures (Linked List, Stack &amp; Queue, Hash Map, BST, Heap,</p>
+<p>Graph) implemented from scratch, plus 9 algorithmic patterns (Two Pointers, Sliding Window,</p>
+<p>Fast &amp; Slow Pointers, Binary Search, Backtracking, Dynamic Programming, Greedy, Union-Find &amp;</p>
+<p>Topological Sort, Top-K/Heap) that generalize to most coding-interview questions. Poora</p>
+<p>index: <a href="dsa/README.md"><code>dsa/README.md</code></a>.</p>
 <h2>Shortcut scripts (optional)</h2>
 <p><code>package.json</code> mein scripts hain, toh yeh bhi kaam karta hai:</p>
 <pre class="mdcode"><code>npm run strategy:registry
@@ -232,6 +238,26 @@ npm run visitor:pattern</code></pre>
 <li><a href="#ch-system-design-04-database-sharding-replication">38. Database Sharding &amp; Replication</a></li>
 <li><a href="#ch-system-design-05-cap-theorem-and-consistency">39. CAP Theorem &amp; Consistency Models</a></li>
 <li><a href="#ch-system-design-06-message-queues-async-processing">40. Message Queues &amp; Async Processing</a></li>
+</ul></div>
+<div class="toc-part"><h2>Part V — DSA (Data Structures &amp; Algorithms)</h2></div>
+<div class="toc-cat"><h3>Data Structures</h3><ul>
+<li><a href="#ch-dsa-data-structures-01-linked-list">41. DSA — Linked List</a></li>
+<li><a href="#ch-dsa-data-structures-02-stack-queue">42. DSA — Stack &amp; Queue</a></li>
+<li><a href="#ch-dsa-data-structures-03-hash-map">43. DSA — Hash Map</a></li>
+<li><a href="#ch-dsa-data-structures-04-binary-search-tree">44. DSA — Binary Search Tree (BST)</a></li>
+<li><a href="#ch-dsa-data-structures-05-heap">45. DSA — Heap (Priority Queue)</a></li>
+<li><a href="#ch-dsa-data-structures-06-graph">46. DSA — Graph (BFS &amp; DFS)</a></li>
+</ul></div>
+<div class="toc-cat"><h3>Algorithmic Patterns</h3><ul>
+<li><a href="#ch-dsa-patterns-01-two-pointers">47. Pattern — Two Pointers</a></li>
+<li><a href="#ch-dsa-patterns-02-sliding-window">48. Pattern — Sliding Window</a></li>
+<li><a href="#ch-dsa-patterns-03-fast-slow-pointers">49. Pattern — Fast &amp; Slow Pointers</a></li>
+<li><a href="#ch-dsa-patterns-04-binary-search">50. Pattern — Binary Search</a></li>
+<li><a href="#ch-dsa-patterns-05-backtracking">51. Pattern — Backtracking</a></li>
+<li><a href="#ch-dsa-patterns-06-dynamic-programming">52. Pattern — Dynamic Programming (DP)</a></li>
+<li><a href="#ch-dsa-patterns-07-greedy">53. Pattern — Greedy</a></li>
+<li><a href="#ch-dsa-patterns-08-union-find-topological-sort">54. Pattern — Union-Find &amp; Topological Sort</a></li>
+<li><a href="#ch-dsa-patterns-09-top-k-heap-pattern">55. Pattern — Top-K (Heap Pattern)</a></li>
 </ul></div>
 
 </div>
@@ -5123,6 +5149,1645 @@ bus.publish(<span class="str">'order.placed'</span>, { orderId: 99 });
 console.log(<span class="str">'\nNotice inventory/email/analytics services never call each other directly --'</span>);
 console.log(<span class="str">'exactly the decoupling the Observer pattern (Lesson 2) teaches, just at the'</span>);
 console.log(<span class="str">'scale of independent SERVICES instead of objects in one process.'</span>);
+</code></pre>
+</section>
+<section class="part-divider">
+<div class="part-kicker">Part V — DSA (Data Structures &amp; Algorithms)</div>
+<h1>DSA — Data Structures &amp; Algorithms</h1>
+<p>The coding-round track. Unlike the other modules, DSA isn't about applying a design — it's</p>
+<p>about pattern-matching a NEW problem to one of a small set of techniques fast enough to solve</p>
+<p>it in an interview. So this module is organized the same way the best DSA prep guides are:</p>
+<p><strong>core data structures</strong> (implement them from scratch, know their guarantees) and</p>
+<p><strong>algorithmic patterns</strong> (~9 techniques that generalize to the large majority of coding</p>
+<p>questions you'll actually be asked).</p>
+<h2>How to use this module</h2>
+<ol>
+<li>For a data structure: read the README, run <code>implementation.js</code>, then do <code>exercise.js</code>.</li>
+<li>For a pattern: read the README's "When to reach for it" section FIRST — recognizing when a pattern applies is the actual interview skill, more than the code itself. Then run <code>pattern.js</code>, then do <code>exercise.js</code>.</li>
+<li>When you hit a NEW problem you've never seen: before coding anything, ask "which of these 9 patterns does this smell like?" That's the real practice — this module gives you the vocabulary to ask that question instead of staring at a blank editor.</li>
+</ol>
+<h2>Data Structures</h2>
+<table><thead><tr><th>#</th><th>Structure</th><th>Why it's asked</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="data-structures/01-linked-list/">Linked List</a></td><td>reversal, cycle detection, foundational</td></tr>
+<tr><td>2</td><td><a href="data-structures/02-stack-queue/">Stack &amp; Queue</a></td><td>parentheses matching, monotonic stack</td></tr>
+<tr><td>3</td><td><a href="data-structures/03-hash-map/">Hash Map</a></td><td>O(1) "have I seen this?" — the #1 interview tool</td></tr>
+<tr><td>4</td><td><a href="data-structures/04-binary-search-tree/">Binary Search Tree</a></td><td>ordered data, O(log n) search</td></tr>
+<tr><td>5</td><td><a href="data-structures/05-heap/">Heap</a></td><td>top-K, Kth largest, priority scheduling</td></tr>
+<tr><td>6</td><td><a href="data-structures/06-graph/">Graph (BFS/DFS)</a></td><td>shortest path, connectivity, grid problems</td></tr>
+</tbody></table>
+<h2>Algorithmic Patterns</h2>
+<table><thead><tr><th>#</th><th>Pattern</th><th>Tell-tale sign in the problem statement</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="patterns/01-two-pointers/">Two Pointers</a></td><td>sorted array, pair/triplet sum, palindrome</td></tr>
+<tr><td>2</td><td><a href="patterns/02-sliding-window/">Sliding Window</a></td><td>contiguous subarray/substring</td></tr>
+<tr><td>3</td><td><a href="patterns/03-fast-slow-pointers/">Fast &amp; Slow Pointers</a></td><td>linked list middle/cycle, "does this loop forever"</td></tr>
+<tr><td>4</td><td><a href="patterns/04-binary-search/">Binary Search</a></td><td>sorted data, OR "minimize/maximize X such that condition holds"</td></tr>
+<tr><td>5</td><td><a href="patterns/05-backtracking/">Backtracking</a></td><td>"all possible ways", subsets, permutations, boards</td></tr>
+<tr><td>6</td><td><a href="patterns/06-dynamic-programming/">Dynamic Programming</a></td><td>optimal value + overlapping subproblems</td></tr>
+<tr><td>7</td><td><a href="patterns/07-greedy/">Greedy</a></td><td>interval scheduling, "always pick the best available now"</td></tr>
+<tr><td>8</td><td><a href="patterns/08-union-find-topological-sort/">Union-Find &amp; Topological Sort</a></td><td>connectivity, dependency ordering</td></tr>
+<tr><td>9</td><td><a href="patterns/09-top-k-heap-pattern/">Top-K (Heap)</a></td><td>"K largest/smallest/most-frequent/closest"</td></tr>
+</tbody></table>
+<h2>How this connects to the rest of the course</h2>
+<p>DSA isn't a separate island from the rest of this repo — it's the toolbox the other modules</p>
+<p>assume you already have. The O(1) <code>Queue</code> here is the same shape behind any real message</p>
+<p>queue (see <a href="../system-design/06-message-queues-async-processing/">system-design's Message Queues lesson</a>);</p>
+<p>the <code>MinHeap</code> here is exactly what a real "top-K" or "evict-the-oldest" cache would use under</p>
+<p>the hood (see <a href="../system-design/02-caching-strategies/">Caching Strategies</a>); <code>UnionFind</code> is</p>
+<p>the standard real-world tool for cluster/network membership problems, the same shape of</p>
+<p>question <a href="../system-design/03-consistent-hashing/">Consistent Hashing</a> deals with at a</p>
+<p>distributed-systems scale instead of an in-memory one.</p>
+</section>
+<section class="chapter" id="ch-dsa-data-structures-01-linked-list">
+<div class="chapter-kicker">Data Structures</div>
+<h1 class="chapter-title">41. DSA — Linked List</h1>
+<p>Asked at: everywhere, foundational. Also the base for a big chunk of "fast &amp; slow pointer"</p>
+<p>questions (cycle detection, middle of list, Nth-from-end) — see that pattern lesson.</p>
+<h2>Core idea</h2>
+<p>A linked list is a chain of nodes, each holding a value and a pointer to the next node.</p>
+<p>Unlike an array, there's no contiguous memory — insertion/deletion at a KNOWN position is</p>
+<p>O(1) (no shifting), but random access is O(n) (must walk from the head).</p>
+<h2>What to know cold</h2>
+<ul>
+<li>Singly vs doubly linked (we implement singly here — the harder, more commonly-asked one)</li>
+<li>Reversing a list IN PLACE, O(1) space (classic whiteboard question, also appears buried inside bigger problems)</li>
+<li>Finding the middle in ONE pass, and detecting a cycle — both via fast &amp; slow pointers (fast moves 2x speed) — see <a href="../../patterns/03-fast-slow-pointers/">Fast &amp; Slow Pointers</a></li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node implementation.js   # LinkedList: push, reverse, findMiddle, hasCycle
+node exercise.js          # 🎯 extend it — merge two sorted lists, remove Nth from end</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you reverse in-place with O(1) space, not by building a new list/array?</li>
+<li>Do you know the fast/slow pointer trick well enough to use it for BOTH "find middle" and "detect cycle" without re-deriving it from scratch each time?</li>
+<li>Can you reason about edge cases (empty list, single node, list already a cycle from head)?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two more classic linked-list interview questions.</span>
+<span class="cmt">// Copy implementation.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `mergeSorted(listA, listB)` — given two ALREADY-SORTED LinkedLists, return a new</span>
+<span class="cmt">//         LinkedList with all values from both, still sorted. Walk both lists with two</span>
+<span class="cmt">//         pointers and splice nodes together — this should be O(n), not "concat then sort"</span>
+<span class="cmt">//         (which would be O(n log n) and throws away the fact that both are already sorted).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `removeNthFromEnd(list, n)` — remove the Nth node from the end, in ONE pass (no</span>
+<span class="cmt">//         counting the length first, then walking again). Hint: advance a "lead" pointer n</span>
+<span class="cmt">//         steps ahead of a "trail" pointer, then move both together until lead reaches the</span>
+<span class="cmt">//         end — trail is now right before the node to remove.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): how would you check if two linked lists INTERSECT (share a tail, forming</span>
+<span class="cmt">//         a Y-shape) and find the intersection node, without extra memory (no Set of visited</span>
+<span class="cmt">//         nodes)? Hint: get both lengths first, then use the length difference to align two</span>
+<span class="cmt">//         pointers before walking them together.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ implementation.js — from scratch</h4>
+<pre class="code"><code><span class="cmt">// 🔗 LINKED LIST — from-scratch implementation with the operations interviewers ask for</span>
+<span class="cmt">// Chalao:  node implementation.js</span>
+
+<span class="kw">class</span> ListNode {
+  <span class="kw">constructor</span>(value) { <span class="kw">this</span>.value = value; <span class="kw">this</span>.next = <span class="kw">null</span>; }
+}
+
+<span class="kw">class</span> LinkedList {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.head = <span class="kw">null</span>; }
+
+  push(value) {
+    <span class="kw">const</span> node = <span class="kw">new</span> ListNode(value);
+    <span class="kw">if</span> (!<span class="kw">this</span>.head) { <span class="kw">this</span>.head = node; <span class="kw">return</span> <span class="kw">this</span>; }
+    <span class="kw">let</span> cur = <span class="kw">this</span>.head;
+    <span class="kw">while</span> (cur.next) cur = cur.next;
+    cur.next = node;
+    <span class="kw">return</span> <span class="kw">this</span>;
+  }
+
+  toArray() {
+    <span class="kw">const</span> out = [];
+    <span class="kw">let</span> cur = <span class="kw">this</span>.head;
+    <span class="kw">while</span> (cur) { out.push(cur.value); cur = cur.next; }
+    <span class="kw">return</span> out;
+  }
+
+  <span class="cmt">// Reverse IN PLACE — O(n) time, O(1) space. Classic whiteboard question.</span>
+  reverse() {
+    <span class="kw">let</span> prev = <span class="kw">null</span>;
+    <span class="kw">let</span> cur = <span class="kw">this</span>.head;
+    <span class="kw">while</span> (cur) {
+      <span class="kw">const</span> next = cur.next;
+      cur.next = prev;
+      prev = cur;
+      cur = next;
+    }
+    <span class="kw">this</span>.head = prev;
+    <span class="kw">return</span> <span class="kw">this</span>;
+  }
+
+  <span class="cmt">// Find the middle node in ONE pass — fast pointer moves 2x speed of slow.</span>
+  findMiddle() {
+    <span class="kw">let</span> slow = <span class="kw">this</span>.head, fast = <span class="kw">this</span>.head;
+    <span class="kw">while</span> (fast &amp;&amp; fast.next) { slow = slow.next; fast = fast.next.next; }
+    <span class="kw">return</span> slow ? slow.value : <span class="kw">undefined</span>;
+  }
+
+  <span class="cmt">// Floyd's cycle detection ("tortoise and hare") — O(1) space, no extra Set needed.</span>
+  hasCycle() {
+    <span class="kw">let</span> slow = <span class="kw">this</span>.head, fast = <span class="kw">this</span>.head;
+    <span class="kw">while</span> (fast &amp;&amp; fast.next) {
+      slow = slow.next;
+      fast = fast.next.next;
+      <span class="kw">if</span> (slow === fast) <span class="kw">return</span> <span class="kw">true</span>;
+    }
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> list = <span class="kw">new</span> LinkedList().push(1).push(2).push(3).push(4).push(5);
+console.log(<span class="str">'list:'</span>, list.toArray());
+console.log(<span class="str">'middle:'</span>, list.findMiddle());
+
+list.reverse();
+console.log(<span class="str">'reversed:'</span>, list.toArray());
+console.log(<span class="str">'has cycle (should be false):'</span>, list.hasCycle());
+
+<span class="kw">const</span> cyclic = <span class="kw">new</span> LinkedList().push(1).push(2).push(3);
+cyclic.head.next.next.next = cyclic.head; <span class="cmt">// manually wire node 3 back to node 1</span>
+console.log(<span class="str">'has cycle (should be true):'</span>, cyclic.hasCycle());
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-data-structures-02-stack-queue">
+<div class="chapter-kicker">Data Structures</div>
+<h1 class="chapter-title">42. DSA — Stack &amp; Queue</h1>
+<p>Asked at: everywhere. Stacks specifically power a whole family of "matching/nesting" and</p>
+<p>"next greater element" problems that look unrelated until you recognize the shape.</p>
+<h2>Core idea</h2>
+<ul>
+<li><strong>Stack</strong> — LIFO (last in, first out). Push/pop from the same end, both O(1).</li>
+<li><strong>Queue</strong> — FIFO (first in, first out). Enqueue at the back, dequeue from the front, both O(1) *if implemented right* — a naive <code>array.shift()</code> is O(n) because it re-indexes every remaining element; a proper queue avoids that (see <code>implementation.js</code>).</li>
+</ul>
+<h2>What to know cold</h2>
+<ul>
+<li><strong>Valid parentheses / balanced brackets</strong> — the canonical "why do we even need a stack" example: push opening brackets, pop-and-match on closing ones.</li>
+<li><strong>Monotonic stack</strong> — a stack kept sorted (increasing or decreasing) by popping anything that would break the order before pushing. This is THE technique behind "next greater element", "daily temperatures", and stock-span style problems — most people can't derive it from scratch under pressure, so it's worth memorizing the shape.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node implementation.js   # Stack, Queue (O(1) ops), valid-parentheses, monotonic stack demo
+node exercise.js          # 🎯 extend it — min-stack, and queue-via-two-stacks</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know a naive array-shift-based queue is O(n) per dequeue, and how to avoid it (two pointers into a fixed array, or two stacks — see the exercise)?</li>
+<li>Can you recognize when a problem is secretly "next greater/smaller element" in disguise, and reach for a monotonic stack instead of nested loops (O(n) vs O(n²))?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two more classic stack/queue interview questions.</span>
+<span class="cmt">// Copy implementation.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: build a `MinStack` — same push/pop/peek as Stack, PLUS a `getMin()` that returns</span>
+<span class="cmt">//         the current minimum in O(1). You can't just scan on every getMin() call (that's</span>
+<span class="cmt">//         O(n)) — track the running minimum alongside each push instead (hint: a second</span>
+<span class="cmt">//         stack, or push [value, minSoFar] pairs).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: implement a `Queue` using TWO stacks instead of an array (a classic "explain your</span>
+<span class="cmt">//         understanding of both structures" question). Enqueue pushes onto stack1. Dequeue:</span>
+<span class="cmt">//         if stack2 is empty, pop everything off stack1 onto stack2 (this reverses the</span>
+<span class="cmt">//         order), then pop from stack2. Prove to yourself why this gives correct FIFO order</span>
+<span class="cmt">//         and is still amortized O(1) per operation.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): rewrite nextGreaterElement() from implementation.js to solve "daily</span>
+<span class="cmt">//         temperatures" instead — given an array of temperatures, return for each day how</span>
+<span class="cmt">//         many days until a WARMER day (0 if none). Same monotonic-stack shape, different</span>
+<span class="cmt">//         payload (store distances instead of values).</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ implementation.js — from scratch</h4>
+<pre class="code"><code><span class="cmt">// 📚 STACK &amp; QUEUE — from-scratch O(1) implementations + the classic problems they unlock</span>
+<span class="cmt">// Chalao:  node implementation.js</span>
+
+<span class="kw">class</span> Stack {
+  #items = [];
+  push(x) { <span class="kw">this</span>.#items.push(x); }
+  pop() { <span class="kw">return</span> <span class="kw">this</span>.#items.pop(); }
+  peek() { <span class="kw">return</span> <span class="kw">this</span>.#items.at(-1); }
+  isEmpty() { <span class="kw">return</span> <span class="kw">this</span>.#items.length === 0; }
+  <span class="kw">get</span> size() { <span class="kw">return</span> <span class="kw">this</span>.#items.length; }
+}
+
+<span class="cmt">// A naive queue using array.shift() is O(n) per dequeue (every remaining element re-indexes).</span>
+<span class="cmt">// This version tracks a `head` pointer instead of physically removing from the front — O(1).</span>
+<span class="kw">class</span> Queue {
+  #items = [];
+  #head = 0;
+  enqueue(x) { <span class="kw">this</span>.#items.push(x); }
+  dequeue() {
+    <span class="kw">if</span> (<span class="kw">this</span>.#head &gt;= <span class="kw">this</span>.#items.length) <span class="kw">return</span> <span class="kw">undefined</span>;
+    <span class="kw">return</span> <span class="kw">this</span>.#items[<span class="kw">this</span>.#head++];
+  }
+  peek() { <span class="kw">return</span> <span class="kw">this</span>.#items[<span class="kw">this</span>.#head]; }
+  isEmpty() { <span class="kw">return</span> <span class="kw">this</span>.#head &gt;= <span class="kw">this</span>.#items.length; }
+  <span class="kw">get</span> size() { <span class="kw">return</span> <span class="kw">this</span>.#items.length - <span class="kw">this</span>.#head; }
+}
+
+<span class="cmt">// ---- Classic #1: valid parentheses ----</span>
+<span class="kw">function</span> isValid(s) {
+  <span class="kw">const</span> pairs = { <span class="str">')'</span>: <span class="str">'('</span>, <span class="str">']'</span>: <span class="str">'['</span>, <span class="str">'}'</span>: <span class="str">'{'</span> };
+  <span class="kw">const</span> stack = <span class="kw">new</span> Stack();
+  <span class="kw">for</span> (<span class="kw">const</span> ch <span class="kw">of</span> s) {
+    <span class="kw">if</span> (ch === <span class="str">'('</span> || ch === <span class="str">'['</span> || ch === <span class="str">'{'</span>) { stack.push(ch); continue; }
+    <span class="kw">if</span> (pairs[ch]) {
+      <span class="kw">if</span> (stack.isEmpty() || stack.pop() !== pairs[ch]) <span class="kw">return</span> <span class="kw">false</span>;
+    }
+  }
+  <span class="kw">return</span> stack.isEmpty();
+}
+
+<span class="cmt">// ---- Classic #2: monotonic stack — "next greater element" for every item ----</span>
+<span class="kw">function</span> nextGreaterElement(nums) {
+  <span class="kw">const</span> result = <span class="kw">new</span> Array(nums.length).fill(-1);
+  <span class="kw">const</span> stack = <span class="kw">new</span> Stack(); <span class="cmt">// holds INDICES, kept in decreasing-value order</span>
+  <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; nums.length; i++) {
+    <span class="cmt">// pop anything smaller than the current number — THEY just found their "next greater"</span>
+    <span class="kw">while</span> (!stack.isEmpty() &amp;&amp; nums[stack.peek()] &lt; nums[i]) {
+      result[stack.pop()] = nums[i];
+    }
+    stack.push(i);
+  }
+  <span class="kw">return</span> result; <span class="cmt">// whatever's left on the stack at the end has no next-greater -&gt; stays -1</span>
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'isValid("([{}])"):'</span>, isValid(<span class="str">'([{}])'</span>));   <span class="cmt">// true</span>
+console.log(<span class="str">'isValid("([)]"):'</span>, isValid(<span class="str">'([)]'</span>));         <span class="cmt">// false</span>
+
+console.log(<span class="str">'nextGreaterElement([2,1,2,4,3]):'</span>, nextGreaterElement([2, 1, 2, 4, 3]));
+<span class="cmt">// [4, 2, 4, -1, -1]</span>
+
+<span class="kw">const</span> q = <span class="kw">new</span> Queue();
+q.enqueue(<span class="str">'a'</span>); q.enqueue(<span class="str">'b'</span>); q.enqueue(<span class="str">'c'</span>);
+console.log(<span class="str">'dequeue:'</span>, q.dequeue(), <span class="str">'-&gt; remaining size:'</span>, q.size);
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-data-structures-03-hash-map">
+<div class="chapter-kicker">Data Structures</div>
+<h1 class="chapter-title">43. DSA — Hash Map</h1>
+<p>Asked at: everywhere, both as "implement one from scratch" AND as the go-to tool for turning</p>
+<p>an O(n²) brute force into O(n) (two-sum is the canonical example).</p>
+<h2>Core idea</h2>
+<p>A hash map stores key-value pairs in an array of "buckets," using a <strong>hash function</strong> to turn</p>
+<p>a key into a bucket index. Average-case O(1) get/set/delete — the entire trick is spreading</p>
+<p>keys evenly across buckets so few of them collide.</p>
+<h2>What to know cold</h2>
+<ul>
+<li><strong>Collisions are inevitable</strong> (pigeonhole principle: more possible keys than buckets). <strong>Chaining</strong> (each bucket holds a small list of entries) is the simplest fix and what <code>implementation.js</code> uses.</li>
+<li><strong>Load factor</strong> (<code>size / bucketCount</code>) matters — too high, and chains get long, and lookups degrade toward O(n). Real hash maps <strong>resize</strong> (grow the bucket array + rehash everything) once load factor crosses a threshold, same idea as JS <code>Array</code> growing under the hood.</li>
+<li>The #1 use case in interviews: trade O(n) SPACE for turning an O(n²) nested-loop scan into an O(n) single pass — "have I seen this before?" becomes an O(1) lookup instead of an O(n) re-scan.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node implementation.js   # HashMap with chaining + auto-resize, and the two-sum use case
+node exercise.js          # 🎯 extend it — group anagrams, first non-repeating character</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know WHY average-case is O(1) but worst-case is O(n) (all keys hashing to the same bucket)?</li>
+<li>Can you explain chaining vs. the alternative (open addressing / probing) at a high level?</li>
+<li>Do you reach for a hash map automatically when a problem needs "have I seen X before?" — this is the single most common interview pattern-recognition moment there is.</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two more classic hash-map interview questions.</span>
+<span class="cmt">// Copy implementation.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `groupAnagrams(words)` — group words that are anagrams of each other. Use a</span>
+<span class="cmt">//         HashMap keyed by each word's SORTED characters (e.g. "eat" and "tea" both sort to</span>
+<span class="cmt">//         "aet") — every anagram group shares the same key. Return the groups as an array of</span>
+<span class="cmt">//         arrays.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `firstNonRepeatingChar(s)` — return the first character in a string that appears</span>
+<span class="cmt">//         exactly once (or null if none does). Use a HashMap to count occurrences in one</span>
+<span class="cmt">//         pass, then a second pass to find the first count-of-1 character.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): implement `delete()` handling for the resize-down case — right now the map</span>
+<span class="cmt">//         only grows, never shrinks. Add a check: if load factor drops below, say, 0.2 AND</span>
+<span class="cmt">//         capacity is above some minimum, shrink the bucket array. Why might a real system</span>
+<span class="cmt">//         choose NOT to shrink eagerly (hint: think about a map that oscillates between two</span>
+<span class="cmt">//         sizes under repeated insert/delete)?</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ implementation.js — from scratch</h4>
+<pre class="code"><code><span class="cmt">// 🗺️ HASH MAP — from-scratch implementation with chaining + resize</span>
+<span class="cmt">// Chalao:  node implementation.js</span>
+
+<span class="kw">class</span> HashMap {
+  #buckets;
+  #size = 0;
+  #capacity;
+
+  <span class="kw">constructor</span>(capacity = 8) {
+    <span class="kw">this</span>.#capacity = capacity;
+    <span class="kw">this</span>.#buckets = Array.from({ length: capacity }, () =&gt; []); <span class="cmt">// each bucket = a chain (array)</span>
+  }
+
+  #hash(key) {
+    <span class="cmt">// A simple, fast string hash (djb2-style) — good enough here since we chain collisions</span>
+    <span class="cmt">// anyway; a real production hash map would use something with stronger avalanche</span>
+    <span class="cmt">// properties (see the Consistent Hashing lesson in system-design/ for why that matters).</span>
+    <span class="kw">const</span> str = String(key);
+    <span class="kw">let</span> h = 5381;
+    <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; str.length; i++) h = (h * 33 + str.charCodeAt(i)) &gt;&gt;&gt; 0;
+    <span class="kw">return</span> h % <span class="kw">this</span>.#capacity;
+  }
+
+  #resizeIfNeeded() {
+    <span class="kw">const</span> loadFactor = <span class="kw">this</span>.#size / <span class="kw">this</span>.#capacity;
+    <span class="kw">if</span> (loadFactor &lt; 0.75) <span class="kw">return</span>;
+    <span class="kw">const</span> old = <span class="kw">this</span>.#buckets;
+    <span class="kw">this</span>.#capacity *= 2;
+    <span class="kw">this</span>.#buckets = Array.from({ length: <span class="kw">this</span>.#capacity }, () =&gt; []);
+    <span class="kw">this</span>.#size = 0;
+    <span class="kw">for</span> (<span class="kw">const</span> chain <span class="kw">of</span> old) <span class="kw">for</span> (<span class="kw">const</span> [k, v] <span class="kw">of</span> chain) <span class="kw">this</span>.<span class="kw">set</span>(k, v); <span class="cmt">// rehash everything</span>
+  }
+
+  <span class="kw">set</span>(key, value) {
+    <span class="kw">const</span> chain = <span class="kw">this</span>.#buckets[<span class="kw">this</span>.#hash(key)];
+    <span class="kw">const</span> existing = chain.find((entry) =&gt; entry[0] === key);
+    <span class="kw">if</span> (existing) { existing[1] = value; <span class="kw">return</span>; }
+    chain.push([key, value]);
+    <span class="kw">this</span>.#size++;
+    <span class="kw">this</span>.#resizeIfNeeded();
+  }
+
+  <span class="kw">get</span>(key) {
+    <span class="kw">const</span> chain = <span class="kw">this</span>.#buckets[<span class="kw">this</span>.#hash(key)];
+    <span class="kw">const</span> entry = chain.find((e) =&gt; e[0] === key);
+    <span class="kw">return</span> entry ? entry[1] : <span class="kw">undefined</span>;
+  }
+
+  has(key) { <span class="kw">return</span> <span class="kw">this</span>.<span class="kw">get</span>(key) !== <span class="kw">undefined</span>; }
+
+  delete(key) {
+    <span class="kw">const</span> chain = <span class="kw">this</span>.#buckets[<span class="kw">this</span>.#hash(key)];
+    <span class="kw">const</span> idx = chain.findIndex((e) =&gt; e[0] === key);
+    <span class="kw">if</span> (idx === -1) <span class="kw">return</span> <span class="kw">false</span>;
+    chain.splice(idx, 1);
+    <span class="kw">this</span>.#size--;
+    <span class="kw">return</span> <span class="kw">true</span>;
+  }
+
+  <span class="kw">get</span> size() { <span class="kw">return</span> <span class="kw">this</span>.#size; }
+}
+
+<span class="cmt">// ---- Classic use case: two-sum, O(n) instead of O(n²) ----</span>
+<span class="kw">function</span> twoSum(nums, target) {
+  <span class="kw">const</span> seen = <span class="kw">new</span> HashMap(); <span class="cmt">// value -&gt; index</span>
+  <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; nums.length; i++) {
+    <span class="kw">const</span> complement = target - nums[i];
+    <span class="kw">if</span> (seen.has(complement)) <span class="kw">return</span> [seen.<span class="kw">get</span>(complement), i];
+    seen.<span class="kw">set</span>(nums[i], i);
+  }
+  <span class="kw">return</span> <span class="kw">null</span>;
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> map = <span class="kw">new</span> HashMap(4); <span class="cmt">// small capacity on purpose, to trigger a resize below</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; 10; i++) map.<span class="kw">set</span>(<span class="str">`key-${i}`</span>, i * i);
+console.log(<span class="str">'map size after 10 inserts (auto-resized):'</span>, map.size);
+console.log(<span class="str">'get("key-7"):'</span>, map.<span class="kw">get</span>(<span class="str">'key-7'</span>));
+map.delete(<span class="str">'key-7'</span>);
+console.log(<span class="str">'has("key-7") after delete:'</span>, map.has(<span class="str">'key-7'</span>));
+
+console.log(<span class="str">'twoSum([2,7,11,15], 9):'</span>, twoSum([2, 7, 11, 15], 9)); <span class="cmt">// [0, 1]</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-data-structures-04-binary-search-tree">
+<div class="chapter-kicker">Data Structures</div>
+<h1 class="chapter-title">44. DSA — Binary Search Tree (BST)</h1>
+<p>Asked at: everywhere. Also the base other structures build on (heaps, tries share the "tree</p>
+<p>+ recursive traversal" shape).</p>
+<h2>Core idea</h2>
+<p>A binary tree where every node's left subtree holds smaller values and its right subtree</p>
+<p>holds larger values. That ordering makes search/insert/delete <strong>average-case O(log n)</strong> — you</p>
+<p>discard half the remaining tree at every step, same idea as binary search on a sorted array.</p>
+<p><strong>Worst case is O(n)</strong>, though — if you insert already-sorted data, the tree degenerates into</p>
+<p>a straight line (basically a linked list). Real-world BSTs (Red-Black trees, AVL trees) add</p>
+<p>self-balancing to guarantee O(log n) even then; we implement the plain (unbalanced) version</p>
+<p>here since that's what gets asked, and self-balancing is usually a "do you know this exists"</p>
+<p>follow-up, not something you're expected to code live.</p>
+<h2>What to know cold</h2>
+<ul>
+<li><strong>In-order traversal of a BST visits nodes in SORTED order</strong> — this is the single most useful fact about BSTs and comes up constantly ("validate a BST", "kth smallest element").</li>
+<li>Deletion has 3 cases: leaf node (just remove it), one child (splice it out), two children (replace with the in-order successor — the smallest node in the right subtree — then delete THAT node instead, which is guaranteed to have at most one child).</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node implementation.js   # BST: insert, search, delete, in-order/pre-order/post-order traversal
+node exercise.js          # 🎯 extend it — validate a BST, find the kth smallest element</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know in-order traversal gives sorted output, and can you use that fact instead of re-deriving traversal logic from scratch every time?</li>
+<li>Can you correctly handle all 3 deletion cases, especially the two-children case?</li>
+<li>Do you know average O(log n) vs worst O(n), and WHY (degenerates on sorted input)?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two more classic BST interview questions.</span>
+<span class="cmt">// Copy implementation.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `isValidBST(root)` — check whether a binary tree is a VALID BST. The tempting-but-</span>
+<span class="cmt">//         WRONG approach is checking `node.left.value &lt; node.value &lt; node.right.value` at</span>
+<span class="cmt">//         every node (this misses violations further down the tree). Correct approach:</span>
+<span class="cmt">//         either (a) do an in-order traversal and check the result is strictly increasing,</span>
+<span class="cmt">//         or (b) recurse with a (min, max) valid-range that narrows at each step.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `kthSmallest(root, k)` — return the kth smallest value in the BST. Use the</span>
+<span class="cmt">//         in-order-is-sorted fact: do an in-order traversal and return the kth element — or,</span>
+<span class="cmt">//         for better than O(n) when k is small, stop the traversal early once you've visited</span>
+<span class="cmt">//         k nodes instead of collecting the whole array first.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): what happens to `insert()`'s time complexity if you insert values</span>
+<span class="cmt">//         1, 2, 3, 4, 5 in that exact order? Draw (in a comment) what the tree looks like</span>
+<span class="cmt">//         and explain why every operation becomes O(n) instead of O(log n).</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ implementation.js — from scratch</h4>
+<pre class="code"><code><span class="cmt">// 🌳 BINARY SEARCH TREE — from-scratch implementation: insert, search, delete, traversals</span>
+<span class="cmt">// Chalao:  node implementation.js</span>
+
+<span class="kw">class</span> TreeNode {
+  <span class="kw">constructor</span>(value) { <span class="kw">this</span>.value = value; <span class="kw">this</span>.left = <span class="kw">null</span>; <span class="kw">this</span>.right = <span class="kw">null</span>; }
+}
+
+<span class="kw">class</span> BST {
+  root = <span class="kw">null</span>;
+
+  insert(value) {
+    <span class="kw">const</span> node = <span class="kw">new</span> TreeNode(value);
+    <span class="kw">if</span> (!<span class="kw">this</span>.root) { <span class="kw">this</span>.root = node; <span class="kw">return</span> <span class="kw">this</span>; }
+    <span class="kw">let</span> cur = <span class="kw">this</span>.root;
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+      <span class="kw">if</span> (value &lt; cur.value) {
+        <span class="kw">if</span> (!cur.left) { cur.left = node; <span class="kw">return</span> <span class="kw">this</span>; }
+        cur = cur.left;
+      } <span class="kw">else</span> {
+        <span class="kw">if</span> (!cur.right) { cur.right = node; <span class="kw">return</span> <span class="kw">this</span>; }
+        cur = cur.right;
+      }
+    }
+  }
+
+  search(value) {
+    <span class="kw">let</span> cur = <span class="kw">this</span>.root;
+    <span class="kw">while</span> (cur) {
+      <span class="kw">if</span> (value === cur.value) <span class="kw">return</span> <span class="kw">true</span>;
+      cur = value &lt; cur.value ? cur.left : cur.right;
+    }
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+
+  delete(value) { <span class="kw">this</span>.root = <span class="kw">this</span>.#deleteNode(<span class="kw">this</span>.root, value); <span class="kw">return</span> <span class="kw">this</span>; }
+
+  #deleteNode(node, value) {
+    <span class="kw">if</span> (!node) <span class="kw">return</span> <span class="kw">null</span>;
+    <span class="kw">if</span> (value &lt; node.value) { node.left = <span class="kw">this</span>.#deleteNode(node.left, value); <span class="kw">return</span> node; }
+    <span class="kw">if</span> (value &gt; node.value) { node.right = <span class="kw">this</span>.#deleteNode(node.right, value); <span class="kw">return</span> node; }
+
+    <span class="cmt">// found the node to delete</span>
+    <span class="kw">if</span> (!node.left) <span class="kw">return</span> node.right;   <span class="cmt">// 0 or 1 child (right)</span>
+    <span class="kw">if</span> (!node.right) <span class="kw">return</span> node.left;   <span class="cmt">// 1 child (left)</span>
+
+    <span class="cmt">// 2 children: replace value with the in-order SUCCESSOR (smallest in right subtree),</span>
+    <span class="cmt">// then delete that successor from the right subtree instead (it has &lt;= 1 child, easy case)</span>
+    <span class="kw">let</span> successor = node.right;
+    <span class="kw">while</span> (successor.left) successor = successor.left;
+    node.value = successor.value;
+    node.right = <span class="kw">this</span>.#deleteNode(node.right, successor.value);
+    <span class="kw">return</span> node;
+  }
+
+  inOrder() { <span class="kw">const</span> out = []; <span class="kw">this</span>.#inOrder(<span class="kw">this</span>.root, out); <span class="kw">return</span> out; }   <span class="cmt">// sorted order!</span>
+  #inOrder(node, out) { <span class="kw">if</span> (!node) <span class="kw">return</span>; <span class="kw">this</span>.#inOrder(node.left, out); out.push(node.value); <span class="kw">this</span>.#inOrder(node.right, out); }
+
+  preOrder() { <span class="kw">const</span> out = []; <span class="kw">this</span>.#preOrder(<span class="kw">this</span>.root, out); <span class="kw">return</span> out; } <span class="cmt">// node, left, right</span>
+  #preOrder(node, out) { <span class="kw">if</span> (!node) <span class="kw">return</span>; out.push(node.value); <span class="kw">this</span>.#preOrder(node.left, out); <span class="kw">this</span>.#preOrder(node.right, out); }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> tree = <span class="kw">new</span> BST();
+[5, 3, 8, 1, 4, 7, 9].forEach((v) =&gt; tree.insert(v));
+
+console.log(<span class="str">'in-order (sorted!):'</span>, tree.inOrder());
+console.log(<span class="str">'pre-order:'</span>, tree.preOrder());
+console.log(<span class="str">'search(7):'</span>, tree.search(7));
+console.log(<span class="str">'search(6):'</span>, tree.search(6));
+
+tree.delete(3); <span class="cmt">// has two children (1 and 4) -&gt; replaced by successor (4)</span>
+console.log(<span class="str">'in-order after delete(3):'</span>, tree.inOrder());
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-data-structures-05-heap">
+<div class="chapter-kicker">Data Structures</div>
+<h1 class="chapter-title">45. DSA — Heap (Priority Queue)</h1>
+<p>Asked at: everywhere "Kth largest/smallest", "top K", or "merge K sorted things" shows up —</p>
+<p>which is a LOT of interview problems once you learn to recognize the shape.</p>
+<h2>Core idea</h2>
+<p>A heap is a binary tree stored in a flat ARRAY (no node objects, no pointers) where every</p>
+<p>parent is smaller (min-heap) or larger (max-heap) than its children. That property alone —</p>
+<p>NOT full sorting — is enough to make "give me the min/max" O(1) and insert/remove O(log n).</p>
+<p><strong>The array trick</strong>: for a node at index <code>i</code>, its children live at <code>2i+1</code> and <code>2i+2</code>, and its</p>
+<p>parent lives at <code>Math.floor((i-1)/2)</code>. No pointers needed — just index math.</p>
+<h2>What to know cold</h2>
+<ul>
+<li><strong>Sift up</strong> (after inserting at the end, bubble it up while it's smaller than its parent) and <strong>sift down</strong> (after removing the root, move the last element there and bubble it down) are the only two operations you need — everything else is built from them.</li>
+<li>A heap is NOT fully sorted — only the root is guaranteed to be the min/max. That's exactly why building one is faster (O(n)) than fully sorting (O(n log n)).</li>
+<li><strong>"Top K" pattern</strong>: keep a heap of size K instead of sorting everything — O(n log k) instead of O(n log n), and it's the standard approach once n is much bigger than k.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node implementation.js   # MinHeap: insert, extractMin, buildHeap, and the Kth-largest use case
+node exercise.js          # 🎯 extend it — a MaxHeap, and "K closest points to origin"</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know the array-index trick (no need for actual tree node objects)?</li>
+<li>Can you explain WHY sift-up/sift-down are both O(log n) (height of the tree)?</li>
+<li>Do you reach for "maintain a heap of size K" instead of "sort everything then slice" when a problem says "top K" or "Kth largest" — that's the single most common heap tell.</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the heap without breaking its O(log n) operations.</span>
+<span class="cmt">// Copy implementation.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: build a `MaxHeap` — same shape as MinHeap, just flip the two comparisons (in</span>
+<span class="cmt">//         #siftUp and #siftDown) so the LARGEST value ends up at the root instead.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `kClosestToOrigin(points, k)` — given an array of [x, y] points, return the K</span>
+<span class="cmt">//         points closest to (0, 0). Use a MAX-heap of size K, keyed by squared distance</span>
+<span class="cmt">//         (no need for Math.sqrt — comparing squared distances gives the same ordering and</span>
+<span class="cmt">//         avoids the extra work). Evict the FARTHEST point whenever the heap exceeds size K</span>
+<span class="cmt">//         (mirror the kthLargest() shape from implementation.js, but with Max instead of Min</span>
+<span class="cmt">//         and a custom "distance" comparison instead of raw value comparison).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): why does `kthLargest` use a heap of size K instead of just sorting the</span>
+<span class="cmt">//         whole array and taking `nums[nums.length - k]`? Give the actual time-complexity</span>
+<span class="cmt">//         comparison (in terms of n and k) and say when the heap approach wins.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ implementation.js — from scratch</h4>
+<pre class="code"><code><span class="cmt">// ⛰️ HEAP (MIN-HEAP) — array-backed implementation, no node objects needed</span>
+<span class="cmt">// Chalao:  node implementation.js</span>
+
+<span class="kw">class</span> MinHeap {
+  #items = [];
+
+  <span class="kw">get</span> size() { <span class="kw">return</span> <span class="kw">this</span>.#items.length; }
+  peek() { <span class="kw">return</span> <span class="kw">this</span>.#items[0]; }
+
+  #parent(i) { <span class="kw">return</span> Math.floor((i - 1) / 2); }
+  #left(i) { <span class="kw">return</span> 2 * i + 1; }
+  #right(i) { <span class="kw">return</span> 2 * i + 2; }
+  #swap(i, j) { [<span class="kw">this</span>.#items[i], <span class="kw">this</span>.#items[j]] = [<span class="kw">this</span>.#items[j], <span class="kw">this</span>.#items[i]]; }
+
+  insert(value) {
+    <span class="kw">this</span>.#items.push(value);
+    <span class="kw">this</span>.#siftUp(<span class="kw">this</span>.#items.length - 1);
+  }
+
+  #siftUp(i) {
+    <span class="kw">while</span> (i &gt; 0 &amp;&amp; <span class="kw">this</span>.#items[i] &lt; <span class="kw">this</span>.#items[<span class="kw">this</span>.#parent(i)]) {
+      <span class="kw">this</span>.#swap(i, <span class="kw">this</span>.#parent(i));
+      i = <span class="kw">this</span>.#parent(i);
+    }
+  }
+
+  extractMin() {
+    <span class="kw">if</span> (<span class="kw">this</span>.#items.length === 0) <span class="kw">return</span> <span class="kw">undefined</span>;
+    <span class="kw">const</span> min = <span class="kw">this</span>.#items[0];
+    <span class="kw">const</span> last = <span class="kw">this</span>.#items.pop();
+    <span class="kw">if</span> (<span class="kw">this</span>.#items.length &gt; 0) { <span class="kw">this</span>.#items[0] = last; <span class="kw">this</span>.#siftDown(0); }
+    <span class="kw">return</span> min;
+  }
+
+  #siftDown(i) {
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+      <span class="kw">let</span> smallest = i;
+      <span class="kw">const</span> l = <span class="kw">this</span>.#left(i), r = <span class="kw">this</span>.#right(i);
+      <span class="kw">if</span> (l &lt; <span class="kw">this</span>.#items.length &amp;&amp; <span class="kw">this</span>.#items[l] &lt; <span class="kw">this</span>.#items[smallest]) smallest = l;
+      <span class="kw">if</span> (r &lt; <span class="kw">this</span>.#items.length &amp;&amp; <span class="kw">this</span>.#items[r] &lt; <span class="kw">this</span>.#items[smallest]) smallest = r;
+      <span class="kw">if</span> (smallest === i) <span class="kw">return</span>;
+      <span class="kw">this</span>.#swap(i, smallest);
+      i = smallest;
+    }
+  }
+}
+
+<span class="cmt">// ---- Classic use case: Kth largest element, via a MIN-heap of size K ----</span>
+<span class="cmt">// Counterintuitive at first: use a MIN-heap even though we want the LARGEST — keep only K</span>
+<span class="cmt">// elements in it, and whatever's smallest among those K (the heap's root) gets evicted</span>
+<span class="cmt">// whenever a bigger number shows up. What survives is the K largest, and the root is the Kth.</span>
+<span class="kw">function</span> kthLargest(nums, k) {
+  <span class="kw">const</span> heap = <span class="kw">new</span> MinHeap();
+  <span class="kw">for</span> (<span class="kw">const</span> n <span class="kw">of</span> nums) {
+    heap.insert(n);
+    <span class="kw">if</span> (heap.size &gt; k) heap.extractMin();
+  }
+  <span class="kw">return</span> heap.peek();
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> heap = <span class="kw">new</span> MinHeap();
+[5, 3, 8, 1, 9, 2].forEach((n) =&gt; heap.insert(n));
+console.log(<span class="str">'peek (min):'</span>, heap.peek());
+
+<span class="kw">const</span> sorted = [];
+<span class="kw">while</span> (heap.size &gt; 0) sorted.push(heap.extractMin());
+console.log(<span class="str">'extracted in order:'</span>, sorted); <span class="cmt">// [1, 2, 3, 5, 8, 9] -- extracting one-by-one sorts it!</span>
+
+console.log(<span class="str">'kthLargest([3,2,1,5,6,4], 2):'</span>, kthLargest([3, 2, 1, 5, 6, 4], 2)); <span class="cmt">// 5</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-data-structures-06-graph">
+<div class="chapter-kicker">Data Structures</div>
+<h1 class="chapter-title">46. DSA — Graph (BFS &amp; DFS)</h1>
+<p>Asked at: everywhere. Graphs are the most general structure here — trees, linked lists, and</p>
+<p>grids are all special cases of graphs, and BFS/DFS are the two traversal tools that unlock</p>
+<p>most graph problems.</p>
+<h2>Core idea</h2>
+<p>A graph is a set of nodes (vertices) connected by edges. We represent it as an</p>
+<p><strong>adjacency list</strong> — a map from each node to the list of nodes it connects to. (The</p>
+<p>alternative, an adjacency MATRIX, is simpler for dense graphs but wastes O(V²) space on</p>
+<p>sparse ones — most interview graphs are sparse, so adjacency list is the default choice.)</p>
+<h2>The two traversals — know both, know when to use which</h2>
+<ul>
+<li><strong>BFS (Breadth-First Search)</strong> — explore level by level, using a QUEUE. Finds the <strong>shortest path in an unweighted graph</strong> (guaranteed, because it visits everything at distance 1 before anything at distance 2).</li>
+<li><strong>DFS (Depth-First Search)</strong> — go as deep as possible before backtracking, using a STACK (or recursion, which is just an implicit stack). Simpler to write recursively, natural fit for "does a path exist", "find all connected components", "detect a cycle".</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node implementation.js   # Graph: adjacency list, BFS, DFS, shortest path, connected components
+node exercise.js          # 🎯 extend it — detect a cycle, number of islands (grid-as-graph)</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you reach for BFS specifically when the problem says "shortest path" / "minimum steps" / "fewest moves" — DFS does NOT guarantee shortest path.</li>
+<li>Do you track VISITED nodes (a Set) so you don't infinite-loop on a cycle?</li>
+<li>Do you recognize that a 2D grid is just a graph in disguise (each cell is a node, its up/down/left/right neighbors are edges) — this reframe unlocks a big class of "matrix" problems as ordinary BFS/DFS.</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two more classic graph interview questions.</span>
+<span class="cmt">// Copy implementation.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `hasCycle(graph)` — detect whether an UNDIRECTED graph contains a cycle. DFS from</span>
+<span class="cmt">//         each unvisited node, tracking the node you arrived FROM (its parent) — if you ever</span>
+<span class="cmt">//         reach an already-visited node that ISN'T your immediate parent, that's a cycle.</span>
+<span class="cmt">//         (Careful: for undirected graphs, seeing your own parent again is normal, not a</span>
+<span class="cmt">//         cycle — the edge goes both ways.)</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `numIslands(grid)` — given a 2D grid of '1' (land) and '0' (water), count the</span>
+<span class="cmt">//         number of islands (connected groups of '1's, connected up/down/left/right only).</span>
+<span class="cmt">//         Treat the grid AS a graph: each land cell is a node, its 4 neighbors are edges.</span>
+<span class="cmt">//         Run DFS (or BFS) from every unvisited land cell, marking everything it touches as</span>
+<span class="cmt">//         visited, and count how many times you had to start a fresh traversal — that count</span>
+<span class="cmt">//         IS the number of islands.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): implementation.js's BFS uses `queue.shift()`, which is O(n) per call (see</span>
+<span class="cmt">//         the Stack &amp; Queue lesson for why). For a graph with thousands of nodes this adds</span>
+<span class="cmt">//         up. Rewrite `bfs()` to use the O(1) `Queue` class from that lesson instead.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ implementation.js — from scratch</h4>
+<pre class="code"><code><span class="cmt">// 🕸️ GRAPH — adjacency list + BFS + DFS, the two traversals that unlock most graph problems</span>
+<span class="cmt">// Chalao:  node implementation.js</span>
+
+<span class="kw">class</span> Graph {
+  #adjacency = <span class="kw">new</span> Map();
+
+  addNode(node) { <span class="kw">if</span> (!<span class="kw">this</span>.#adjacency.has(node)) <span class="kw">this</span>.#adjacency.<span class="kw">set</span>(node, []); }
+
+  addEdge(a, b) { <span class="cmt">// undirected: connects both ways</span>
+    <span class="kw">this</span>.addNode(a); <span class="kw">this</span>.addNode(b);
+    <span class="kw">this</span>.#adjacency.<span class="kw">get</span>(a).push(b);
+    <span class="kw">this</span>.#adjacency.<span class="kw">get</span>(b).push(a);
+  }
+
+  neighbors(node) { <span class="kw">return</span> <span class="kw">this</span>.#adjacency.<span class="kw">get</span>(node) ?? []; }
+
+  bfs(start) {
+    <span class="kw">const</span> visited = <span class="kw">new</span> Set([start]);
+    <span class="kw">const</span> order = [];
+    <span class="kw">const</span> queue = [start];
+    <span class="kw">while</span> (queue.length) {
+      <span class="kw">const</span> node = queue.shift(); <span class="cmt">// small demo graphs -- fine; see Stack &amp; Queue lesson for O(1) version</span>
+      order.push(node);
+      <span class="kw">for</span> (<span class="kw">const</span> next <span class="kw">of</span> <span class="kw">this</span>.neighbors(node)) {
+        <span class="kw">if</span> (!visited.has(next)) { visited.add(next); queue.push(next); }
+      }
+    }
+    <span class="kw">return</span> order;
+  }
+
+  dfs(start) {
+    <span class="kw">const</span> visited = <span class="kw">new</span> Set();
+    <span class="kw">const</span> order = [];
+    <span class="kw">const</span> walk = (node) =&gt; {
+      <span class="kw">if</span> (visited.has(node)) <span class="kw">return</span>;
+      visited.add(node);
+      order.push(node);
+      <span class="kw">for</span> (<span class="kw">const</span> next <span class="kw">of</span> <span class="kw">this</span>.neighbors(node)) walk(next);
+    };
+    walk(start);
+    <span class="kw">return</span> order;
+  }
+
+  <span class="cmt">// BFS also gives you shortest path length in an UNWEIGHTED graph, almost for free</span>
+  shortestPath(start, end) {
+    <span class="kw">const</span> visited = <span class="kw">new</span> Set([start]);
+    <span class="kw">const</span> queue = [[start, 0]];
+    <span class="kw">while</span> (queue.length) {
+      <span class="kw">const</span> [node, dist] = queue.shift();
+      <span class="kw">if</span> (node === end) <span class="kw">return</span> dist;
+      <span class="kw">for</span> (<span class="kw">const</span> next <span class="kw">of</span> <span class="kw">this</span>.neighbors(node)) {
+        <span class="kw">if</span> (!visited.has(next)) { visited.add(next); queue.push([next, dist + 1]); }
+      }
+    }
+    <span class="kw">return</span> -1; <span class="cmt">// unreachable</span>
+  }
+
+  connectedComponents() {
+    <span class="kw">const</span> visited = <span class="kw">new</span> Set();
+    <span class="kw">const</span> components = [];
+    <span class="kw">for</span> (<span class="kw">const</span> node <span class="kw">of</span> <span class="kw">this</span>.#adjacency.keys()) {
+      <span class="kw">if</span> (visited.has(node)) continue;
+      <span class="kw">const</span> component = <span class="kw">this</span>.dfs(node);
+      component.forEach((n) =&gt; visited.add(n));
+      components.push(component);
+    }
+    <span class="kw">return</span> components;
+  }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> graph = <span class="kw">new</span> Graph();
+graph.addEdge(<span class="str">'A'</span>, <span class="str">'B'</span>);
+graph.addEdge(<span class="str">'A'</span>, <span class="str">'C'</span>);
+graph.addEdge(<span class="str">'B'</span>, <span class="str">'D'</span>);
+graph.addEdge(<span class="str">'C'</span>, <span class="str">'D'</span>);
+graph.addEdge(<span class="str">'E'</span>, <span class="str">'F'</span>); <span class="cmt">// disconnected from the rest</span>
+
+console.log(<span class="str">'BFS from A:'</span>, graph.bfs(<span class="str">'A'</span>));
+console.log(<span class="str">'DFS from A:'</span>, graph.dfs(<span class="str">'A'</span>));
+console.log(<span class="str">'shortest path A -&gt; D:'</span>, graph.shortestPath(<span class="str">'A'</span>, <span class="str">'D'</span>)); <span class="cmt">// 2</span>
+console.log(<span class="str">'connected components:'</span>, graph.connectedComponents());
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-patterns-01-two-pointers">
+<div class="chapter-kicker">Algorithmic Patterns</div>
+<h1 class="chapter-title">47. Pattern — Two Pointers</h1>
+<p>Asked at: everywhere. The simplest pattern here, and the one that most reliably turns an</p>
+<p>O(n²) nested loop into O(n).</p>
+<h2>When to reach for it</h2>
+<p>The problem involves a <strong>sorted</strong> array (or can be sorted), and you're comparing pairs of</p>
+<p>elements — especially "find a pair/triplet that sums to X" or "check symmetry" (palindrome).</p>
+<p>Instead of a nested loop checking every pair (O(n²)), walk from BOTH ends toward the middle,</p>
+<p>using the sorted order to decide which pointer to move — O(n).</p>
+<h2>Files</h2>
+<pre class="mdcode"><code>node pattern.js      # two-sum on a sorted array + valid palindrome, both O(n)
+node exercise.js      # 🎯 extend it — 3Sum, container with most water</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you notice the array is sorted (or sortable) and reach for two pointers INSTEAD of a hash map — two pointers uses O(1) extra space, a hash-map approach uses O(n).</li>
+<li>Can you justify WHICH pointer to move at each step, and why that never skips a valid answer (this is the part people hand-wave and get wrong)?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two harder two-pointer problems.</span>
+<span class="cmt">// Copy pattern.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `threeSum(nums)` — find all UNIQUE triplets in `nums` that sum to 0. Sort the</span>
+<span class="cmt">//         array first. Fix one number, then use two-pointers on the rest (exactly like</span>
+<span class="cmt">//         twoSumSorted, just targeting `-nums[i]` instead of a fixed target). Skip duplicate</span>
+<span class="cmt">//         values for `i`, `left`, and `right` to avoid duplicate triplets in the output.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `maxArea(heights)` — "container with most water": given heights of vertical</span>
+<span class="cmt">//         lines, find two lines that, together with the x-axis, form the container holding</span>
+<span class="cmt">//         the most water. Start with pointers at both ends (widest possible container), and</span>
+<span class="cmt">//         at each step move whichever pointer points to the SHORTER line inward (moving the</span>
+<span class="cmt">//         taller one can only shrink the width without ever increasing the height, so it</span>
+<span class="cmt">//         can never improve the answer — moving the shorter one is the only move that</span>
+<span class="cmt">//         could).</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ pattern.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// 👉👈 TWO POINTERS — walk from both ends toward the middle, O(n), O(1) space</span>
+<span class="cmt">// Chalao:  node pattern.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for when this pattern applies.</span>
+
+<span class="cmt">// ---- twoSumSorted: find a pair that sums to target, in a SORTED array ----</span>
+<span class="kw">function</span> twoSumSorted(nums, target) {
+  <span class="kw">let</span> left = 0, right = nums.length - 1;
+  <span class="kw">while</span> (left &lt; right) {
+    <span class="kw">const</span> sum = nums[left] + nums[right];
+    <span class="kw">if</span> (sum === target) <span class="kw">return</span> [left, right];
+    <span class="kw">if</span> (sum &lt; target) left++;   <span class="cmt">// sum too small -&gt; need a bigger number -&gt; move left pointer up</span>
+    <span class="kw">else</span> right--;                <span class="cmt">// sum too big -&gt; need a smaller number -&gt; move right pointer down</span>
+  }
+  <span class="kw">return</span> <span class="kw">null</span>;
+}
+
+<span class="cmt">// ---- isPalindrome: check symmetry from both ends inward ----</span>
+<span class="kw">function</span> isPalindrome(s) {
+  <span class="kw">const</span> clean = s.toLowerCase().replace(/[^a-z0-9]/g, <span class="str">''</span>);
+  <span class="kw">let</span> left = 0, right = clean.length - 1;
+  <span class="kw">while</span> (left &lt; right) {
+    <span class="kw">if</span> (clean[left] !== clean[right]) <span class="kw">return</span> <span class="kw">false</span>;
+    left++; right--;
+  }
+  <span class="kw">return</span> <span class="kw">true</span>;
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'twoSumSorted([1,3,5,7,9], 12):'</span>, twoSumSorted([1, 3, 5, 7, 9], 12)); <span class="cmt">// [1, 4] -&gt; 3+9 (5+7 also sums to 12, but the pointers reach 3+9 first)</span>
+console.log(<span class="str">'isPalindrome("A man, a plan, a canal: Panama"):'</span>, isPalindrome(<span class="str">'A man, a plan, a canal: Panama'</span>)); <span class="cmt">// true</span>
+console.log(<span class="str">'isPalindrome("race a car"):'</span>, isPalindrome(<span class="str">'race a car'</span>)); <span class="cmt">// false</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-patterns-02-sliding-window">
+<div class="chapter-kicker">Algorithmic Patterns</div>
+<h1 class="chapter-title">48. Pattern — Sliding Window</h1>
+<p>Asked at: everywhere. The go-to pattern whenever a problem asks about a CONTIGUOUS</p>
+<p>subarray/substring and you catch yourself thinking about a nested loop.</p>
+<h2>When to reach for it</h2>
+<p>The problem wants something about every contiguous subarray/substring of some size (or the</p>
+<p>best one of ANY size) — max sum, longest/shortest valid run, etc. A brute force recomputes</p>
+<p>each window from scratch (O(n·k) or O(n²)). A sliding window keeps a running result and</p>
+<p>only adjusts for what ENTERS and LEAVES the window as it slides — O(n).</p>
+<h2>Two flavors</h2>
+<ul>
+<li><strong>Fixed-size window</strong> — window size k is given. Slide by adding the new right element and removing the leftmost element every step.</li>
+<li><strong>Variable-size window</strong> — grow the right edge until some condition breaks, then shrink from the left until it's valid again (classic: "longest substring without repeating characters").</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node pattern.js      # fixed window (max sum subarray of size k) + variable window (longest
+                      # substring without repeats)
+node exercise.js      # 🎯 extend it — minimum size subarray sum, longest substring with
+                      # at most K distinct characters</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you recognize "contiguous subarray/substring" as the sliding-window tell, instead of reaching for nested loops?</li>
+<li>For variable-size windows, do you correctly shrink from the left in a <code>while</code> (not <code>if</code>) — a single shrink step isn't always enough to restore validity.</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two more classic sliding-window problems.</span>
+<span class="cmt">// Copy pattern.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `minSubarrayLen(target, nums)` — find the length of the SHORTEST contiguous</span>
+<span class="cmt">//         subarray whose sum is &gt;= target (0 if none exists). Variable window: grow the</span>
+<span class="cmt">//         right edge, adding to a running sum; whenever the sum &gt;= target, record the</span>
+<span class="cmt">//         window length and shrink from the LEFT (in a while loop, not if) while it's still</span>
+<span class="cmt">//         &gt;= target, to find the shortest valid window at this right edge.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `longestSubstringKDistinct(s, k)` — longest substring with AT MOST k distinct</span>
+<span class="cmt">//         characters. Use a Map to count characters currently in the window. Grow the right</span>
+<span class="cmt">//         edge; whenever the map has MORE than k distinct keys, shrink from the left</span>
+<span class="cmt">//         (decrementing counts, removing a key once its count hits 0) until you're back to</span>
+<span class="cmt">//         k or fewer distinct characters.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ pattern.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// 🪟 SLIDING WINDOW — track what enters/leaves the window instead of recomputing it, O(n)</span>
+<span class="cmt">// Chalao:  node pattern.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for fixed vs. variable window, and when each applies.</span>
+
+<span class="cmt">// ---- Fixed-size window: max sum of any contiguous subarray of size k ----</span>
+<span class="kw">function</span> maxSumSubarray(nums, k) {
+  <span class="kw">let</span> windowSum = 0;
+  <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; k; i++) windowSum += nums[i]; <span class="cmt">// build the first window</span>
+  <span class="kw">let</span> maxSum = windowSum;
+
+  <span class="kw">for</span> (<span class="kw">let</span> end = k; end &lt; nums.length; end++) {
+    windowSum += nums[end] - nums[end - k]; <span class="cmt">// add what enters, remove what leaves</span>
+    maxSum = Math.max(maxSum, windowSum);
+  }
+  <span class="kw">return</span> maxSum;
+}
+
+<span class="cmt">// ---- Variable-size window: longest substring without repeating characters ----</span>
+<span class="kw">function</span> longestUniqueSubstring(s) {
+  <span class="kw">const</span> seen = <span class="kw">new</span> Map(); <span class="cmt">// char -&gt; last index seen</span>
+  <span class="kw">let</span> left = 0, longest = 0;
+
+  <span class="kw">for</span> (<span class="kw">let</span> right = 0; right &lt; s.length; right++) {
+    <span class="kw">const</span> ch = s[right];
+    <span class="kw">if</span> (seen.has(ch) &amp;&amp; seen.<span class="kw">get</span>(ch) &gt;= left) {
+      left = seen.<span class="kw">get</span>(ch) + 1; <span class="cmt">// shrink the window to just past the previous occurrence</span>
+    }
+    seen.<span class="kw">set</span>(ch, right);
+    longest = Math.max(longest, right - left + 1);
+  }
+  <span class="kw">return</span> longest;
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'maxSumSubarray([2,1,5,1,3,2], 3):'</span>, maxSumSubarray([2, 1, 5, 1, 3, 2], 3)); <span class="cmt">// 9 (5+1+3)</span>
+console.log(<span class="str">'longestUniqueSubstring("abcabcbb"):'</span>, longestUniqueSubstring(<span class="str">'abcabcbb'</span>)); <span class="cmt">// 3 ("abc")</span>
+console.log(<span class="str">'longestUniqueSubstring("bbbbb"):'</span>, longestUniqueSubstring(<span class="str">'bbbbb'</span>));       <span class="cmt">// 1</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-patterns-03-fast-slow-pointers">
+<div class="chapter-kicker">Algorithmic Patterns</div>
+<h1 class="chapter-title">49. Pattern — Fast &amp; Slow Pointers</h1>
+<p>Asked at: everywhere linked lists or "cycle" shows up. A narrow but VERY reliable pattern —</p>
+<p>once you recognize it, the solution is almost always the same shape.</p>
+<h2>When to reach for it</h2>
+<p>Two signs: (1) you're dealing with a linked list and need the middle or a cycle, or (2) the</p>
+<p>problem describes something that "keeps transforming a number/state" and asks whether it</p>
+<p>ever loops forever vs. reaches a fixed target — that's a cycle-detection problem in disguise,</p>
+<p>even with no linked list in sight (see the exercise).</p>
+<h2>The core idea</h2>
+<p>Two pointers move through the same sequence at different speeds — slow moves 1 step, fast</p>
+<p>moves 2. If there's a cycle, fast eventually LAPS slow and they meet (Floyd's algorithm). If</p>
+<p>there's no cycle, fast simply reaches the end first. Same trick finds the middle of a list in</p>
+<p>one pass: when fast reaches the end, slow is exactly at the midpoint.</p>
+<h2>Files</h2>
+<pre class="mdcode"><code>node pattern.js      # already fully covered as part of the Linked List data structure --
+                      # this file re-exports that logic standalone + explains the "why"
+node exercise.js      # 🎯 extend it — Happy Number (cycle detection with NO linked list)</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know this is O(1) SPACE, unlike the alternative (a HashSet of visited nodes, which is O(n) space) — that space savings is the entire point of the pattern.</li>
+<li>Can you recognize a "disguised" cycle problem (Happy Number) that has no list/pointers at all, just a repeatedly-transformed number?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — a cycle-detection problem with NO linked list in sight.</span>
+<span class="cmt">// Copy pattern.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `isHappyNumber(n)` — repeatedly replace a number with the sum of the squares of</span>
+<span class="cmt">//         its digits (e.g. 19 -&gt; 1²+9² = 82 -&gt; 8²+2² = 68 -&gt; ... ). The number is "happy" if</span>
+<span class="cmt">//         this process eventually reaches 1. If it's NOT happy, the sequence enters a cycle</span>
+<span class="cmt">//         that never includes 1 (it's a mathematical fact that it always either reaches 1 or</span>
+<span class="cmt">//         cycles — never grows forever). Recognize this as fast &amp; slow pointers on an</span>
+<span class="cmt">//         IMPLICIT sequence: "slow" applies the transform once per step, "fast" applies it</span>
+<span class="cmt">//         twice, and you're looking for slow === fast (a cycle) vs. reaching 1.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2 (bonus): once `hasCycle()` returns true for a linked list, how would you find WHERE</span>
+<span class="cmt">//         the cycle STARTS (not just that one exists)? Hint: after slow and fast meet, reset</span>
+<span class="cmt">//         one pointer to the head and advance BOTH one step at a time — where they meet again</span>
+<span class="cmt">//         is the start of the cycle. Try to explain (in a comment) why that works, using the</span>
+<span class="cmt">//         distances involved (this one has a genuinely elegant proof, worth understanding</span>
+<span class="cmt">//         rather than just memorizing).</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ pattern.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// 🐢🐇 FAST &amp; SLOW POINTERS — O(1) space cycle detection &amp; midpoint-finding</span>
+<span class="cmt">// Chalao:  node pattern.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// The full linked-list version of this lives in dsa/data-structures/01-linked-list/ (see</span>
+<span class="cmt">// hasCycle() and findMiddle() there) — this file isolates the PATTERN itself so it's clear</span>
+<span class="cmt">// it's reusable outside linked lists too (see exercise.js for a non-list example).</span>
+
+<span class="kw">class</span> ListNode {
+  <span class="kw">constructor</span>(value) { <span class="kw">this</span>.value = value; <span class="kw">this</span>.next = <span class="kw">null</span>; }
+}
+
+<span class="kw">function</span> findMiddle(head) {
+  <span class="kw">let</span> slow = head, fast = head;
+  <span class="kw">while</span> (fast &amp;&amp; fast.next) { slow = slow.next; fast = fast.next.next; }
+  <span class="kw">return</span> slow ? slow.value : <span class="kw">undefined</span>;
+}
+
+<span class="kw">function</span> hasCycle(head) {
+  <span class="kw">let</span> slow = head, fast = head;
+  <span class="kw">while</span> (fast &amp;&amp; fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+    <span class="kw">if</span> (slow === fast) <span class="kw">return</span> <span class="kw">true</span>; <span class="cmt">// fast "lapped" slow -&gt; there's a cycle</span>
+  }
+  <span class="kw">return</span> <span class="kw">false</span>; <span class="cmt">// fast reached the end -&gt; no cycle</span>
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> a = <span class="kw">new</span> ListNode(1), b = <span class="kw">new</span> ListNode(2), c = <span class="kw">new</span> ListNode(3), d = <span class="kw">new</span> ListNode(4);
+a.next = b; b.next = c; c.next = d;
+console.log(<span class="str">'middle of 1-&gt;2-&gt;3-&gt;4:'</span>, findMiddle(a)); <span class="cmt">// 3 (upper-middle of an even-length list)</span>
+console.log(<span class="str">'has cycle:'</span>, hasCycle(a)); <span class="cmt">// false</span>
+
+d.next = b; <span class="cmt">// wire the tail back into the middle -&gt; creates a cycle</span>
+console.log(<span class="str">'has cycle after wiring d -&gt; b:'</span>, hasCycle(a)); <span class="cmt">// true</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-patterns-04-binary-search">
+<div class="chapter-kicker">Algorithmic Patterns</div>
+<h1 class="chapter-title">50. Pattern — Binary Search</h1>
+<p>Asked at: everywhere. Most people know binary search on a plain sorted array — the higher-</p>
+<p>signal version is recognizing it applies to "binary search on the ANSWER" too, which shows</p>
+<p>up constantly in harder problems.</p>
+<h2>When to reach for it</h2>
+<p>Classic case: find a value in a SORTED array — O(log n) instead of O(n).</p>
+<p><strong>The upgrade that matters more</strong>: whenever a problem asks for the MINIMUM/MAXIMUM value</p>
+<p>that satisfies some condition, and "does X satisfy the condition" gets EASIER to check as X</p>
+<p>increases (or decreases) — monotonically — you can binary search over the space of POSSIBLE</p>
+<p>ANSWERS, not just over an array. This is "binary search on the answer" and it's the pattern</p>
+<p>most people miss.</p>
+<h2>Files</h2>
+<pre class="mdcode"><code>node pattern.js      # search in a rotated sorted array + binary search on the answer space
+node exercise.js      # 🎯 extend it — find first/last position of a target, sqrt(x)</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you get the loop condition and midpoint math exactly right (<code>left &lt;= right</code>, <code>mid = left + Math.floor((right - left) / 2)</code> to avoid overflow in languages where that matters, and correctly updating <code>left = mid + 1</code> / <code>right = mid - 1</code>)? Off-by-one errors here are the #1 thing that trips people up under pressure.</li>
+<li>Can you recognize a "binary search on the answer" problem that doesn't LOOK like a search problem at all (no sorted array in sight)?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two more classic binary-search problems.</span>
+<span class="cmt">// Copy pattern.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `searchRange(nums, target)` — given a sorted array WITH DUPLICATES, find the first</span>
+<span class="cmt">//         AND last index of `target` (return [-1, -1] if absent). Run two separate binary</span>
+<span class="cmt">//         searches: one biased to keep moving LEFT even after finding a match (to find the</span>
+<span class="cmt">//         first occurrence), one biased to keep moving RIGHT (to find the last).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `mySqrt(x)` — implement integer square root WITHOUT using Math.sqrt. This is</span>
+<span class="cmt">//         "binary search on the answer" again: search over candidate answers from 0 to x,</span>
+<span class="cmt">//         checking `candidate * candidate &lt;= x` as the condition, same shape as</span>
+<span class="cmt">//         minEatingSpeed()'s `hoursNeeded(mid) &lt;= h` check.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ pattern.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// 🔍 BINARY SEARCH — O(log n) search, on both arrays and "answer spaces"</span>
+<span class="cmt">// Chalao:  node pattern.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for the "binary search on the answer" upgrade — the part most people miss.</span>
+
+<span class="cmt">// ---- Classic: search in a ROTATED sorted array (e.g. [4,5,6,7,0,1,2]) ----</span>
+<span class="kw">function</span> searchRotated(nums, target) {
+  <span class="kw">let</span> left = 0, right = nums.length - 1;
+  <span class="kw">while</span> (left &lt;= right) {
+    <span class="kw">const</span> mid = left + Math.floor((right - left) / 2);
+    <span class="kw">if</span> (nums[mid] === target) <span class="kw">return</span> mid;
+
+    <span class="kw">if</span> (nums[left] &lt;= nums[mid]) { <span class="cmt">// left half [left..mid] is normally sorted</span>
+      <span class="kw">if</span> (nums[left] &lt;= target &amp;&amp; target &lt; nums[mid]) right = mid - 1;
+      <span class="kw">else</span> left = mid + 1;
+    } <span class="kw">else</span> { <span class="cmt">// right half [mid..right] is normally sorted instead</span>
+      <span class="kw">if</span> (nums[mid] &lt; target &amp;&amp; target &lt;= nums[right]) left = mid + 1;
+      <span class="kw">else</span> right = mid - 1;
+    }
+  }
+  <span class="kw">return</span> -1;
+}
+
+<span class="cmt">// ---- "Binary search on the answer": minimum EATING SPEED to finish all bananas in `h` hours</span>
+<span class="cmt">// (a simplified version of the classic "Koko Eating Bananas" problem) ----</span>
+<span class="kw">function</span> minEatingSpeed(piles, h) {
+  <span class="kw">const</span> hoursNeeded = (speed) =&gt;
+    piles.reduce((total, pile) =&gt; total + Math.ceil(pile / speed), 0);
+
+  <span class="kw">let</span> left = 1, right = Math.max(...piles); <span class="cmt">// the answer (a valid speed) lies somewhere in here</span>
+  <span class="kw">while</span> (left &lt; right) {
+    <span class="kw">const</span> mid = left + Math.floor((right - left) / 2);
+    <span class="kw">if</span> (hoursNeeded(mid) &lt;= h) right = mid; <span class="cmt">// speed `mid` works -&gt; maybe a SLOWER speed also works</span>
+    <span class="kw">else</span> left = mid + 1;                     <span class="cmt">// speed `mid` too slow -&gt; need to eat faster</span>
+  }
+  <span class="kw">return</span> left; <span class="cmt">// smallest speed that still finishes in time</span>
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'searchRotated([4,5,6,7,0,1,2], 0):'</span>, searchRotated([4, 5, 6, 7, 0, 1, 2], 0)); <span class="cmt">// 4</span>
+console.log(<span class="str">'searchRotated([4,5,6,7,0,1,2], 3):'</span>, searchRotated([4, 5, 6, 7, 0, 1, 2], 3)); <span class="cmt">// -1</span>
+
+console.log(<span class="str">'minEatingSpeed([3,6,7,11], 8):'</span>, minEatingSpeed([3, 6, 7, 11], 8)); <span class="cmt">// 4</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-patterns-05-backtracking">
+<div class="chapter-kicker">Algorithmic Patterns</div>
+<h1 class="chapter-title">51. Pattern — Backtracking</h1>
+<p>Asked at: everywhere "all possible X" or "every valid arrangement" shows up — subsets,</p>
+<p>permutations, combinations, N-Queens, Sudoku solvers.</p>
+<h2>When to reach for it</h2>
+<p>The problem asks to generate/count ALL valid ways to do something, and the search space is</p>
+<p>built up incrementally (adding one element/choice at a time). Backtracking explores a</p>
+<p>decision tree: make a choice, recurse, and if it leads nowhere (or after exploring it fully),</p>
+<p>UNDO the choice and try the next one.</p>
+<h2>The shape (it's always the same skeleton)</h2>
+<pre class="mdcode"><code>function backtrack(currentState, choices) {
+  if (currentState is a complete/valid solution) { record it; return; }
+  for (choice of choices) {
+    make the choice (mutate currentState)
+    backtrack(currentState, remaining choices)
+    undo the choice (mutate currentState back)   &lt;- the "back" in backtracking
+  }
+}</code></pre>
+<h2>Files</h2>
+<pre class="mdcode"><code>node pattern.js      # subsets + permutations, both using the same backtrack skeleton
+node exercise.js      # 🎯 extend it — combination sum, N-Queens</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you correctly UNDO the choice after recursing (the classic bug: forgetting to pop/undo, so state leaks between branches)?</li>
+<li>Can you add PRUNING — bail out of a branch early once you know it can't lead to a valid solution, instead of exploring it fully first? (Combination Sum needs this: stop adding numbers once the running sum exceeds the target.)</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two harder backtracking problems, one needing pruning.</span>
+<span class="cmt">// Copy pattern.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `combinationSum(candidates, target)` — find all UNIQUE combinations (numbers can</span>
+<span class="cmt">//         repeat within a combination) that sum to target. Same backtrack skeleton as</span>
+<span class="cmt">//         subsets(), but with PRUNING: stop exploring a branch as soon as the running sum</span>
+<span class="cmt">//         would exceed target (don't just build the full combination and check at the end —</span>
+<span class="cmt">//         bail out early, it's much faster on large inputs).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `solveNQueens(n)` — place n queens on an n×n board so none attack each other</span>
+<span class="cmt">//         (no two share a row, column, or diagonal). Backtrack row by row: for each row, try</span>
+<span class="cmt">//         every column; before placing, check it doesn't conflict with any queen already</span>
+<span class="cmt">//         placed (track used columns and both diagonal directions); if valid, place and</span>
+<span class="cmt">//         recurse to the next row, then undo. Return the count of valid solutions (or the</span>
+<span class="cmt">//         board layouts themselves, your choice).</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ pattern.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// 🌲 BACKTRACKING — explore a decision tree: choose, recurse, undo</span>
+<span class="cmt">// Chalao:  node pattern.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for the skeleton this pattern always follows.</span>
+
+<span class="cmt">// ---- All subsets of a set (the "power set") ----</span>
+<span class="kw">function</span> subsets(nums) {
+  <span class="kw">const</span> result = [];
+  <span class="kw">const</span> current = [];
+
+  <span class="kw">function</span> backtrack(start) {
+    result.push([...current]); <span class="cmt">// every state along the way IS a valid subset -- record it now</span>
+    <span class="kw">for</span> (<span class="kw">let</span> i = start; i &lt; nums.length; i++) {
+      current.push(nums[i]);       <span class="cmt">// choose</span>
+      backtrack(i + 1);            <span class="cmt">// recurse</span>
+      current.pop();               <span class="cmt">// undo -- try the next choice with a clean slate</span>
+    }
+  }
+  backtrack(0);
+  <span class="kw">return</span> result;
+}
+
+<span class="cmt">// ---- All permutations of a set ----</span>
+<span class="kw">function</span> permutations(nums) {
+  <span class="kw">const</span> result = [];
+  <span class="kw">const</span> current = [];
+  <span class="kw">const</span> used = <span class="kw">new</span> Array(nums.length).fill(<span class="kw">false</span>);
+
+  <span class="kw">function</span> backtrack() {
+    <span class="kw">if</span> (current.length === nums.length) { result.push([...current]); <span class="kw">return</span>; } <span class="cmt">// only COMPLETE arrangements count</span>
+    <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; nums.length; i++) {
+      <span class="kw">if</span> (used[i]) continue;
+      used[i] = <span class="kw">true</span>; current.push(nums[i]);   <span class="cmt">// choose</span>
+      backtrack();                              <span class="cmt">// recurse</span>
+      used[i] = <span class="kw">false</span>; current.pop();           <span class="cmt">// undo</span>
+    }
+  }
+  backtrack();
+  <span class="kw">return</span> result;
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'subsets([1,2,3]):'</span>, subsets([1, 2, 3]));
+<span class="cmt">// [[],[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]</span>
+
+console.log(<span class="str">'permutations([1,2,3]):'</span>, permutations([1, 2, 3]));
+<span class="cmt">// all 6 orderings of [1,2,3]</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-patterns-06-dynamic-programming">
+<div class="chapter-kicker">Algorithmic Patterns</div>
+<h1 class="chapter-title">52. Pattern — Dynamic Programming (DP)</h1>
+<p>Asked at: everywhere, and usually the hardest category in an interview loop. The one pattern</p>
+<p>here that genuinely takes practice to get a feel for — there's no shortcut past doing several</p>
+<p>of these.</p>
+<h2>When to reach for it</h2>
+<p>The problem asks for an optimal value (min/max/count of ways) AND has **overlapping</p>
+<p>subproblems** — a naive recursive solution would recompute the same smaller problem many</p>
+<p>times. DP means: solve each distinct subproblem ONCE, and reuse the answer (cache it).</p>
+<h2>Two ways to write it (same idea, different direction)</h2>
+<ul>
+<li><strong>Top-down (memoization)</strong> — write the natural recursive solution first, then add a cache (a Map or array) so repeated calls with the same arguments return instantly instead of recomputing.</li>
+<li><strong>Bottom-up (tabulation)</strong> — build an array of answers to SMALLER subproblems first, and use them to build up to the answer for the full problem. No recursion, usually a bit faster in practice (no call-stack overhead).</li>
+</ul>
+<h2>The real skill: finding the recurrence</h2>
+<p>Every DP problem reduces to answering: "if I know the answer to smaller version(s) of this</p>
+<p>problem, how do I combine them to get THIS answer?" That relationship is the recurrence —</p>
+<p>find it first, on paper, before writing any code.</p>
+<h2>Files</h2>
+<pre class="mdcode"><code>node pattern.js      # 1D DP (climbing stairs, both memoized and tabulated) + 2D DP (unique
+                      # paths through a grid)
+node exercise.js      # 🎯 extend it — house robber, 0/1 knapsack</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Can you write the brute-force recursive solution FIRST, identify which calls repeat, and THEN add memoization — rather than trying to jump straight to a tabulated array (that's usually how experienced people actually arrive at these, even if the final code looks different)?</li>
+<li>Do you know the space optimization trick: many 1D DP problems only need the last 1-2 values, not the whole array (see <code>climbStairsOptimized</code> in pattern.js)?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — two more classic DP problems, one 1D, one 2D-ish.</span>
+<span class="cmt">// Copy pattern.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `houseRobber(nums)` — you can't rob two ADJACENT houses (triggers an alarm).</span>
+<span class="cmt">//         Maximize total money robbed. Find the recurrence first: for house i, you either</span>
+<span class="cmt">//         (a) skip it (keep whatever the best was through i-1), or (b) rob it (its value +</span>
+<span class="cmt">//         the best through i-2, since i-1 is now off-limits). Write both a memoized version</span>
+<span class="cmt">//         and a space-optimized version (like climbStairsOptimized) that only tracks the</span>
+<span class="cmt">//         last two "best so far" values.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `knapsack01(weights, values, capacity)` — the classic 0/1 knapsack: given items</span>
+<span class="cmt">//         each with a weight and value, and a weight CAPACITY, maximize total value without</span>
+<span class="cmt">//         exceeding capacity (each item used at most once — that's the "0/1": take it or</span>
+<span class="cmt">//         don't). This is 2D DP: `dp[i][w]` = best value using the first i items with</span>
+<span class="cmt">//         capacity w. Recurrence: for each item, either skip it (`dp[i-1][w]`) or take it IF</span>
+<span class="cmt">//         it fits (`values[i] + dp[i-1][w - weights[i]]`) — take whichever is bigger.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ pattern.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// 🧩 DYNAMIC PROGRAMMING — solve each subproblem once, reuse the answer</span>
+<span class="cmt">// Chalao:  node pattern.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for top-down (memo) vs bottom-up (tabulation), and how to find the recurrence.</span>
+
+<span class="cmt">// ---- Climbing Stairs: how many distinct ways to climb n stairs, taking 1 or 2 at a time ----</span>
+<span class="cmt">// Recurrence: ways(n) = ways(n-1) + ways(n-2) -- your LAST step was either a 1-step or a</span>
+<span class="cmt">// 2-step, and those two cases are mutually exclusive and cover everything.</span>
+
+<span class="cmt">// Top-down: natural recursion + a memo cache</span>
+<span class="kw">function</span> climbStairsMemo(n, memo = <span class="kw">new</span> Map()) {
+  <span class="kw">if</span> (n &lt;= 2) <span class="kw">return</span> n;
+  <span class="kw">if</span> (memo.has(n)) <span class="kw">return</span> memo.<span class="kw">get</span>(n);
+  <span class="kw">const</span> result = climbStairsMemo(n - 1, memo) + climbStairsMemo(n - 2, memo);
+  memo.<span class="kw">set</span>(n, result);
+  <span class="kw">return</span> result;
+}
+
+<span class="cmt">// Bottom-up: build the table from the smallest subproblems up</span>
+<span class="kw">function</span> climbStairsTabulated(n) {
+  <span class="kw">if</span> (n &lt;= 2) <span class="kw">return</span> n;
+  <span class="kw">const</span> dp = <span class="kw">new</span> Array(n + 1);
+  dp[1] = 1; dp[2] = 2;
+  <span class="kw">for</span> (<span class="kw">let</span> i = 3; i &lt;= n; i++) dp[i] = dp[i - 1] + dp[i - 2];
+  <span class="kw">return</span> dp[n];
+}
+
+<span class="cmt">// Space-optimized: we only ever look at the last TWO values, so keep just those, not a whole array</span>
+<span class="kw">function</span> climbStairsOptimized(n) {
+  <span class="kw">if</span> (n &lt;= 2) <span class="kw">return</span> n;
+  <span class="kw">let</span> prev2 = 1, prev1 = 2;
+  <span class="kw">for</span> (<span class="kw">let</span> i = 3; i &lt;= n; i++) { <span class="kw">const</span> cur = prev1 + prev2; prev2 = prev1; prev1 = cur; }
+  <span class="kw">return</span> prev1;
+}
+
+<span class="cmt">// ---- 2D DP: Unique Paths — how many ways to walk from top-left to bottom-right of an</span>
+<span class="cmt">// m x n grid, moving only right or down ----</span>
+<span class="cmt">// Recurrence: paths(r, c) = paths(r-1, c) + paths(r, c-1) -- you arrived at (r, c) from</span>
+<span class="cmt">// EITHER directly above OR directly to the left, so sum those two subproblems.</span>
+<span class="kw">function</span> uniquePaths(m, n) {
+  <span class="kw">const</span> dp = Array.from({ length: m }, () =&gt; <span class="kw">new</span> Array(n).fill(1)); <span class="cmt">// first row/col: only 1 way each</span>
+  <span class="kw">for</span> (<span class="kw">let</span> r = 1; r &lt; m; r++) {
+    <span class="kw">for</span> (<span class="kw">let</span> c = 1; c &lt; n; c++) {
+      dp[r][c] = dp[r - 1][c] + dp[r][c - 1];
+    }
+  }
+  <span class="kw">return</span> dp[m - 1][n - 1];
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'climbStairsMemo(10):'</span>, climbStairsMemo(10));
+console.log(<span class="str">'climbStairsTabulated(10):'</span>, climbStairsTabulated(10));
+console.log(<span class="str">'climbStairsOptimized(10):'</span>, climbStairsOptimized(10)); <span class="cmt">// all three agree: 89</span>
+
+console.log(<span class="str">'uniquePaths(3, 7):'</span>, uniquePaths(3, 7)); <span class="cmt">// 28</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-patterns-07-greedy">
+<div class="chapter-kicker">Algorithmic Patterns</div>
+<h1 class="chapter-title">53. Pattern — Greedy</h1>
+<p>Asked at: everywhere interval/scheduling problems show up. The trickiest pattern to know</p>
+<p>WHEN to trust — greedy is fast when it works, but it doesn't always give the right answer.</p>
+<h2>When to reach for it (and the catch)</h2>
+<p>A greedy algorithm makes the locally-best choice at every step, never reconsidering it, and</p>
+<p>hopes that adds up to a globally-best answer. <strong>It doesn't always work</strong> — that's the catch,</p>
+<p>and it's exactly why DP (Lesson 6) exists: DP is what you reach for when greedy's "never</p>
+<p>look back" assumption breaks.</p>
+<p>Greedy DOES work when the problem has the <strong>greedy-choice property</strong>: the locally optimal</p>
+<p>choice at each step is provably part of SOME globally optimal solution. Interval scheduling</p>
+<p>is the textbook example where this holds — see the proof sketch in the code comments.</p>
+<h2>Files</h2>
+<pre class="mdcode"><code>node pattern.js      # activity selection (interval scheduling) + jump game, both greedy
+node exercise.js      # 🎯 extend it — merge intervals, and a case where greedy FAILS</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Can you at least SKETCH why the greedy choice is safe for this specific problem, instead of just asserting "greedy works here" without justification?</li>
+<li>Do you know greedy isn't universally applicable — being asked to identify a case where the "obvious" greedy choice fails (see the exercise) is a real, common follow-up question.</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — one more greedy problem, and a case where greedy actually FAILS.</span>
+<span class="cmt">// Copy pattern.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `mergeIntervals(intervals)` — merge all overlapping intervals into their union.</span>
+<span class="cmt">//         Sort by START time (not end time this time), then walk through: if the current</span>
+<span class="cmt">//         interval overlaps the last one you kept (its start &lt;= the kept one's end), merge</span>
+<span class="cmt">//         them (extend the end); otherwise, start a new kept interval.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2 (the important one): construct a small example of the COIN CHANGE problem (given</span>
+<span class="cmt">//         coin denominations and a target amount, use the FEWEST coins possible) where the</span>
+<span class="cmt">//         "obvious" greedy strategy — always take the largest coin that fits — gives the</span>
+<span class="cmt">//         WRONG answer. Hint: try denominations like [1, 3, 4] with a target of 6. Write out</span>
+<span class="cmt">//         (in a comment) what greedy picks vs. what the actual optimal answer is, and explain</span>
+<span class="cmt">//         in one sentence why this is exactly the kind of problem Dynamic Programming</span>
+<span class="cmt">//         (Lesson 6) exists for.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ pattern.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// 🏃 GREEDY — make the locally-best choice at each step, never look back</span>
+<span class="cmt">// Chalao:  node pattern.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for when greedy is provably safe, vs. when it silently gives a wrong answer.</span>
+
+<span class="cmt">// ---- Activity Selection: max number of non-overlapping intervals you can pick ----</span>
+<span class="cmt">// Greedy rule: always pick the activity that FINISHES EARLIEST among what's left.</span>
+<span class="cmt">// Why this is safe: whatever the optimal solution's first-finishing activity is, swapping it</span>
+<span class="cmt">// for the earliest-finishing one available can only free up MORE room for everything after</span>
+<span class="cmt">// it, never less -- so picking earliest-finish-first never costs you anything.</span>
+<span class="kw">function</span> maxActivities(intervals) {
+  <span class="kw">const</span> sorted = [...intervals].sort((a, b) =&gt; a[1] - b[1]); <span class="cmt">// sort by END time</span>
+  <span class="kw">const</span> selected = [sorted[0]];
+  <span class="kw">let</span> lastEnd = sorted[0][1];
+
+  <span class="kw">for</span> (<span class="kw">let</span> i = 1; i &lt; sorted.length; i++) {
+    <span class="kw">const</span> [start, end] = sorted[i];
+    <span class="kw">if</span> (start &gt;= lastEnd) { selected.push(sorted[i]); lastEnd = end; }
+  }
+  <span class="kw">return</span> selected;
+}
+
+<span class="cmt">// ---- Jump Game: can you reach the last index, starting at index 0, where nums[i] is the</span>
+<span class="cmt">// MAX jump length from index i? ----</span>
+<span class="cmt">// Greedy rule: track the farthest index reachable so far; if you ever reach an index beyond</span>
+<span class="cmt">// that farthest point before updating it, you're stuck -- there's no jump that gets you past it.</span>
+<span class="kw">function</span> canJump(nums) {
+  <span class="kw">let</span> farthest = 0;
+  <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; nums.length; i++) {
+    <span class="kw">if</span> (i &gt; farthest) <span class="kw">return</span> <span class="kw">false</span>; <span class="cmt">// this index is unreachable -- nothing before it could jump here</span>
+    farthest = Math.max(farthest, i + nums[i]);
+  }
+  <span class="kw">return</span> <span class="kw">true</span>;
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'maxActivities:'</span>, maxActivities([[1, 4], [3, 5], [0, 6], [5, 7], [3, 9], [5, 9], [6, 10], [8, 11], [8, 12], [2, 14], [12, 16]]));
+
+console.log(<span class="str">'canJump([2,3,1,1,4]):'</span>, canJump([2, 3, 1, 1, 4])); <span class="cmt">// true</span>
+console.log(<span class="str">'canJump([3,2,1,0,4]):'</span>, canJump([3, 2, 1, 0, 4])); <span class="cmt">// false -- stuck at index 3</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-patterns-08-union-find-topological-sort">
+<div class="chapter-kicker">Algorithmic Patterns</div>
+<h1 class="chapter-title">54. Pattern — Union-Find &amp; Topological Sort</h1>
+<p>Asked at: everywhere "connected components", "will adding this edge create a cycle", or</p>
+<p>"valid ordering given dependencies" shows up (course prerequisites, build systems, package</p>
+<p>managers).</p>
+<h2>Union-Find (Disjoint Set Union)</h2>
+<p>Answers "are these two nodes in the same connected group?" and "merge these two groups" —</p>
+<p>both in <strong>nearly O(1)</strong> (technically O(α(n)), the inverse Ackermann function — for any n you</p>
+<p>could ever practically run into, that's ≤ 4) with two tricks:</p>
+<ul>
+<li><strong>Path compression</strong> — while finding a node's group leader, point every node along the way DIRECTLY at the leader, flattening the tree for next time.</li>
+<li><strong>Union by rank</strong> — when merging two groups, attach the SHORTER tree under the taller one's root, keeping trees flat instead of accidentally building a long chain.</li>
+</ul>
+<h2>Topological Sort</h2>
+<p>Answers "given a bunch of A-must-happen-before-B constraints, what's a valid overall order?"</p>
+<p>(or: "is a valid order even possible" — it isn't if there's a cycle in the dependencies).</p>
+<p><strong>Kahn's algorithm</strong>: repeatedly pull out nodes with NO remaining unprocessed prerequisites</p>
+<p>(in-degree 0), and decrement the in-degree of everything they unblock — this is BFS, layer</p>
+<p>by layer through the dependency graph.</p>
+<h2>Files</h2>
+<pre class="mdcode"><code>node pattern.js      # Union-Find (connected components) + topological sort (course order)
+node exercise.js      # 🎯 extend it — redundant connection, detect a cycle via topo sort</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you implement BOTH path compression and union by rank, or just one (both together are what gets you the near-O(1) guarantee)?</li>
+<li>Do you know topological sort ONLY works on a DAG (Directed Acyclic Graph) — and that Kahn's algorithm doubles as a cycle DETECTOR (if you can't process every node, there's a cycle)?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — one Union-Find problem, one topological-sort problem.</span>
+<span class="cmt">// Copy pattern.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: `findRedundantConnection(edges)` — given a graph that was a valid TREE and then</span>
+<span class="cmt">//         had ONE extra edge added (creating exactly one cycle), find that extra edge.</span>
+<span class="cmt">//         Process edges in order with a UnionFind: the first edge where `union(a, b)`</span>
+<span class="cmt">//         returns false (they were ALREADY connected) is the redundant one — return it</span>
+<span class="cmt">//         immediately.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `canFinishAllCourses(numCourses, prerequisites)` — return true/false for whether</span>
+<span class="cmt">//         all courses can be completed given the prerequisite constraints. This is almost</span>
+<span class="cmt">//         free once you have topologicalSort() from pattern.js — just check whether it</span>
+<span class="cmt">//         returns null (cycle -&gt; impossible) or a full order (possible).</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ pattern.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// 🧵 UNION-FIND &amp; TOPOLOGICAL SORT — connectivity and dependency ordering</span>
+<span class="cmt">// Chalao:  node pattern.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for path compression, union by rank, and Kahn's algorithm.</span>
+
+<span class="cmt">// ---- Union-Find (Disjoint Set Union) ----</span>
+<span class="kw">class</span> UnionFind {
+  #parent;
+  #rank;
+
+  <span class="kw">constructor</span>(n) {
+    <span class="kw">this</span>.#parent = Array.from({ length: n }, (_, i) =&gt; i); <span class="cmt">// everyone starts as their own group leader</span>
+    <span class="kw">this</span>.#rank = <span class="kw">new</span> Array(n).fill(0);
+  }
+
+  find(x) {
+    <span class="kw">if</span> (<span class="kw">this</span>.#parent[x] !== x) <span class="kw">this</span>.#parent[x] = <span class="kw">this</span>.find(<span class="kw">this</span>.#parent[x]); <span class="cmt">// path compression</span>
+    <span class="kw">return</span> <span class="kw">this</span>.#parent[x];
+  }
+
+  union(a, b) {
+    <span class="kw">const</span> rootA = <span class="kw">this</span>.find(a), rootB = <span class="kw">this</span>.find(b);
+    <span class="kw">if</span> (rootA === rootB) <span class="kw">return</span> <span class="kw">false</span>; <span class="cmt">// already in the same group -- this edge creates a cycle</span>
+    <span class="cmt">// attach the shorter tree under the taller one (union by rank) -- keeps trees flat</span>
+    <span class="kw">if</span> (<span class="kw">this</span>.#rank[rootA] &lt; <span class="kw">this</span>.#rank[rootB]) <span class="kw">this</span>.#parent[rootA] = rootB;
+    <span class="kw">else</span> <span class="kw">if</span> (<span class="kw">this</span>.#rank[rootA] &gt; <span class="kw">this</span>.#rank[rootB]) <span class="kw">this</span>.#parent[rootB] = rootA;
+    <span class="kw">else</span> { <span class="kw">this</span>.#parent[rootB] = rootA; <span class="kw">this</span>.#rank[rootA]++; }
+    <span class="kw">return</span> <span class="kw">true</span>;
+  }
+
+  countGroups(n) {
+    <span class="kw">const</span> roots = <span class="kw">new</span> Set();
+    <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; n; i++) roots.add(<span class="kw">this</span>.find(i));
+    <span class="kw">return</span> roots.size;
+  }
+}
+
+<span class="kw">function</span> connectedComponents(n, edges) {
+  <span class="kw">const</span> uf = <span class="kw">new</span> UnionFind(n);
+  <span class="kw">for</span> (<span class="kw">const</span> [a, b] <span class="kw">of</span> edges) uf.union(a, b);
+  <span class="kw">return</span> uf.countGroups(n);
+}
+
+<span class="cmt">// ---- Topological Sort (Kahn's algorithm) ----</span>
+<span class="kw">function</span> topologicalSort(numCourses, prerequisites) {
+  <span class="kw">const</span> adjacency = Array.from({ length: numCourses }, () =&gt; []);
+  <span class="kw">const</span> inDegree = <span class="kw">new</span> Array(numCourses).fill(0);
+
+  <span class="kw">for</span> (<span class="kw">const</span> [course, prereq] <span class="kw">of</span> prerequisites) {
+    adjacency[prereq].push(course);
+    inDegree[course]++;
+  }
+
+  <span class="kw">const</span> queue = [];
+  <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; numCourses; i++) <span class="kw">if</span> (inDegree[i] === 0) queue.push(i);
+
+  <span class="kw">const</span> order = [];
+  <span class="kw">while</span> (queue.length) {
+    <span class="kw">const</span> course = queue.shift();
+    order.push(course);
+    <span class="kw">for</span> (<span class="kw">const</span> next <span class="kw">of</span> adjacency[course]) {
+      inDegree[next]--;
+      <span class="kw">if</span> (inDegree[next] === 0) queue.push(next);
+    }
+  }
+
+  <span class="kw">return</span> order.length === numCourses ? order : <span class="kw">null</span>; <span class="cmt">// null -&gt; a cycle made full ordering impossible</span>
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'connectedComponents(5, [[0,1],[1,2],[3,4]]):'</span>, connectedComponents(5, [[0, 1], [1, 2], [3, 4]])); <span class="cmt">// 2 groups: {0,1,2} and {3,4}</span>
+
+console.log(<span class="str">'topologicalSort (valid):'</span>, topologicalSort(4, [[1, 0], [2, 0], [3, 1], [3, 2]]));
+<span class="cmt">// course 1 &amp; 2 need course 0 first; course 3 needs both 1 &amp; 2 -- e.g. [0,1,2,3]</span>
+
+console.log(<span class="str">'topologicalSort (cycle -&gt; null):'</span>, topologicalSort(2, [[0, 1], [1, 0]]));
+</code></pre>
+</section>
+<section class="chapter" id="ch-dsa-patterns-09-top-k-heap-pattern">
+<div class="chapter-kicker">Algorithmic Patterns</div>
+<h1 class="chapter-title">55. Pattern — Top-K (Heap Pattern)</h1>
+<p>Asked at: everywhere "top K", "K most frequent", "K closest", or "merge K sorted things"</p>
+<p>shows up. The Heap data structure lesson covers the mechanics — this lesson is about</p>
+<p>RECOGNIZING when a problem is secretly this pattern.</p>
+<h2>When to reach for it</h2>
+<p>Any time a problem wants the K largest/smallest/closest/most-frequent items out of a bigger</p>
+<p>collection. The naive approach sorts everything first — O(n log n). Keeping a heap of size K</p>
+<p>instead gets you O(n log k), which matters a lot once n is much bigger than k (e.g. "top 10</p>
+<p>trending topics out of a million tweets").</p>
+<p><strong>The counterintuitive part</strong> (worth internalizing, not just memorizing): to find the K</p>
+<p>LARGEST items, you keep a MIN-heap of size K — whatever's smallest among your current top-K</p>
+<p>(the heap's root) is the first thing evicted when something bigger shows up. Flip it for K</p>
+<p>smallest (use a MAX-heap instead).</p>
+<h2>Files</h2>
+<pre class="mdcode"><code>node pattern.js      # top K frequent elements + merge K sorted arrays, both heap-based
+node exercise.js      # 🎯 extend it — Kth largest in a STREAM (heap state persists across calls)</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know WHY the heap size stays capped at K (evicting as you go) instead of pushing everything in and popping K times at the end — the capped version is O(n log k), the other is O(n log n), and the difference is the entire point when n &gt;&gt; k.</li>
+<li>Can you correctly explain the "min-heap for K largest" inversion without getting confused?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — a "Top-K over a STREAM" problem, where the heap's state persists.</span>
+<span class="cmt">// Copy pattern.js above this comment (or edit it directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: build a `KthLargestStream` class — constructor takes k and an initial array of</span>
+<span class="cmt">//         numbers; an `add(value)` method adds ONE new number and returns the CURRENT Kth</span>
+<span class="cmt">//         largest value seen so far (across ALL add() calls, not just this one). This is the</span>
+<span class="cmt">//         same "min-heap of size K" trick as kthLargest() in the Heap data-structure lesson,</span>
+<span class="cmt">//         but now the heap needs to persist as INSTANCE STATE across multiple calls instead</span>
+<span class="cmt">//         of being built fresh each time.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2 (bonus): why is maintaining a heap of size K across a stream fundamentally better</span>
+<span class="cmt">//         suited to this problem than re-sorting the whole running list on every add() call?</span>
+<span class="cmt">//         Give the time complexity of both approaches per add() call, in terms of n (total</span>
+<span class="cmt">//         numbers seen) and k.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+</code></pre>
+<h4 class="filename">✅ pattern.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// 🏔️ TOP-K (HEAP PATTERN) — keep a heap of size K instead of sorting everything</span>
+<span class="cmt">// Chalao:  node pattern.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// The MinHeap implementation itself lives in dsa/data-structures/05-heap/ -- this file</span>
+<span class="cmt">// focuses on RECOGNIZING the pattern, reusing the same shape on two different problems.</span>
+
+<span class="kw">class</span> MinHeap {
+  #items = [];
+  <span class="kw">get</span> size() { <span class="kw">return</span> <span class="kw">this</span>.#items.length; }
+  peek() { <span class="kw">return</span> <span class="kw">this</span>.#items[0]; }
+  #parent(i) { <span class="kw">return</span> Math.floor((i - 1) / 2); }
+  #left(i) { <span class="kw">return</span> 2 * i + 1; }
+  #right(i) { <span class="kw">return</span> 2 * i + 2; }
+  #swap(i, j) { [<span class="kw">this</span>.#items[i], <span class="kw">this</span>.#items[j]] = [<span class="kw">this</span>.#items[j], <span class="kw">this</span>.#items[i]]; }
+  #compare(a, b) { <span class="kw">return</span> <span class="kw">this</span>.#key(a) - <span class="kw">this</span>.#key(b); }
+  #key; <span class="cmt">// a function extracting the comparison value -- lets us heap arbitrary payloads</span>
+  <span class="kw">constructor</span>(key = (x) =&gt; x) { <span class="kw">this</span>.#key = key; }
+
+  insert(value) {
+    <span class="kw">this</span>.#items.push(value);
+    <span class="kw">let</span> i = <span class="kw">this</span>.#items.length - 1;
+    <span class="kw">while</span> (i &gt; 0 &amp;&amp; <span class="kw">this</span>.#compare(<span class="kw">this</span>.#items[i], <span class="kw">this</span>.#items[<span class="kw">this</span>.#parent(i)]) &lt; 0) {
+      <span class="kw">this</span>.#swap(i, <span class="kw">this</span>.#parent(i)); i = <span class="kw">this</span>.#parent(i);
+    }
+  }
+  extractMin() {
+    <span class="kw">if</span> (!<span class="kw">this</span>.#items.length) <span class="kw">return</span> <span class="kw">undefined</span>;
+    <span class="kw">const</span> min = <span class="kw">this</span>.#items[0];
+    <span class="kw">const</span> last = <span class="kw">this</span>.#items.pop();
+    <span class="kw">if</span> (<span class="kw">this</span>.#items.length) {
+      <span class="kw">this</span>.#items[0] = last;
+      <span class="kw">let</span> i = 0;
+      <span class="kw">while</span> (<span class="kw">true</span>) {
+        <span class="kw">let</span> smallest = i;
+        <span class="kw">const</span> l = <span class="kw">this</span>.#left(i), r = <span class="kw">this</span>.#right(i);
+        <span class="kw">if</span> (l &lt; <span class="kw">this</span>.#items.length &amp;&amp; <span class="kw">this</span>.#compare(<span class="kw">this</span>.#items[l], <span class="kw">this</span>.#items[smallest]) &lt; 0) smallest = l;
+        <span class="kw">if</span> (r &lt; <span class="kw">this</span>.#items.length &amp;&amp; <span class="kw">this</span>.#compare(<span class="kw">this</span>.#items[r], <span class="kw">this</span>.#items[smallest]) &lt; 0) smallest = r;
+        <span class="kw">if</span> (smallest === i) break;
+        <span class="kw">this</span>.#swap(i, smallest); i = smallest;
+      }
+    }
+    <span class="kw">return</span> min;
+  }
+}
+
+<span class="cmt">// ---- Top K Frequent Elements ----</span>
+<span class="kw">function</span> topKFrequent(nums, k) {
+  <span class="kw">const</span> counts = <span class="kw">new</span> Map();
+  <span class="kw">for</span> (<span class="kw">const</span> n <span class="kw">of</span> nums) counts.<span class="kw">set</span>(n, (counts.<span class="kw">get</span>(n) ?? 0) + 1);
+
+  <span class="cmt">// min-heap of [value, count] pairs, ordered by COUNT -- smallest count gets evicted first</span>
+  <span class="kw">const</span> heap = <span class="kw">new</span> MinHeap(([, count]) =&gt; count);
+  <span class="kw">for</span> (<span class="kw">const</span> entry <span class="kw">of</span> counts) {
+    heap.insert(entry);
+    <span class="kw">if</span> (heap.size &gt; k) heap.extractMin();
+  }
+  <span class="kw">const</span> result = [];
+  <span class="kw">while</span> (heap.size) result.push(heap.extractMin()[0]);
+  <span class="kw">return</span> result.reverse(); <span class="cmt">// heap pops smallest-count first -- reverse for largest-count first</span>
+}
+
+<span class="cmt">// ---- Merge K sorted arrays into one sorted array ----</span>
+<span class="kw">function</span> mergeKSorted(arrays) {
+  <span class="kw">const</span> heap = <span class="kw">new</span> MinHeap(([value]) =&gt; value);
+  arrays.forEach((arr, arrIndex) =&gt; { <span class="kw">if</span> (arr.length) heap.insert([arr[0], arrIndex, 0]); });
+
+  <span class="kw">const</span> result = [];
+  <span class="kw">while</span> (heap.size) {
+    <span class="kw">const</span> [value, arrIndex, itemIndex] = heap.extractMin();
+    result.push(value);
+    <span class="kw">const</span> nextIndex = itemIndex + 1;
+    <span class="kw">if</span> (nextIndex &lt; arrays[arrIndex].length) heap.insert([arrays[arrIndex][nextIndex], arrIndex, nextIndex]);
+  }
+  <span class="kw">return</span> result;
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'topKFrequent([1,1,1,2,2,3], 2):'</span>, topKFrequent([1, 1, 1, 2, 2, 3], 2)); <span class="cmt">// [1, 2]</span>
+
+console.log(<span class="str">'mergeKSorted([[1,4,5],[1,3,4],[2,6]]):'</span>, mergeKSorted([[1, 4, 5], [1, 3, 4], [2, 6]]));
+<span class="cmt">// [1,1,2,3,4,4,5,6]</span>
 </code></pre>
 </section>
 

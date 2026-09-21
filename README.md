@@ -76,6 +76,13 @@ ek runnable simulation ke saath (in mein se kai concept "it depends" hote hain, 
 zyada zor tradeoffs samajhne pe hai, sirf code pe nahi). Poora index:
 [`system-design/README.md`](system-design/README.md).
 
+### DSA — the coding round
+Coding-round track: 6 core data structures (Linked List, Stack & Queue, Hash Map, BST, Heap,
+Graph) implemented from scratch, plus 9 algorithmic patterns (Two Pointers, Sliding Window,
+Fast & Slow Pointers, Binary Search, Backtracking, Dynamic Programming, Greedy, Union-Find &
+Topological Sort, Top-K/Heap) that generalize to most coding-interview questions. Poora
+index: [`dsa/README.md`](dsa/README.md).
+
 ## Shortcut scripts (optional)
 `package.json` mein scripts hain, toh yeh bhi kaam karta hai:
 ```
