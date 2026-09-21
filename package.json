@@ -98,6 +98,13 @@
 
     "interpreter:naive": "node 23-interpreter/1-naive.js",
     "interpreter:pattern": "node 23-interpreter/2-interpreter.js",
-    "interpreter:exercise": "node 23-interpreter/exercise.js"
+    "interpreter:exercise": "node 23-interpreter/exercise.js",
+
+    "lld:parking-lot": "node lld-practice/01-parking-lot/design.js",
+    "lld:splitwise": "node lld-practice/02-splitwise/design.js",
+    "lld:elevator": "node lld-practice/03-elevator-system/design.js",
+    "lld:rate-limiter": "node lld-practice/04-rate-limiter/design.js",
+    "lld:movie-booking": "node lld-practice/05-movie-ticket-booking/design.js",
+    "lld:notification": "node lld-practice/06-notification-service/design.js"
   }
 }

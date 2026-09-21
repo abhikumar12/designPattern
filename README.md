@@ -58,6 +58,12 @@ design-patterns-course/
 └── package.json                    ← shortcut scripts (optional)
 ```
 
+### LLD Practice — interview machine-coding problems
+Patterns seekhne ke baad **use** karna practice karo — 6 classic "design X" interview
+questions (Parking Lot, Splitwise, Elevator, Rate Limiter, Movie Booking, Notification
+Service), har ek mein patterns real problem pe applied dikhte hain, plus "interviewer kya
+dekhta hai" notes. Poora index: [`lld-practice/README.md`](lld-practice/README.md).
+
 ## Shortcut scripts (optional)
 `package.json` mein scripts hain, toh yeh bhi kaam karta hai:
 ```
