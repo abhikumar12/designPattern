@@ -69,6 +69,13 @@ questions (Parking Lot, Splitwise, Elevator, Rate Limiter, Movie Booking, Notifi
 Service), har ek mein patterns real problem pe applied dikhte hain, plus "interviewer kya
 dekhta hai" notes. Poora index: [`lld-practice/README.md`](lld-practice/README.md).
 
+### System Design (HLD) — scaling beyond one machine
+6 topics jo senior/staff interviews mein sabse zyada aate hain — Load Balancing, Caching
+(LRU), Consistent Hashing, DB Sharding & Replication, CAP Theorem, Message Queues. Har topic
+ek runnable simulation ke saath (in mein se kai concept "it depends" hote hain, isliye
+zyada zor tradeoffs samajhne pe hai, sirf code pe nahi). Poora index:
+[`system-design/README.md`](system-design/README.md).
+
 ## Shortcut scripts (optional)
 `package.json` mein scripts hain, toh yeh bhi kaam karta hai:
 ```

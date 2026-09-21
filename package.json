@@ -125,6 +125,13 @@
 
     "solid:dip-violation": "node solid-principles/05-dependency-inversion/1-violation.js",
     "solid:dip-fixed": "node solid-principles/05-dependency-inversion/2-fixed.js",
-    "solid:dip-exercise": "node solid-principles/05-dependency-inversion/exercise.js"
+    "solid:dip-exercise": "node solid-principles/05-dependency-inversion/exercise.js",
+
+    "hld:load-balancing": "node system-design/01-load-balancing/simulate.js",
+    "hld:caching": "node system-design/02-caching-strategies/simulate.js",
+    "hld:consistent-hashing": "node system-design/03-consistent-hashing/simulate.js",
+    "hld:sharding-replication": "node system-design/04-database-sharding-replication/simulate.js",
+    "hld:cap-theorem": "node system-design/05-cap-theorem-and-consistency/simulate.js",
+    "hld:message-queues": "node system-design/06-message-queues-async-processing/simulate.js"
   }
 }
