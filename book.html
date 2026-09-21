@@ -36,10 +36,23 @@
 
   .toc { page-break-after: always; }
   .toc h1 { font-size: 22pt; margin-bottom: 4px; }
-  .toc-cat h3 { font-family: Arial, sans-serif; font-size: 11pt; text-transform: uppercase; letter-spacing: 1px; color: #7a5cff; margin: 20px 0 6px; }
+  .toc-part h2 { font-family: Arial, sans-serif; font-size: 13pt; color: #1c1c1e; margin: 26px 0 2px; padding-top: 14px; border-top: 1px solid #ddd; }
+  .toc-part:first-of-type h2 { border-top: none; padding-top: 0; }
+  .toc-cat h3 { font-family: Arial, sans-serif; font-size: 11pt; text-transform: uppercase; letter-spacing: 1px; color: #7a5cff; margin: 16px 0 6px; }
   .toc-cat ul { list-style: none; margin: 0; padding: 0; }
   .toc-cat li { padding: 3px 0; font-size: 11.5pt; }
   .toc-cat a { color: #1c1c1e; text-decoration: none; }
+
+  .part-divider { page-break-before: always; padding-top: 15vh; }
+  .part-kicker { font-family: Arial, sans-serif; font-size: 11pt; text-transform: uppercase; letter-spacing: 3px; color: #7a5cff; margin-bottom: 14px; }
+  .part-divider h1 { font-size: 28pt; margin: 0 0 16px; }
+  .part-divider h2 { font-size: 14pt; margin-top: 20px; font-family: Arial, sans-serif; }
+  .part-divider p { margin: 8px 0; }
+  .part-divider pre.mdcode { background: #f4f3fb; border: 1px solid #e3e1f5; border-radius: 6px; padding: 10px 14px; font-size: 9.3pt; white-space: pre-wrap; }
+  table { border-collapse: collapse; margin: 12px 0; font-size: 9.8pt; width: 100%; }
+  th, td { border: 1px solid #ddd; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { background: #f4f3fb; font-family: Arial, sans-serif; font-size: 9pt; }
+  .part-divider ul, .part-divider ol { margin: 6px 0 6px 22px; padding: 0; }
 
   .chapter { page-break-before: always; }
   .chapter-kicker { font-family: Arial, sans-serif; font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; color: #7a5cff; margin-bottom: 6px; }
@@ -78,9 +91,9 @@
 <body>
 
 <div class="cover">
-  <div class="kicker">A hands-on JavaScript course</div>
+  <div class="kicker">A hands-on JavaScript interview-prep course</div>
   <h1>Design Patterns</h1>
-  <div class="sub">All 23 classic (Gang of Four) design patterns — the naive problem, the pattern that fixes it, and an exercise for each.</div>
+  <div class="sub">23 classic (Gang of Four) patterns, the 5 SOLID principles behind them, 6 LLD machine-coding problems that apply them, and 6 System Design (HLD) topics for scaling beyond one machine.</div>
   <div class="meta">Compiled for reading — run the code from the original project to experiment.</div>
 </div>
 
@@ -133,6 +146,21 @@
 ├── 22-visitor/                     ← classes ko chhue bina naye operations add karo
 ├── 23-interpreter/                 ← chhoti grammar ko composable nodes se evaluate karo
 └── package.json                    ← shortcut scripts (optional)</code></pre>
+<h3>SOLID Principles — the WHY behind the patterns</h3>
+<p>5 principles jo batate hain ki achha OO design <strong>kyun</strong> achha hota hai — har principle ek</p>
+<p>❌ violation aur ✅ fix ke saath, aur kaunse patterns usi principle ko satisfy karne ke liye</p>
+<p>exist karte hain. Poora index: <a href="solid-principles/README.md"><code>solid-principles/README.md</code></a>.</p>
+<h3>LLD Practice — interview machine-coding problems</h3>
+<p>Patterns seekhne ke baad <strong>use</strong> karna practice karo — 6 classic "design X" interview</p>
+<p>questions (Parking Lot, Splitwise, Elevator, Rate Limiter, Movie Booking, Notification</p>
+<p>Service), har ek mein patterns real problem pe applied dikhte hain, plus "interviewer kya</p>
+<p>dekhta hai" notes. Poora index: <a href="lld-practice/README.md"><code>lld-practice/README.md</code></a>.</p>
+<h3>System Design (HLD) — scaling beyond one machine</h3>
+<p>6 topics jo senior/staff interviews mein sabse zyada aate hain — Load Balancing, Caching</p>
+<p>(LRU), Consistent Hashing, DB Sharding &amp; Replication, CAP Theorem, Message Queues. Har topic</p>
+<p>ek runnable simulation ke saath (in mein se kai concept "it depends" hote hain, isliye</p>
+<p>zyada zor tradeoffs samajhne pe hai, sirf code pe nahi). Poora index:</p>
+<p><a href="system-design/README.md"><code>system-design/README.md</code></a>.</p>
 <h2>Shortcut scripts (optional)</h2>
 <p><code>package.json</code> mein scripts hain, toh yeh bhi kaam karta hai:</p>
 <pre class="mdcode"><code>npm run strategy:registry
@@ -149,6 +177,7 @@ npm run visitor:pattern</code></pre>
 
 <div class="toc">
 <h1>Table of Contents</h1>
+<div class="toc-part"><h2>Part I — Design Patterns</h2></div>
 <div class="toc-cat"><h3>Creational Patterns</h3><ul>
 <li><a href="#ch-04-singleton">1. Singleton</a></li>
 <li><a href="#ch-05-factory-method">2. Factory Method</a></li>
@@ -178,6 +207,32 @@ npm run visitor:pattern</code></pre>
 <li><a href="#ch-22-visitor">22. Visitor</a></li>
 <li><a href="#ch-23-interpreter">23. Interpreter</a></li>
 </ul></div>
+<div class="toc-part"><h2>Part II — SOLID Principles</h2></div>
+<div class="toc-cat"><h3>SOLID Principles</h3><ul>
+<li><a href="#ch-solid-principles-01-single-responsibility">24. Single Responsibility Principle (SRP)</a></li>
+<li><a href="#ch-solid-principles-02-open-closed">25. Open/Closed Principle (OCP)</a></li>
+<li><a href="#ch-solid-principles-03-liskov-substitution">26. Liskov Substitution Principle (LSP)</a></li>
+<li><a href="#ch-solid-principles-04-interface-segregation">27. Interface Segregation Principle (ISP)</a></li>
+<li><a href="#ch-solid-principles-05-dependency-inversion">28. Dependency Inversion Principle (DIP)</a></li>
+</ul></div>
+<div class="toc-part"><h2>Part III — LLD Practice</h2></div>
+<div class="toc-cat"><h3>LLD Practice</h3><ul>
+<li><a href="#ch-lld-practice-01-parking-lot">29. Parking Lot System</a></li>
+<li><a href="#ch-lld-practice-02-splitwise">30. Splitwise (Expense Sharing)</a></li>
+<li><a href="#ch-lld-practice-03-elevator-system">31. Elevator System</a></li>
+<li><a href="#ch-lld-practice-04-rate-limiter">32. Rate Limiter</a></li>
+<li><a href="#ch-lld-practice-05-movie-ticket-booking">33. Movie Ticket Booking (BookMyShow-lite)</a></li>
+<li><a href="#ch-lld-practice-06-notification-service">34. Notification Service</a></li>
+</ul></div>
+<div class="toc-part"><h2>Part IV — System Design (HLD)</h2></div>
+<div class="toc-cat"><h3>System Design (HLD)</h3><ul>
+<li><a href="#ch-system-design-01-load-balancing">35. Load Balancing</a></li>
+<li><a href="#ch-system-design-02-caching-strategies">36. Caching Strategies</a></li>
+<li><a href="#ch-system-design-03-consistent-hashing">37. Consistent Hashing</a></li>
+<li><a href="#ch-system-design-04-database-sharding-replication">38. Database Sharding &amp; Replication</a></li>
+<li><a href="#ch-system-design-05-cap-theorem-and-consistency">39. CAP Theorem &amp; Consistency Models</a></li>
+<li><a href="#ch-system-design-06-message-queues-async-processing">40. Message Queues &amp; Async Processing</a></li>
+</ul></div>
 
 </div>
 
@@ -198,9 +253,8 @@ node exercise.js           # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
 <li><strong>Single source of truth</strong> — ek hi state, jahan se bhi access karo.</li>
-<li><strong>Controlled instantiation</strong> — constructor khud check karta hai ki instance</li>
+<li><strong>Controlled instantiation</strong> — constructor khud check karta hai ki instance already ban chuka hai ya nahi.</li>
 </ol>
-<p>   already ban chuka hai ya nahi.</p>
 <h2>When to skip</h2>
 <p>Singleton <strong>global mutable state</strong> hai — testing mushkil kar deta hai (state</p>
 <p>tests ke beech leak hota hai) aur hidden dependencies bana deta hai. Agar</p>
@@ -432,13 +486,9 @@ node 2-abstract-factory.js  # ✅ ek factory = poori consistent family
 node exercise.js            # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Factory Method ka bada bhai</strong> — ek object ke bajaye, related objects ka</li>
+<li><strong>Factory Method ka bada bhai</strong> — ek object ke bajaye, related objects ka poora *set* banata hai.</li>
+<li><strong>Consistency by construction</strong> — galat combination banana structurally mushkil ho jaata hai, runtime check ki zaroorat nahi.</li>
 </ol>
-<p>   poora *set* banata hai.</p>
-<ol>
-<li><strong>Consistency by construction</strong> — galat combination banana structurally</li>
-</ol>
-<p>   mushkil ho jaata hai, runtime check ki zaroorat nahi.</p>
 <h2>When to skip</h2>
 <p>Agar objects ke beech koi "family" relationship nahi hai (wo independently</p>
 <p>change ho sakte hain), plain Factory Method (Lesson 5) kaafi hai — Abstract</p>
@@ -547,13 +597,9 @@ node 2-builder.js   # ✅ fluent chain, sirf jo chahiye set karo
 node exercise.js    # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Step-by-step construction</strong> — complex object ek chain of readable calls</li>
+<li><strong>Step-by-step construction</strong> — complex object ek chain of readable calls se banta hai.</li>
+<li><strong>Sensible defaults</strong> — sirf jo customize karna hai woh set karo, baaki default rahe.</li>
 </ol>
-<p>   se banta hai.</p>
-<ol>
-<li><strong>Sensible defaults</strong> — sirf jo customize karna hai woh set karo, baaki</li>
-</ol>
-<p>   default rahe.</p>
 <h2>When to skip</h2>
 <p>Agar object mein 2-3 hi (mostly required) fields hain, plain object literal</p>
 <p><code>{ ... }</code> ya normal constructor kaafi hai — Builder tabhi kamaata hai jab</p>
@@ -657,10 +703,8 @@ node exercise.js     # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
 <li><strong>Clone instead of construct</strong> — setup cost ek hi baar, uske baad copy.</li>
-<li><strong>Deep clone matters</strong> — <code>structuredClone</code> (ya deep clone) use karo,</li>
+<li><strong>Deep clone matters</strong> — <code>structuredClone</code> (ya deep clone) use karo, warna nested objects/arrays accidentally share ho jaate hain (shallow <code>{...obj}</code> sirf top-level copy karta hai).</li>
 </ol>
-<p>   warna nested objects/arrays accidentally share ho jaate hain (shallow</p>
-<p>   <code>{...obj}</code> sirf top-level copy karta hai).</p>
 <h2>When to skip</h2>
 <p>Agar object banana already cheap hai (simple literal, no heavy setup), plain</p>
 <p><code>{ ... }</code> ya factory function likhna simpler hai — cloning ki extra</p>
@@ -780,9 +824,8 @@ node exercise.js    # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
 <li><strong>Isolate the mismatch</strong> — conversion logic ek hi jagah rehta hai.</li>
-<li><strong>App depends on ITS interface, not theirs</strong> — third-party SDK badle to</li>
+<li><strong>App depends on ITS interface, not theirs</strong> — third-party SDK badle to sirf adapter badalta hai.</li>
 </ol>
-<p>   sirf adapter badalta hai.</p>
 <h2>When to skip</h2>
 <p>Agar tum khud us API/library ke owner ho (usko directly badal sakte ho),</p>
 <p>adapter mat banao — seedha shape fix karo. Adapter tabhi zaroori hai jab</p>
@@ -889,13 +932,9 @@ node 2-bridge.js  # ✅ do hierarchies, ek doosre ko hold karti hain
 node exercise.js  # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Composition over inheritance</strong> — dusri dimension ko *inherit* nahi,</li>
+<li><strong>Composition over inheritance</strong> — dusri dimension ko *inherit* nahi, *hold* karo.</li>
+<li><strong>Independent extensibility</strong> — naya channel ya nayi urgency level add karna doosri dimension ko touch nahi karta.</li>
 </ol>
-<p>   *hold* karo.</p>
-<ol>
-<li><strong>Independent extensibility</strong> — naya channel ya nayi urgency level add</li>
-</ol>
-<p>   karna doosri dimension ko touch nahi karta.</p>
 <h2>When to skip</h2>
 <p>Agar sirf EK dimension hai jo badalti hai (channel ya urgency, dono nahi),</p>
 <p>Strategy pattern (Lesson 1) kaafi hai — Bridge tabhi chahiye jab do</p>
@@ -997,13 +1036,9 @@ node 2-composite.js  # ✅ File aur Folder same interface follow karte hain
 node exercise.js     # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Uniform treatment</strong> — single object aur group ko same tarike se treat</li>
+<li><strong>Uniform treatment</strong> — single object aur group ko same tarike se treat karo.</li>
+<li><strong>Recursive composition</strong> — branch apna kaam apne children ko delegate karke karta hai.</li>
 </ol>
-<p>   karo.</p>
-<ol>
-<li><strong>Recursive composition</strong> — branch apna kaam apne children ko delegate</li>
-</ol>
-<p>   karke karta hai.</p>
 <h2>When to skip</h2>
 <p>Agar structure kabhi nested nahi hoga (sirf flat list), plain array +</p>
 <p><code>.reduce()</code> kaafi hai — Composite ki recursion tabhi chahiye jab genuinely</p>
@@ -1121,13 +1156,9 @@ node 2-decorator.js  # ✅ stackable wrapper objects
 node exercise.js     # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Same interface as wrapped object</strong> — decorator aur base dono</li>
+<li><strong>Same interface as wrapped object</strong> — decorator aur base dono <code>cost()</code>/<code>describe()</code> follow karte hain, caller ko fark nahi padta.</li>
+<li><strong>Composable at runtime</strong> — combinations *code* mein nahi, *chaining* se banti hain.</li>
 </ol>
-<p>   <code>cost()</code>/<code>describe()</code> follow karte hain, caller ko fark nahi padta.</p>
-<ol>
-<li><strong>Composable at runtime</strong> — combinations *code* mein nahi, *chaining* se</li>
-</ol>
-<p>   banti hain.</p>
 <h2>When to skip</h2>
 <p>Agar sirf 1-2 fixed variants hain jo kabhi combine nahi hongi, simple</p>
 <p>subclass ya if/else kaafi hai — Decorator tabhi kamaata hai jab</p>
@@ -1229,13 +1260,9 @@ node 2-facade.js   # ✅ ek simple entry point, internals chhupe hue
 node exercise.js   # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Hide complexity, don't remove it</strong> — subsystem waisa hi rehta hai, bas</li>
+<li><strong>Hide complexity, don't remove it</strong> — subsystem waisa hi rehta hai, bas uske use karne ka tarika simple ho jaata hai.</li>
+<li><strong>Single entry point</strong> — orchestration logic ek hi jagah, duplicate nahi hoti har caller mein.</li>
 </ol>
-<p>   uske use karne ka tarika simple ho jaata hai.</p>
-<ol>
-<li><strong>Single entry point</strong> — orchestration logic ek hi jagah, duplicate nahi</li>
-</ol>
-<p>   hoti har caller mein.</p>
 <h2>When to skip</h2>
 <p>Agar subsystem already simple hai (1-2 calls), facade ek extra layer hi hai</p>
 <p>jo kuch nahi kamaata — sirf tab banao jab <strong>orchestration genuinely complex</strong></p>
@@ -1340,13 +1367,9 @@ node 2-flyweight.js  # ✅ shared data ek factory se reuse hota hai
 node exercise.js     # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Intrinsic vs extrinsic state</strong> — intrinsic (shared, type-level) alag,</li>
+<li><strong>Intrinsic vs extrinsic state</strong> — intrinsic (shared, type-level) alag, extrinsic (unique, instance-level) alag.</li>
+<li><strong>Factory ensures reuse</strong> — naya object banane se pehle check karo ki shared version already exist karta hai kya.</li>
 </ol>
-<p>   extrinsic (unique, instance-level) alag.</p>
-<ol>
-<li><strong>Factory ensures reuse</strong> — naya object banane se pehle check karo ki</li>
-</ol>
-<p>   shared version already exist karta hai kya.</p>
 <h2>When to skip</h2>
 <p>Agar objects ki count chhoti hai (sainkdo, hazaron nahi) ya shared data heavy</p>
 <p>nahi hai, yeh optimization ki zaroorat nahi — premature optimization se</p>
@@ -1459,13 +1482,9 @@ node 2-proxy.js   # ✅ lazy load + access control, same interface
 node exercise.js  # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Same interface as real object</strong> — caller ko fark nahi padta proxy hai</li>
+<li><strong>Same interface as real object</strong> — caller ko fark nahi padta proxy hai ya asli object.</li>
+<li><strong>Control before delegate</strong> — proxy pehle decide karta hai (load? cache? allow?), phir kaam asli object ko sonpta hai.</li>
 </ol>
-<p>   ya asli object.</p>
-<ol>
-<li><strong>Control before delegate</strong> — proxy pehle decide karta hai (load? cache?</li>
-</ol>
-<p>   allow?), phir kaam asli object ko sonpta hai.</p>
 <h2>When to skip</h2>
 <p>Agar object cheap hai aur access-control/caching/lazy-loading ki zaroorat</p>
 <p>nahi, seedha real object use karo — Proxy sirf tab kamaata hai jab "access</p>
@@ -1576,9 +1595,8 @@ node exercise.js           # 🎯 tumhara turn</code></pre>
 <ol>
 <li><strong>Encapsulate what varies</strong> — har payment method ka logic alag.</li>
 <li><strong>Program to an interface</strong> — sab <code>pay(amount)</code> contract follow karte hain.</li>
-<li><strong>Composition over inheritance</strong> — Checkout strategy ko *hold* karta hai,</li>
+<li><strong>Composition over inheritance</strong> — Checkout strategy ko *hold* karta hai, inherit nahi karta.</li>
 </ol>
-<p>   inherit nahi karta.</p>
 <h2>When to skip</h2>
 <p>Sirf 2 variants hain jo kabhi badhenge nahi? Plain <code>if</code> behtar — pattern ki</p>
 <p>indirection ki cost mat uthao.</p>
@@ -1731,13 +1749,9 @@ node exercise.js        # 🎯 tumhara turn</code></pre>
 </ul>
 <h2>2 khatre (exercise mein dhyaan do)</h2>
 <ol>
-<li><strong>Execution order guarantee nahi</strong> — agar B ko A ke baad chalna zaroori hai,</li>
+<li><strong>Execution order guarantee nahi</strong> — agar B ko A ke baad chalna zaroori hai, Observer galat tool hai.</li>
+<li><strong>Memory leak</strong> — <code>unsubscribe</code> bhoole to subject observer ko pakde rehta hai aur woh garbage-collect nahi hota.</li>
 </ol>
-<p>   Observer galat tool hai.</p>
-<ol>
-<li><strong>Memory leak</strong> — <code>unsubscribe</code> bhoole to subject observer ko pakde rehta hai</li>
-</ol>
-<p>   aur woh garbage-collect nahi hota.</p>
 <h4 class="filename">❌ 1-naive.js — the naive approach</h4>
 <pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — Order khud sabko directly call karta hai.</span>
 <span class="cmt">// Chalao:  node 1-naive.js</span>
@@ -2043,13 +2057,9 @@ node 2-chain-of-responsibility.js   # ✅ handlers ki chain, har ek apna decisio
 node exercise.js                    # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Decouple sender from receiver</strong> — sender ko pata nahi kaun final handle</li>
+<li><strong>Decouple sender from receiver</strong> — sender ko pata nahi kaun final handle karega.</li>
+<li><strong>Open/closed</strong> — naya handler = chain mein ek naya link, existing handlers ko CHHUE BINA.</li>
 </ol>
-<p>   karega.</p>
-<ol>
-<li><strong>Open/closed</strong> — naya handler = chain mein ek naya link, existing</li>
-</ol>
-<p>   handlers ko CHHUE BINA.</p>
 <h2>When to skip</h2>
 <p>Agar handlers ka order/set fixed hai aur kabhi badlega nahi, seedha if/else</p>
 <p>ya switch simpler hai — chain tabhi kamaati hai jab handlers **dynamically</p>
@@ -2158,13 +2168,9 @@ node 2-iterator.js   # ✅ Symbol.iterator — uniform `for...of` sabke liye
 node exercise.js     # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Uniform traversal interface</strong> — caller collection ke internals se</li>
+<li><strong>Uniform traversal interface</strong> — caller collection ke internals se decouple ho jaata hai.</li>
+<li>JS mein <code>Symbol.iterator</code> implement karna matlab tumhara custom type <code>for...of</code>, spread (<code>[...x]</code>), <code>Array.from()</code> sab ke saath kaam karta hai.</li>
 </ol>
-<p>   decouple ho jaata hai.</p>
-<ol>
-<li>JS mein <code>Symbol.iterator</code> implement karna matlab tumhara custom type</li>
-</ol>
-<p>   <code>for...of</code>, spread (<code>[...x]</code>), <code>Array.from()</code> sab ke saath kaam karta hai.</p>
 <h2>When to skip</h2>
 <p>JS ke built-in collections (Array, Map, Set) already iterable hain — apna</p>
 <p>Iterator sirf tab likho jab tumhara <strong>custom data structure</strong> (linked list,</p>
@@ -2287,13 +2293,9 @@ node 2-mediator.js  # ✅ sab sirf mediator se baat karte hain
 node exercise.js    # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Decouple components from each other</strong> — koi bhi component doosre ka</li>
+<li><strong>Decouple components from each other</strong> — koi bhi component doosre ka naam tak nahi jaanta.</li>
+<li><strong>Centralize interaction logic</strong> — "kaun kisse affect hota hai" ka rule ek hi jagah (mediator) rehta hai.</li>
 </ol>
-<p>   naam tak nahi jaanta.</p>
-<ol>
-<li><strong>Centralize interaction logic</strong> — "kaun kisse affect hota hai" ka rule</li>
-</ol>
-<p>   ek hi jagah (mediator) rehta hai.</p>
 <h2>When to skip</h2>
 <p>Agar sirf 2 components hain jinka relationship simple aur permanent hai,</p>
 <p>direct reference likhna hi simpler hai — Mediator tabhi kamaata hai jab</p>
@@ -2416,13 +2418,9 @@ node 2-memento.js  # ✅ object khud save()/restore() implement karta hai
 node exercise.js   # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Encapsulation preserved</strong> — internals sirf object khud dekhta/badalta</li>
+<li><strong>Encapsulation preserved</strong> — internals sirf object khud dekhta/badalta hai, caller nahi.</li>
+<li><strong>Snapshot is opaque to the caller</strong> — History/SaveSlot bas snapshot ko store karte hain, uske andar jhaankte nahi.</li>
 </ol>
-<p>   hai, caller nahi.</p>
-<ol>
-<li><strong>Snapshot is opaque to the caller</strong> — History/SaveSlot bas snapshot ko</li>
-</ol>
-<p>   store karte hain, uske andar jhaankte nahi.</p>
 <h2>Related: Command se fark</h2>
 <p>Command "actions" ko undo karta hai (execute/undo pairs). Memento "state" ko</p>
 <p>undo karta hai (poora snapshot save/restore). Command tab better hai jab</p>
@@ -2547,14 +2545,9 @@ node 2-state.js   # ✅ har status apna hi object, khud transitions decide karta
 node exercise.js  # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Behavior depends on state, delegate it</strong> — Strategy jaisa hi mechanism</li>
+<li><strong>Behavior depends on state, delegate it</strong> — Strategy jaisa hi mechanism (delegation), lekin state *khud badalta hai* (self-transition), Strategy mein caller badalta hai.</li>
+<li><strong>Invalid transitions naturally blocked</strong> — jo state jis action ko support nahi karta, uska handler khud "not allowed" bol deta hai.</li>
 </ol>
-<p>   (delegation), lekin state *khud badalta hai* (self-transition), Strategy</p>
-<p>   mein caller badalta hai.</p>
-<ol>
-<li><strong>Invalid transitions naturally blocked</strong> — jo state jis action ko</li>
-</ol>
-<p>   support nahi karta, uska handler khud "not allowed" bol deta hai.</p>
 <h2>When to skip</h2>
 <p>Agar sirf 2 states hain ya transitions kabhi badhenge nahi, simple boolean</p>
 <p>flag + if/else kaafi hai — State pattern tabhi kamaata hai jab **kai states</p>
@@ -2689,13 +2682,9 @@ node 2-template-method.js   # ✅ skeleton ek jagah, sirf steps override hote ha
 node exercise.js            # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Don't repeat the skeleton</strong> — sequence/order ek hi jagah likha jaata</li>
+<li><strong>Don't repeat the skeleton</strong> — sequence/order ek hi jagah likha jaata hai.</li>
+<li><strong>Hollywood Principle</strong> — "don't call us, we'll call you": base class subclass ke methods ko sahi order mein khud call karta hai.</li>
 </ol>
-<p>   hai.</p>
-<ol>
-<li><strong>Hollywood Principle</strong> — "don't call us, we'll call you": base class</li>
-</ol>
-<p>   subclass ke methods ko sahi order mein khud call karta hai.</p>
 <h2>When to skip</h2>
 <p>Agar variants ke beech skeleton hi alag hai (sirf 1-2 steps common hain,</p>
 <p>poora flow nahi), Template Method zabardasti fit karoge to rigid ho jaayega</p>
@@ -2814,13 +2803,9 @@ node 2-visitor.js   # ✅ naya operation = naya visitor object, classes untouche
 node exercise.js    # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Add operations without modifying classes</strong> — Open/Closed principle,</li>
+<li><strong>Add operations without modifying classes</strong> — Open/Closed principle, operations ke perspective se.</li>
+<li><strong>Double dispatch</strong> — <code>shape.accept(visitor)</code> shape ka type decide karta hai, andar <code>visitor.visitX(this)</code> operation decide karta hai.</li>
 </ol>
-<p>   operations ke perspective se.</p>
-<ol>
-<li><strong>Double dispatch</strong> — <code>shape.accept(visitor)</code> shape ka type decide karta</li>
-</ol>
-<p>   hai, andar <code>visitor.visitX(this)</code> operation decide karta hai.</p>
 <h2>When to skip</h2>
 <p>Agar classes ka set frequently badalta hai (naya shape type baar-baar add</p>
 <p>hota hai) lekin operations stable hain, Visitor ulta pain hai — har naya</p>
@@ -2932,13 +2917,9 @@ node 2-interpreter.js  # ✅ chhoti composable classes, nested expressions natur
 node exercise.js       # 🎯 tumhara turn</code></pre>
 <h2>Principles yahan dikh rahe hain</h2>
 <ol>
-<li><strong>Grammar as objects</strong> — har rule apna node-type, evaluation logic</li>
+<li><strong>Grammar as objects</strong> — har rule apna node-type, evaluation logic uske andar.</li>
+<li><strong>Composable via recursion</strong> — Composite jaisa hi idea, yahan operation ka naam <code>interpret()</code> hai.</li>
 </ol>
-<p>   uske andar.</p>
-<ol>
-<li><strong>Composable via recursion</strong> — Composite jaisa hi idea, yahan operation</li>
-</ol>
-<p>   ka naam <code>interpret()</code> hai.</p>
 <h2>When to skip</h2>
 <p>Agar grammar simple/fixed hai ya rarely change hoti hai, ek proper</p>
 <p>parser library (ya even <code>eval</code>-jaisa safe alternative) use karna behtar hai.</p>
@@ -3022,6 +3003,2126 @@ console.log(evalRule(<span class="str">'isAdmin AND isBeta'</span>, context));
 <span class="cmt">//</span>
 <span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
 <span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="part-divider">
+<div class="part-kicker">Part II — SOLID Principles</div>
+<h1>SOLID Principles</h1>
+<p>23 patterns sikhne ke baad ab "WHY" samajhna hai — SOLID woh 5 principles hain jo batate hain</p>
+<p>ki achha object-oriented design <strong>kyun</strong> achha hota hai. Har pattern in principles mein se</p>
+<p>kisi na kisi ko satisfy karne ke liye exist karta hai.</p>
+<h2>Order matters — is sequence mein padho</h2>
+<table><thead><tr><th>#</th><th>Principle</th><th>One-line rule</th><th>Directly powers</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="01-single-responsibility/">Single Responsibility</a></td><td>Ek class, ek reason to change</td><td>Facade, Command</td></tr>
+<tr><td>2</td><td><a href="02-open-closed/">Open/Closed</a></td><td>Extension ke liye open, modification ke liye closed</td><td>Strategy, Factory Method</td></tr>
+<tr><td>3</td><td><a href="03-liskov-substitution/">Liskov Substitution</a></td><td>Subtype, base type ki jagah safely use ho sake</td><td>Template Method, Composite</td></tr>
+<tr><td>4</td><td><a href="04-interface-segregation/">Interface Segregation</a></td><td>Chhote, focused interfaces — fat interface mat banao</td><td>Adapter, Bridge</td></tr>
+<tr><td>5</td><td><a href="05-dependency-inversion/">Dependency Inversion</a></td><td>High-level aur low-level dono abstraction pe depend karein</td><td>Adapter, Abstract Factory</td></tr>
+</tbody></table>
+<h2>Files — har principle mein same flow</h2>
+<pre class="mdcode"><code>node 1-violation.js   # ❌ principle todta hua code
+node 2-fixed.js        # ✅ principle follow karta hua code
+node exercise.js       # 🎯 tumhara turn</code></pre>
+<h2>Yeh patterns se pehle kyun nahi padhaya?</h2>
+<p>Honestly — dono order sahi hain. Patterns pehle padhna tumhe "shape" dikhata hai (yeh kaisa</p>
+<p>dikhta hai), SOLID baad mein "WHY" deta hai (yeh isliye achha hai). Interview mein dono</p>
+<p>directions se sawaal aate hain: "yeh pattern kaunsa principle satisfy karta hai?" utna hi</p>
+<p>common hai jitna "yeh code SOLID kyun nahi hai, fix karo?"</p>
+<h2>When to skip</h2>
+<p>SOLID rules nahi, <strong>guidelines</strong> hain. Chhote scripts, prototypes, ya code jo kabhi grow nahi</p>
+<p>karega — in principles ki indirection cost mat uthao. Yeh tab kamaate hain jab codebase</p>
+<p>genuinely evolve/scale karni ho.</p>
+</section>
+<section class="chapter" id="ch-solid-principles-01-single-responsibility">
+<div class="chapter-kicker">SOLID Principles</div>
+<h1 class="chapter-title">24. Single Responsibility Principle (SRP)</h1>
+<p><strong>Rule:</strong> ek class ka sirf <strong>EK "reason to change"</strong> hona chahiye.</p>
+<p><strong>Problem:</strong> jab ek class business logic + persistence + presentation + notification sab</p>
+<p>karti hai, to koi bhi EK concern badalne se poori class touch hoti hai — aur baaki concerns</p>
+<p>accidentally break ho sakte hain.</p>
+<p><strong>Idea:</strong> har concern ko apni khud ki class mein nikaalo. "Reason to change" = kaun sa</p>
+<p>external factor (DB engine, email provider, report format, pricing rule) is class ko</p>
+<p>badalne ke liye force karega.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-violation.js   # ❌ ek class, 4 reasons to change
+node 2-fixed.js        # ✅ har concern apni class mein
+node exercise.js       # 🎯 tumhara turn</code></pre>
+<h2>Yeh design patterns se kaise judta hai</h2>
+<p>SRP hi wo foundation hai jispe <a href="../../13-facade/">Facade</a> aur <a href="../../03-command/">Command</a></p>
+<p>jaise patterns khade hote hain — "encapsulate what varies" ka pehla kadam yeh decide karna</p>
+<p>hai ki <strong>KYA</strong> varies, aur SRP tumhe woh dikhata hai.</p>
+<h2>When to skip</h2>
+<p>Har chhoti class ko 5 sub-classes mein todna zaroori nahi — agar do concerns HAMESHA saath</p>
+<p>badalte hain (genuinely coupled), unhe alag karna sirf indirection badhata hai. SRP tab</p>
+<p>lagao jab concerns ke liye alag-alag, <strong>independent</strong> reasons-to-change ho.</p>
+<h4 class="filename">❌ 1-violation.js — the violation</h4>
+<pre class="code"><code><span class="cmt">// ❌ VIOLATION — ek hi class business logic, persistence, AUR presentation sab kar rahi hai.</span>
+<span class="cmt">// Chalao:  node 1-violation.js</span>
+
+<span class="kw">class</span> Invoice {
+  <span class="kw">constructor</span>(items) { <span class="kw">this</span>.items = items; }
+
+  calculateTotal() {
+    <span class="kw">return</span> <span class="kw">this</span>.items.reduce((sum, item) =&gt; sum + item.price * item.qty, 0);
+  }
+
+  saveToDatabase() {
+    console.log(<span class="str">'💾 saving invoice to database...'</span>); <span class="cmt">// pretend yeh DB write hai</span>
+  }
+
+  printReceipt() {
+    console.log(<span class="str">'--- RECEIPT ---'</span>);
+    <span class="kw">this</span>.items.forEach((i) =&gt; console.log(<span class="str">`${i.name} x${i.qty} = ₹${i.price * i.qty}`</span>));
+    console.log(<span class="str">`TOTAL: ₹${this.calculateTotal()}`</span>);
+  }
+
+  emailToCustomer(email) {
+    console.log(<span class="str">`📧 emailing receipt to ${email}...`</span>);
+  }
+}
+
+<span class="kw">const</span> invoice = <span class="kw">new</span> Invoice([{ name: <span class="str">'Widget'</span>, price: 100, qty: 2 }]);
+invoice.printReceipt();
+invoice.saveToDatabase();
+invoice.emailToCustomer(<span class="str">'customer@example.com'</span>);
+
+<span class="cmt">// PROBLEM: is class ko badalne ke 4 alag reasons hain —</span>
+<span class="cmt">//   1. Pricing rule badle (calculateTotal)</span>
+<span class="cmt">//   2. DB engine badle (saveToDatabase)</span>
+<span class="cmt">//   3. Receipt format badle (printReceipt)</span>
+<span class="cmt">//   4. Email provider badle (emailToCustomer)</span>
+<span class="cmt">// Har reason ek ALAG concern hai, lekin sab ek hi class mein bandhe hain. Koi bhi change</span>
+<span class="cmt">// poori class ko touch karta hai aur baaki teeno cheezon ko accidentally break kar sakta hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-fixed.js — the fix</h4>
+<pre class="code"><code><span class="cmt">// ✅ FIXED — har concern apni khud ki class mein, ek hi "reason to change" ke saath.</span>
+<span class="cmt">// Chalao:  node 2-fixed.js</span>
+
+<span class="kw">class</span> Invoice {
+  <span class="kw">constructor</span>(items) { <span class="kw">this</span>.items = items; }
+  calculateTotal() {
+    <span class="kw">return</span> <span class="kw">this</span>.items.reduce((sum, item) =&gt; sum + item.price * item.qty, 0);
+  }
+}
+
+<span class="kw">class</span> InvoiceRepository {
+  save(invoice) { console.log(<span class="str">'💾 saving invoice to database...'</span>); }
+}
+
+<span class="kw">class</span> InvoicePrinter {
+  print(invoice) {
+    console.log(<span class="str">'--- RECEIPT ---'</span>);
+    invoice.items.forEach((i) =&gt; console.log(<span class="str">`${i.name} x${i.qty} = ₹${i.price * i.qty}`</span>));
+    console.log(<span class="str">`TOTAL: ₹${invoice.calculateTotal()}`</span>);
+  }
+}
+
+<span class="kw">class</span> InvoiceMailer {
+  send(invoice, email) { console.log(<span class="str">`📧 emailing receipt to ${email}...`</span>); }
+}
+
+<span class="kw">const</span> invoice = <span class="kw">new</span> Invoice([{ name: <span class="str">'Widget'</span>, price: 100, qty: 2 }]);
+<span class="kw">new</span> InvoicePrinter().print(invoice);
+<span class="kw">new</span> InvoiceRepository().save(invoice);
+<span class="kw">new</span> InvoiceMailer().send(invoice, <span class="str">'customer@example.com'</span>);
+
+<span class="cmt">// Ab DB engine badalna sirf InvoiceRepository ko touch karta hai. Receipt format badalna</span>
+<span class="cmt">// sirf InvoicePrinter ko. Invoice class ko badalne ka SIRF EK reason hai: pricing/data</span>
+<span class="cmt">// shape khud badle. Yehi Single Responsibility hai — "ek class, ek reason to change."</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — is UserManager class mein kitne "reasons to change" hain? Unhe alag classes</span>
+<span class="cmt">// mein split karo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- violation (isse refactor karna hai) -----</span>
+<span class="kw">class</span> UserManager {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.users = []; }
+  registerUser(name, email) {
+    <span class="kw">if</span> (!email.includes(<span class="str">'@'</span>)) <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'invalid email'</span>); <span class="cmt">// validation</span>
+    <span class="kw">this</span>.users.push({ name, email });                            <span class="cmt">// storage</span>
+    console.log(<span class="str">`💾 saved user ${name}`</span>);
+  }
+  sendWelcomeEmail(email) {
+    console.log(<span class="str">`📧 welcome email sent to ${email}`</span>);             <span class="cmt">// notification</span>
+  }
+  generateUserReport() {
+    console.log(<span class="str">'--- USER REPORT ---'</span>);                           <span class="cmt">// reporting</span>
+    <span class="kw">this</span>.users.forEach((u) =&gt; console.log(<span class="str">`${u.name} &lt;${u.email}&gt;`</span>));
+  }
+}
+
+<span class="kw">const</span> manager = <span class="kw">new</span> UserManager();
+manager.registerUser(<span class="str">'Asha'</span>, <span class="str">'asha@example.com'</span>);
+manager.sendWelcomeEmail(<span class="str">'asha@example.com'</span>);
+manager.generateUserReport();
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: count the distinct "reasons to change" hiding in UserManager (hint: there are at</span>
+<span class="cmt">//         least 4 — validation, storage, notification, reporting).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: split it into focused classes (e.g. UserValidator, UserRepository, WelcomeEmailer,</span>
+<span class="cmt">//         UserReportGenerator) — each with ONE job.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): which of your new classes would change if you swapped the database? Which</span>
+<span class="cmt">//         would change if marketing wanted a different welcome email template? If the answer</span>
+<span class="cmt">//         to both is "more than one class," you haven't fully separated the concerns yet.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-solid-principles-02-open-closed">
+<div class="chapter-kicker">SOLID Principles</div>
+<h1 class="chapter-title">25. Open/Closed Principle (OCP)</h1>
+<p><strong>Rule:</strong> classes/functions <strong>extension ke liye open</strong> hone chahiye, **modification ke liye</p>
+<p>closed**.</p>
+<p><strong>Problem:</strong> jab naya "type" (discount tier, shipping method, notification channel) add karne</p>
+<p>ke liye tumhe EXISTING, already-tested function ko edit karna padta hai, to har change purani</p>
+<p>functionality ko risk mein daalta hai.</p>
+<p><strong>Idea:</strong> variation points ko ek registry/lookup mein nikaalo. Naya type add karna ab ek NAYI</p>
+<p>entry hai (extension), purane code ko touch karna nahi (modification).</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-violation.js   # ❌ naya type = existing function edit karo
+node 2-fixed.js        # ✅ naya type = registry mein ek entry
+node exercise.js       # 🎯 tumhara turn</code></pre>
+<h2>Yeh design patterns se kaise judta hai</h2>
+<p>Yeh literally <a href="../../01-strategy/">Strategy</a> aur <a href="../../05-factory-method/">Factory Method</a></p>
+<p>ka "why" hai — dono patterns EXACTLY OCP ko satisfy karne ke liye exist karte hain. Agar tumne</p>
+<p>Lesson 1 (Strategy) already kiya hai, <code>2-fixed.js</code> yahan familiar lagega.</p>
+<h2>When to skip</h2>
+<p>Har if/else ko turant registry mein convert mat karo — agar sirf 2 cases hain jo KABHI</p>
+<p>badhenge nahi, plain <code>if</code> behtar hai. OCP tab lagao jab naye types/variants <strong>regularly add</strong></p>
+<p>hone ki expectation ho.</p>
+<h4 class="filename">❌ 1-violation.js — the violation</h4>
+<pre class="code"><code><span class="cmt">// ❌ VIOLATION — naya discount type add karne ke liye is function ko HAR baar edit karna</span>
+<span class="cmt">// padta hai (modification), extend nahi kar sakte bina chhue.</span>
+<span class="cmt">// Chalao:  node 1-violation.js</span>
+
+<span class="kw">function</span> calculateDiscount(type, amount) {
+  <span class="kw">if</span> (type === <span class="str">'regular'</span>) <span class="kw">return</span> amount * 0.05;
+  <span class="kw">if</span> (type === <span class="str">'premium'</span>) <span class="kw">return</span> amount * 0.10;
+  <span class="kw">if</span> (type === <span class="str">'vip'</span>) <span class="kw">return</span> amount * 0.20;
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown type: ${type}`</span>);
+}
+
+console.log(calculateDiscount(<span class="str">'regular'</span>, 1000));
+console.log(calculateDiscount(<span class="str">'vip'</span>, 1000));
+
+<span class="cmt">// PROBLEM: naya customer tier (e.g. 'platinum') add karne ke liye is EXISTING function ko</span>
+<span class="cmt">// dobara edit karna padega — jo already-tested code ko risk mein daalta hai. Yeh "closed</span>
+<span class="cmt">// for modification" ko todta hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-fixed.js — the fix</h4>
+<pre class="code"><code><span class="cmt">// ✅ FIXED — naya discount type add karna ab EXTENSION hai (naya entry), MODIFICATION nahi</span>
+<span class="cmt">// (existing code chhua nahi).</span>
+<span class="cmt">// Chalao:  node 2-fixed.js</span>
+
+<span class="kw">const</span> discountStrategies = {
+  regular: (amount) =&gt; amount * 0.05,
+  premium: (amount) =&gt; amount * 0.10,
+  vip: (amount) =&gt; amount * 0.20,
+};
+
+<span class="kw">function</span> calculateDiscount(type, amount) {
+  <span class="kw">const</span> strategy = discountStrategies[type];
+  <span class="kw">if</span> (!strategy) <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown type: ${type}`</span>);
+  <span class="kw">return</span> strategy(amount);
+}
+
+console.log(calculateDiscount(<span class="str">'regular'</span>, 1000));
+console.log(calculateDiscount(<span class="str">'vip'</span>, 1000));
+
+<span class="cmt">// Naya tier add karna:</span>
+discountStrategies.platinum = (amount) =&gt; amount * 0.30;
+console.log(calculateDiscount(<span class="str">'platinum'</span>, 1000));
+
+<span class="cmt">// calculateDiscount() ka body EK baar bhi nahi badla. Yehi Open/Closed hai — aur yeh</span>
+<span class="cmt">// literally Strategy pattern hai (Lesson 1). OCP hi wo "why" hai jiske liye Strategy</span>
+<span class="cmt">// exist karta hai.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — shipping cost calculator ko OCP-compliant banao.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- violation (isse refactor karna hai) -----</span>
+<span class="kw">function</span> shippingCost(method, weightKg) {
+  <span class="kw">if</span> (method === <span class="str">'standard'</span>) <span class="kw">return</span> 50;
+  <span class="kw">if</span> (method === <span class="str">'express'</span>) <span class="kw">return</span> 50 + 10 * weightKg;
+  <span class="kw">if</span> (method === <span class="str">'overnight'</span>) <span class="kw">return</span> 200;
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown method: ${method}`</span>);
+}
+console.log(shippingCost(<span class="str">'express'</span>, 3));
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: convert this into a `shippingStrategies` registry object (like discountStrategies</span>
+<span class="cmt">//         in 2-fixed.js), and a thin `shippingCost()` that just looks up + calls.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: add a new 'international' method (flat ₹500 + ₹50/kg) WITHOUT touching the</span>
+<span class="cmt">//         shippingCost() function body — only add a new registry entry.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): what's the difference between this exercise and Lesson 1's Strategy</span>
+<span class="cmt">//         exercise? (Hint: there isn't one — that's the point. OCP is the PRINCIPLE, Strategy</span>
+<span class="cmt">//         is the PATTERN that satisfies it. Same code, different lens.)</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-solid-principles-03-liskov-substitution">
+<div class="chapter-kicker">SOLID Principles</div>
+<h1 class="chapter-title">26. Liskov Substitution Principle (LSP)</h1>
+<p><strong>Rule:</strong> agar <code>B</code> <code>A</code> ko extend karta hai, to jahan bhi <code>A</code> expected hai, <code>B</code> ko wahan</p>
+<p><strong>safely substitute</strong> kiya ja sakna chahiye — bina behavior galat kiye.</p>
+<p><strong>Problem:</strong> <code>extends</code> sirf syntax hai, guarantee nahi. Agar subclass base class ka contract</p>
+<p>(implicit assumptions) todta hai, to code jo base class ke against likha gaya tha, subclass</p>
+<p>ke saath silently galat behave karega.</p>
+<p><strong>Idea:</strong> agar "is-a" relationship genuinely FIT nahi karta (Square technically Rectangle</p>
+<p>nahi hai, uski apni constraint hai), to inheritance mat force karo — dono ko ek common,</p>
+<p>honest interface follow karwao.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-violation.js   # ❌ Square, Rectangle ka contract todta hai
+node 2-fixed.js        # ✅ dono independent Shape implementations
+node exercise.js       # 🎯 tumhara turn (classic Bird/Penguin problem)</code></pre>
+<h2>Yeh design patterns se kaise judta hai</h2>
+<p><a href="../../21-template-method/">Template Method</a> aur <a href="../../11-composite/">Composite</a> dono LSP</p>
+<p>pe depend karte hain — dono mein subclasses ko base class ki jagah interchangeably use kiya</p>
+<p>jaata hai. Agar LSP toot jaaye, in patterns ka poora point khatam ho jaata hai.</p>
+<h2>When to skip</h2>
+<p>Yeh koi "kabhi skip karo" wali cheez nahi hai — LSP todna almost hamesha ek design bug hai,</p>
+<p>optimization nahi. Agar lag raha hai ki tumhe LSP todna PAD raha hai, usually iska matlab</p>
+<p>hai ki <code>extends</code> relationship hi galat hai — jaisa is lesson mein Square/Rectangle ka tha.</p>
+<h4 class="filename">❌ 1-violation.js — the violation</h4>
+<pre class="code"><code><span class="cmt">// ❌ VIOLATION — Square, Rectangle ko "extends" karta hai, lekin base class ke contract</span>
+<span class="cmt">// (setWidth aur setHeight INDEPENDENT hain) ko todta hai.</span>
+<span class="cmt">// Chalao:  node 1-violation.js</span>
+
+<span class="kw">class</span> Rectangle {
+  setWidth(w) { <span class="kw">this</span>.width = w; }
+  setHeight(h) { <span class="kw">this</span>.height = h; }
+  area() { <span class="kw">return</span> <span class="kw">this</span>.width * <span class="kw">this</span>.height; }
+}
+
+<span class="kw">class</span> Square <span class="kw">extends</span> Rectangle {
+  setWidth(w) { <span class="kw">this</span>.width = w; <span class="kw">this</span>.height = w; } <span class="cmt">// side-effect: height bhi badal gaya!</span>
+  setHeight(h) { <span class="kw">this</span>.width = h; <span class="kw">this</span>.height = h; }
+}
+
+<span class="kw">function</span> resizeAndCheck(rect) {
+  rect.setWidth(4);
+  rect.setHeight(5);
+  console.log(<span class="str">`expected area 20, got ${rect.area()}`</span>);
+}
+
+resizeAndCheck(<span class="kw">new</span> Rectangle()); <span class="cmt">// 20 — sahi</span>
+resizeAndCheck(<span class="kw">new</span> Square());    <span class="cmt">// 25 — GALAT! Square base class ka contract nahi follow karta</span>
+
+<span class="cmt">// PROBLEM: Square TECHNICALLY Rectangle "extends" karta hai, lekin jahan bhi Rectangle</span>
+<span class="cmt">// expected hai, Square substitute karne se code galat behave karta hai. Yeh Liskov</span>
+<span class="cmt">// Substitution ko todta hai — "subtype ko base type ki jagah use karna SAFE hona chahiye."</span>
+</code></pre>
+<h4 class="filename">✅ 2-fixed.js — the fix</h4>
+<pre class="code"><code><span class="cmt">// ✅ FIXED — Square, Rectangle nahi hai (is-a relationship galat thi). Dono ek common</span>
+<span class="cmt">// Shape interface follow karte hain, koi inheritance-via-force nahi.</span>
+<span class="cmt">// Chalao:  node 2-fixed.js</span>
+
+<span class="kw">class</span> Shape {
+  area() { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'subclass must implement area()'</span>); }
+}
+
+<span class="kw">class</span> Rectangle <span class="kw">extends</span> Shape {
+  <span class="kw">constructor</span>(width, height) { <span class="kw">super</span>(); <span class="kw">this</span>.width = width; <span class="kw">this</span>.height = height; }
+  area() { <span class="kw">return</span> <span class="kw">this</span>.width * <span class="kw">this</span>.height; }
+}
+
+<span class="kw">class</span> Square <span class="kw">extends</span> Shape {
+  <span class="kw">constructor</span>(side) { <span class="kw">super</span>(); <span class="kw">this</span>.side = side; }
+  area() { <span class="kw">return</span> <span class="kw">this</span>.side * <span class="kw">this</span>.side; }
+}
+
+<span class="kw">function</span> printArea(shape) { console.log(<span class="str">`area: ${shape.area()}`</span>); }
+
+printArea(<span class="kw">new</span> Rectangle(4, 5)); <span class="cmt">// 20</span>
+printArea(<span class="kw">new</span> Square(4));       <span class="cmt">// 16 — apna khud ka correct contract, koi surprise nahi</span>
+
+<span class="cmt">// Ab Square, Rectangle ki jagah "substitute" hone ka dawa hi nahi karta — dono independent</span>
+<span class="cmt">// Shape implementations hain. Jahan bhi Shape expected hai, dono safely use ho sakte hain</span>
+<span class="cmt">// kyunki koi hidden extra constraint (width===height) base contract se leak nahi ho raha.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — classic Bird/Penguin problem. Fix the LSP violation.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- violation (isse refactor karna hai) -----</span>
+<span class="kw">class</span> Bird {
+  fly() { console.log(<span class="str">'🕊️ flying high'</span>); }
+}
+<span class="kw">class</span> Sparrow <span class="kw">extends</span> Bird {}
+<span class="kw">class</span> Penguin <span class="kw">extends</span> Bird {
+  fly() { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'penguins cannot fly!'</span>); } <span class="cmt">// breaks the base contract</span>
+}
+
+<span class="kw">function</span> makeBirdFly(bird) { bird.fly(); } <span class="cmt">// written assuming ALL Birds can fly()</span>
+makeBirdFly(<span class="kw">new</span> Sparrow());
+<span class="kw">try</span> { makeBirdFly(<span class="kw">new</span> Penguin()); } <span class="kw">catch</span> (e) { console.log(<span class="str">`❌ ${e.message}`</span>); }
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `Penguin extends Bird` is the LSP violation — Penguin cannot honestly promise</span>
+<span class="cmt">//         everything Bird promises. Split `Bird` into a base with only what's TRUE for every</span>
+<span class="cmt">//         bird (e.g. `eat()`, `layEggs()`), and a separate `FlyingBird` (extends Bird, adds</span>
+<span class="cmt">//         `fly()`) that only flying birds extend.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: make Sparrow extend FlyingBird, and Penguin extend Bird (NOT FlyingBird). Rewrite</span>
+<span class="cmt">//         makeBirdFly() to only accept FlyingBird — this should now be a compile-time-shaped</span>
+<span class="cmt">//         guarantee (well, JS doesn't compile-check, but the TYPE relationship should make</span>
+<span class="cmt">//         it obviously wrong to pass a Penguin there).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): where else in the wild have you seen a subclass override a method just to</span>
+<span class="cmt">//         throw/no-op? That's almost always an LSP smell — name one example from a codebase</span>
+<span class="cmt">//         you've worked in (or a hypothetical one) in a comment.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-solid-principles-04-interface-segregation">
+<div class="chapter-kicker">SOLID Principles</div>
+<h1 class="chapter-title">27. Interface Segregation Principle (ISP)</h1>
+<p><strong>Rule:</strong> clients ko un methods pe depend karne ke liye <strong>force nahi</strong> karna chahiye jo woh</p>
+<p>use hi nahi karte. Chhote, focused interfaces banao — ek "fat" interface mat banao.</p>
+<p><strong>Problem:</strong> ek badi class/interface jo sab kuch ek saath expect karti hai, kuch</p>
+<p>implementations ko methods implement karne padte hain jo unpe apply hi nahi hote (aur usually</p>
+<p>sirf ek error throw karte hain).</p>
+<p><strong>Idea:</strong> interface ko split karo taaki har implementer sirf wahi depend kare jo usko</p>
+<p>GENUINELY chahiye.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-violation.js   # ❌ ek fat Worker interface, RobotWorker ko eat() force
+node 2-fixed.js        # ✅ do chhoti, focused interfaces
+node exercise.js       # 🎯 tumhara turn</code></pre>
+<h2>Yeh design patterns se kaise judta hai</h2>
+<p><a href="../../09-adapter/">Adapter</a> aur <a href="../../10-bridge/">Bridge</a> dono ISP ko respect karte hain —</p>
+<p>dono chhote, single-purpose contracts (<code>pay()</code>, <code>deliver()</code>) define karte hain instead of ek</p>
+<p>bada do-everything interface. Fat interfaces banate hi Adapter/Bridge likhna mushkil ho jaata</p>
+<p>hai kyunki wrap karne ke liye bohot saare irrelevant methods aa jaate hain.</p>
+<h2>When to skip</h2>
+<p>Agar sab implementers GENUINELY sab methods use karte hain (koi bhi kisi method ko fake/throw</p>
+<p>nahi kar raha), interface split karna sirf extra files banayega bina fayde ke. ISP ka signal</p>
+<p>hai: koi implementation ek method ko empty/throw/no-op kar rahi hai sirf "interface follow</p>
+<p>karne" ke liye.</p>
+<h4 class="filename">❌ 1-violation.js — the violation</h4>
+<pre class="code"><code><span class="cmt">// ❌ VIOLATION — ek "fat" interface (base class jo contract set karti hai) sabko FORCE</span>
+<span class="cmt">// karta hai methods implement karne ke liye jo unpe apply hi nahi hote.</span>
+<span class="cmt">// Chalao:  node 1-violation.js</span>
+
+<span class="kw">class</span> Worker {
+  work() { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'must implement work()'</span>); }
+  eat() { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'must implement eat()'</span>); }
+}
+
+<span class="kw">class</span> HumanWorker <span class="kw">extends</span> Worker {
+  work() { console.log(<span class="str">'👷 human working'</span>); }
+  eat() { console.log(<span class="str">'🍽️ human eating lunch'</span>); }
+}
+
+<span class="kw">class</span> RobotWorker <span class="kw">extends</span> Worker {
+  work() { console.log(<span class="str">'🤖 robot working'</span>); }
+  eat() { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'robots dont eat!'</span>); } <span class="cmt">// forced to implement, sirf error throw karne ke liye</span>
+}
+
+<span class="kw">const</span> workers = [<span class="kw">new</span> HumanWorker(), <span class="kw">new</span> RobotWorker()];
+workers.forEach((w) =&gt; w.work());
+workers.forEach((w) =&gt; {
+  <span class="kw">try</span> { w.eat(); } <span class="kw">catch</span> (e) { console.log(<span class="str">`❌ ${e.message}`</span>); }
+});
+
+<span class="cmt">// PROBLEM: RobotWorker ko eat() implement karna PADTA hai sirf isliye kyunki Worker</span>
+<span class="cmt">// interface mein hai — chahe uska koi matlab na ho. Yeh RobotWorker ko ek method pe</span>
+<span class="cmt">// "depend" karwata hai jo use kabhi chahiye hi nahi.</span>
+</code></pre>
+<h4 class="filename">✅ 2-fixed.js — the fix</h4>
+<pre class="code"><code><span class="cmt">// ✅ FIXED — do chhoti, FOCUSED interfaces. Har worker sirf woh implement karta hai jo</span>
+<span class="cmt">// usko genuinely chahiye.</span>
+<span class="cmt">// Chalao:  node 2-fixed.js</span>
+
+<span class="cmt">// JS mein multiple inheritance nahi hai, so hum "interface" ko sirf convention (duck typing)</span>
+<span class="cmt">// ke through split karte hain — jisko jo method chahiye wahi implement karo:</span>
+
+<span class="kw">class</span> HumanWorker {
+  work() { console.log(<span class="str">'👷 human working'</span>); }
+  eat() { console.log(<span class="str">'🍽️ human eating lunch'</span>); }
+}
+
+<span class="kw">class</span> RobotWorker {
+  work() { console.log(<span class="str">'🤖 robot working'</span>); } <span class="cmt">// eat() ka koi zikar tak nahi — zaroorat hi nahi</span>
+}
+
+<span class="kw">const</span> workers = [<span class="kw">new</span> HumanWorker(), <span class="kw">new</span> RobotWorker()];
+workers.forEach((w) =&gt; w.work());
+
+<span class="cmt">// Sirf woh workers jo genuinely "eat" karte hain unhi ko eat() call karo:</span>
+<span class="kw">const</span> eaters = workers.filter((w) =&gt; <span class="kw">typeof</span> w.eat === <span class="str">'function'</span>);
+eaters.forEach((w) =&gt; w.eat());
+
+<span class="cmt">// RobotWorker ab kisi aise method pe depend hi nahi karta jo usse relevant nahi. Interface</span>
+<span class="cmt">// (yahan: "jo methods class pe expect kiye jaate hain") ko SPLIT kiya, "ek size fits all"</span>
+<span class="cmt">// force nahi kiya.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — ek fat Printer interface ko segregate karo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- violation (isse refactor karna hai) -----</span>
+<span class="kw">class</span> MultiFunctionPrinter {
+  print(doc) { console.log(<span class="str">`🖨️ printing ${doc}`</span>); }
+  scan(doc) { console.log(<span class="str">`📠 scanning ${doc}`</span>); }
+  fax(doc) { console.log(<span class="str">`📠 faxing ${doc}`</span>); }
+}
+<span class="kw">class</span> BasicPrinter {
+  print(doc) { console.log(<span class="str">`🖨️ printing ${doc}`</span>); }
+  scan() { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'this printer cannot scan!'</span>); } <span class="cmt">// forced, unused</span>
+  fax() { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'this printer cannot fax!'</span>); }   <span class="cmt">// forced, unused</span>
+}
+
+<span class="kw">new</span> MultiFunctionPrinter().print(<span class="str">'report.pdf'</span>);
+<span class="kw">try</span> { <span class="kw">new</span> BasicPrinter().scan(<span class="str">'report.pdf'</span>); } <span class="kw">catch</span> (e) { console.log(<span class="str">`❌ ${e.message}`</span>); }
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: BasicPrinter should only need to implement `print()`. Restructure so it's not</span>
+<span class="cmt">//         forced to define scan()/fax() at all (delete those methods from it entirely —</span>
+<span class="cmt">//         nothing should call them on a BasicPrinter, so nothing should break).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: write a function `printIfPossible(device, doc)` that prints via `device.print(doc)`</span>
+<span class="cmt">//         — it should work for BOTH BasicPrinter and MultiFunctionPrinter without either</span>
+<span class="cmt">//         needing a shared "fat" base class.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): write a function `scanIfPossible(device, doc)` that checks</span>
+<span class="cmt">//         `typeof device.scan === 'function'` before calling it (like the `eaters` filter in</span>
+<span class="cmt">//         2-fixed.js) — call it with both printer types and confirm it doesn't crash on</span>
+<span class="cmt">//         BasicPrinter.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-solid-principles-05-dependency-inversion">
+<div class="chapter-kicker">SOLID Principles</div>
+<h1 class="chapter-title">28. Dependency Inversion Principle (DIP)</h1>
+<p><strong>Rule:</strong> high-level modules (business logic) ko low-level modules (DB, email provider, file</p>
+<p>system) pe DIRECTLY depend nahi karna chahiye. <strong>Dono</strong> ko ek abstraction (contract) pe</p>
+<p>depend karna chahiye.</p>
+<p><strong>Problem:</strong> jab high-level class kisi concrete low-level class ko khud <code>new</code> karti hai, to</p>
+<p>woh usi implementation se hamesha ke liye tightly coupled ho jaati hai — DB badalna, ya</p>
+<p>unit test mein fake dependency use karna, mushkil ho jaata hai.</p>
+<p><strong>Idea:</strong> dependency ko <code>new</code> karne ke bajaye BAHAR se inject karo (constructor param). High-</p>
+<p>level class sirf itna jaanti hai ki "mujhe kuch chahiye jiska <code>save()</code> method ho" — kaunsi</p>
+<p>concrete class hai, usse fark nahi padta.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-violation.js   # ❌ OrderService khud MySQLDatabase "new" karta hai
+node 2-fixed.js        # ✅ database inject hoti hai, kaunsi hai fark nahi padta
+node exercise.js       # 🎯 tumhara turn</code></pre>
+<h2>Yeh design patterns se kaise judta hai</h2>
+<p>Yeh technique — dependency ko constructor se inject karna — <strong>Dependency Injection</strong> kehlata</p>
+<p>hai, aur yeh wahi mechanism hai jo <a href="../../09-adapter/">Adapter</a> aur</p>
+<p><a href="../../06-abstract-factory/">Abstract Factory</a> ko kaam karne laayak banata hai. Yeh bhi wahi</p>
+<p>wajah hai ki <code>2-fixed.js</code> mein <code>InMemoryDatabase</code> se <strong>testing</strong> itni easy ho jaati hai —</p>
+<p>DIP hi unit-testable code ki foundation hai.</p>
+<h2>When to skip</h2>
+<p>Agar koi dependency GENUINELY kabhi nahi badlegi aur test mein fake karne ki zaroorat nahi</p>
+<p>(e.g. <code>Math</code>, <code>console</code>), inject karna sirf ceremony hai. DIP tab lagao jab dependency</p>
+<p>swap-able ya mock-able hona genuinely valuable ho.</p>
+<h4 class="filename">❌ 1-violation.js — the violation</h4>
+<pre class="code"><code><span class="cmt">// ❌ VIOLATION — high-level OrderService, low-level MySQLDatabase pe DIRECTLY depend karta</span>
+<span class="cmt">// hai. DB badalna ya test karna mushkil hai.</span>
+<span class="cmt">// Chalao:  node 1-violation.js</span>
+
+<span class="kw">class</span> MySQLDatabase {
+  save(order) { console.log(<span class="str">`💾 [MySQL] saved order for ₹${order.amount}`</span>); }
+}
+
+<span class="kw">class</span> OrderService {
+  <span class="kw">constructor</span>() {
+    <span class="kw">this</span>.db = <span class="kw">new</span> MySQLDatabase(); <span class="cmt">// hardcoded — OrderService ko pata hai KAUNSA DB hai</span>
+  }
+  placeOrder(amount) {
+    <span class="kw">const</span> order = { amount };
+    <span class="kw">this</span>.db.save(order);
+  }
+}
+
+<span class="kw">const</span> service = <span class="kw">new</span> OrderService();
+service.placeOrder(999);
+
+<span class="cmt">// PROBLEM: OrderService (high-level business logic) MySQLDatabase (low-level detail) ko</span>
+<span class="cmt">// directly "new" kar raha hai. Kal ko Postgres pe switch karna ho, ya unit test mein fake</span>
+<span class="cmt">// DB use karna ho — OrderService ko khud edit karna padega. High-level policy, low-level</span>
+<span class="cmt">// detail se tightly coupled hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-fixed.js — the fix</h4>
+<pre class="code"><code><span class="cmt">// ✅ FIXED — OrderService kisi bhi "database jaisi cheez" pe depend karta hai (jiska sirf</span>
+<span class="cmt">// save() method ho), concrete MySQLDatabase pe nahi. Dependency BAHAR se inject hoti hai.</span>
+<span class="cmt">// Chalao:  node 2-fixed.js</span>
+
+<span class="kw">class</span> MySQLDatabase {
+  save(order) { console.log(<span class="str">`💾 [MySQL] saved order for ₹${order.amount}`</span>); }
+}
+<span class="kw">class</span> PostgresDatabase {
+  save(order) { console.log(<span class="str">`💾 [Postgres] saved order for ₹${order.amount}`</span>); }
+}
+<span class="kw">class</span> InMemoryDatabase { <span class="cmt">// tests ke liye — real DB ki zaroorat nahi</span>
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.orders = []; }
+  save(order) { <span class="kw">this</span>.orders.push(order); console.log(<span class="str">`💾 [InMemory] saved order for ₹${order.amount}`</span>); }
+}
+
+<span class="kw">class</span> OrderService {
+  <span class="kw">constructor</span>(database) { <span class="kw">this</span>.db = database; } <span class="cmt">// dependency INJECTED, hardcoded nahi</span>
+  placeOrder(amount) {
+    <span class="kw">const</span> order = { amount };
+    <span class="kw">this</span>.db.save(order);
+  }
+}
+
+<span class="kw">new</span> OrderService(<span class="kw">new</span> MySQLDatabase()).placeOrder(999);
+<span class="kw">new</span> OrderService(<span class="kw">new</span> PostgresDatabase()).placeOrder(499);
+
+<span class="kw">const</span> testDb = <span class="kw">new</span> InMemoryDatabase();
+<span class="kw">new</span> OrderService(testDb).placeOrder(199);
+console.log(<span class="str">'test db captured:'</span>, testDb.orders);
+
+<span class="cmt">// OrderService ka code EK baar bhi nahi badla DB switch karne ke liye. Dono (high-level</span>
+<span class="cmt">// OrderService, low-level *Database classes) ab ek "abstraction" (save(order) contract) pe</span>
+<span class="cmt">// depend karte hain, ek doosre pe nahi. Yehi Dependency Inversion hai.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — NotificationService ko DIP-compliant banao.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- violation (isse refactor karna hai) -----</span>
+<span class="kw">class</span> EmailSender {
+  send(to, msg) { console.log(<span class="str">`📧 emailing ${to}: ${msg}`</span>); }
+}
+<span class="kw">class</span> NotificationService {
+  <span class="kw">constructor</span>() {
+    <span class="kw">this</span>.sender = <span class="kw">new</span> EmailSender(); <span class="cmt">// hardcoded — sirf email kabhi bhi hardcode ho gaya</span>
+  }
+  notify(to, msg) { <span class="kw">this</span>.sender.send(to, msg); }
+}
+
+<span class="kw">new</span> NotificationService().notify(<span class="str">'alice@example.com'</span>, <span class="str">'Your order shipped'</span>);
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: change NotificationService's constructor to accept a `sender` parameter instead of</span>
+<span class="cmt">//         hardcoding `new EmailSender()`.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: write an `SmsSender` class with the same `send(to, msg)` contract, and show</span>
+<span class="cmt">//         NotificationService working with BOTH EmailSender and SmsSender without any change</span>
+<span class="cmt">//         to NotificationService itself.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): write a `FakeSender` (captures messages in an array instead of really</span>
+<span class="cmt">//         sending) and show how it would let you unit-test NotificationService.notify()</span>
+<span class="cmt">//         without actually sending an email or SMS — assert the fake captured the right</span>
+<span class="cmt">//         message.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="part-divider">
+<div class="part-kicker">Part III — LLD Practice</div>
+<h1>LLD Practice — Machine Coding Interview Problems</h1>
+<p>The 23 lessons one level up teach you the *vocabulary* (Strategy, State, Decorator...). This</p>
+<p>folder is where that vocabulary gets used for real: classic "design X" machine-coding</p>
+<p>questions, each solved with the smallest set of patterns that actually earns its keep — not</p>
+<p>pattern soup.</p>
+<h2>How to use this module</h2>
+<ol>
+<li>Open a problem's <code>README.md</code> — read ONLY the Functional Requirements section first.</li>
+<li>Before looking at <code>design.js</code>, spend 10–15 minutes sketching your own classes on paper — this is what the actual interview feels like.</li>
+<li>Compare against <code>design.js</code>, run it (<code>node design.js</code>), then read "What an interviewer is watching for" — that's the part most people skip and it's the highest-signal section.</li>
+<li>Do <code>exercise.js</code> — extending a design cleanly is what actually proves you understand *why* the pattern was chosen, not just that you can name it.</li>
+</ol>
+<h2>Problems</h2>
+<table><thead><tr><th>#</th><th>Problem</th><th>Core pattern(s)</th><th>Also asked at</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="01-parking-lot/">Parking Lot</a></td><td>Singleton, Strategy</td><td>Amazon, Uber, Ola</td></tr>
+<tr><td>2</td><td><a href="02-splitwise/">Splitwise</a></td><td>Strategy, Facade</td><td>Uber, Flipkart, Swiggy</td></tr>
+<tr><td>3</td><td><a href="03-elevator-system/">Elevator System</a></td><td>State</td><td>Google, Microsoft, Amazon</td></tr>
+<tr><td>4</td><td><a href="04-rate-limiter/">Rate Limiter</a></td><td>Strategy</td><td>Stripe, Uber, API platforms</td></tr>
+<tr><td>5</td><td><a href="05-movie-ticket-booking/">Movie Ticket Booking</a></td><td>State, Facade</td><td>Amazon, BookMyShow</td></tr>
+<tr><td>6</td><td><a href="06-notification-service/">Notification Service</a></td><td>Factory, Decorator</td><td>Uber, Swiggy, fintechs</td></tr>
+</tbody></table>
+<h2>The habit that actually matters</h2>
+<p>Every <code>design.js</code> in this folder was written the "wrong way round" on purpose — read the</p>
+<p>naive instinct in each README's requirements, then notice how few patterns were actually</p>
+<p>needed. Real interviews penalize pattern-stuffing as much as no-pattern spaghetti. The</p>
+<p>question is never "which patterns do I know" — it's "what in THIS design might change, and</p>
+<p>what's the cheapest way to isolate that change."</p>
+</section>
+<section class="chapter" id="ch-lld-practice-01-parking-lot">
+<div class="chapter-kicker">LLD Practice</div>
+<h1 class="chapter-title">29. Parking Lot System</h1>
+<p>Asked at: Amazon, Uber, Ola, most product companies (extremely common opener).</p>
+<h2>Functional Requirements</h2>
+<ul>
+<li>Multiple vehicle types: motorcycle, car, truck (each needs a spot of matching-or-larger size)</li>
+<li>Multiple levels, each with a fixed set of spots</li>
+<li>Park a vehicle → find an available, correctly-sized spot → issue a ticket</li>
+<li>Unpark a vehicle → free the spot → calculate the fee based on duration and vehicle type</li>
+</ul>
+<h2>Patterns used (and why)</h2>
+<ul>
+<li><strong>Singleton</strong> — a physical building has exactly one <code>ParkingLot</code>. No reason two instances should ever disagree about which spots are free.</li>
+<li><strong>Strategy</strong> — fee calculation differs per vehicle type. Kept as a swappable registry so a pricing change never touches <code>ParkingLot</code>.</li>
+<li><strong>Composite-ish containment</strong> — <code>ParkingLot → Level → ParkingSpot</code> is a simple hierarchy; not full Composite (Lesson 11) since spots and levels don't share one interface, but the same "contain and delegate" instinct applies.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node design.js      # the full working design + a runnable demo
+node exercise.js     # 🎯 extend it — add a vehicle type + a decorator-based discount</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you ask clarifying questions first (how many levels? can a bigger spot hold a smaller vehicle? is pricing flat or per-hour?) before writing a class?</li>
+<li>Do you separate "what can vary" (pricing, spot allocation) from "what's structural" (ParkingLot/Level/Spot)? That separation is exactly what Strategy buys you.</li>
+<li>Can you extend the design live (new vehicle type, new pricing rule) without a rewrite? That's the actual exercise below.</li>
+</ol>
+<h4 class="filename">✅ design.js — the full design</h4>
+<pre class="code"><code><span class="cmt">// 🅿️ PARKING LOT SYSTEM — classic LLD interview question</span>
+<span class="cmt">// Chalao:  node design.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for functional requirements and which patterns are used.</span>
+
+<span class="kw">const</span> SIZE = { MOTORCYCLE: 1, CAR: 2, TRUCK: 3 };
+
+<span class="kw">class</span> Vehicle {
+  <span class="kw">constructor</span>(licensePlate, type) {
+    <span class="kw">this</span>.licensePlate = licensePlate;
+    <span class="kw">this</span>.type = type; <span class="cmt">// 'motorcycle' | 'car' | 'truck'</span>
+    <span class="kw">this</span>.size = SIZE[type.toUpperCase()];
+  }
+}
+
+<span class="kw">class</span> ParkingSpot {
+  <span class="kw">constructor</span>(id, size) {
+    <span class="kw">this</span>.id = id;
+    <span class="kw">this</span>.size = size; <span class="cmt">// a spot fits vehicles of this size OR SMALLER (a car can use a truck spot)</span>
+    <span class="kw">this</span>.vehicle = <span class="kw">null</span>;
+  }
+  isAvailable() { <span class="kw">return</span> <span class="kw">this</span>.vehicle === <span class="kw">null</span>; }
+  canFit(vehicle) { <span class="kw">return</span> <span class="kw">this</span>.isAvailable() &amp;&amp; vehicle.size &lt;= <span class="kw">this</span>.size; }
+  park(vehicle) { <span class="kw">this</span>.vehicle = vehicle; }
+  remove() { <span class="kw">const</span> v = <span class="kw">this</span>.vehicle; <span class="kw">this</span>.vehicle = <span class="kw">null</span>; <span class="kw">return</span> v; }
+}
+
+<span class="kw">class</span> Level {
+  <span class="kw">constructor</span>(levelNumber, spots) {
+    <span class="kw">this</span>.levelNumber = levelNumber;
+    <span class="kw">this</span>.spots = spots;
+  }
+  findSpotFor(vehicle) {
+    <span class="kw">return</span> <span class="kw">this</span>.spots.find((s) =&gt; s.canFit(vehicle)) ?? <span class="kw">null</span>;
+  }
+}
+
+<span class="kw">class</span> Ticket {
+  <span class="kw">constructor</span>(vehicle, spot) {
+    <span class="kw">this</span>.vehicle = vehicle;
+    <span class="kw">this</span>.spot = spot;
+    <span class="kw">this</span>.entryTime = Date.now();
+  }
+}
+
+<span class="cmt">// ---- Strategy: pricing per vehicle type, per hour ----</span>
+<span class="kw">const</span> pricingStrategies = {
+  motorcycle: (hours) =&gt; hours * 10,
+  car: (hours) =&gt; hours * 20,
+  truck: (hours) =&gt; hours * 35,
+};
+
+<span class="cmt">// ---- Singleton: the parking lot itself ----</span>
+<span class="kw">class</span> ParkingLot {
+  <span class="kw">static</span> #instance;
+  <span class="kw">constructor</span>() {
+    <span class="kw">if</span> (ParkingLot.#instance) <span class="kw">return</span> ParkingLot.#instance;
+    <span class="kw">this</span>.levels = [];
+    <span class="kw">this</span>.activeTickets = <span class="kw">new</span> Map(); <span class="cmt">// licensePlate -&gt; Ticket</span>
+    ParkingLot.#instance = <span class="kw">this</span>;
+  }
+  <span class="kw">static</span> getInstance() { <span class="kw">return</span> ParkingLot.#instance ?? <span class="kw">new</span> ParkingLot(); }
+
+  addLevel(level) { <span class="kw">this</span>.levels.push(level); }
+
+  parkVehicle(vehicle) {
+    <span class="kw">for</span> (<span class="kw">const</span> level <span class="kw">of</span> <span class="kw">this</span>.levels) {
+      <span class="kw">const</span> spot = level.findSpotFor(vehicle);
+      <span class="kw">if</span> (spot) {
+        spot.park(vehicle);
+        <span class="kw">const</span> ticket = <span class="kw">new</span> Ticket(vehicle, spot);
+        <span class="kw">this</span>.activeTickets.<span class="kw">set</span>(vehicle.licensePlate, ticket);
+        console.log(<span class="str">`✅ Parked ${vehicle.type} [${vehicle.licensePlate}] at Level ${level.levelNumber}, Spot ${spot.id}`</span>);
+        <span class="kw">return</span> ticket;
+      }
+    }
+    console.log(<span class="str">`❌ Parking lot full — no spot for ${vehicle.type} [${vehicle.licensePlate}]`</span>);
+    <span class="kw">return</span> <span class="kw">null</span>;
+  }
+
+  unparkVehicle(licensePlate) {
+    <span class="kw">const</span> ticket = <span class="kw">this</span>.activeTickets.<span class="kw">get</span>(licensePlate);
+    <span class="kw">if</span> (!ticket) { console.log(<span class="str">`❌ No active ticket for ${licensePlate}`</span>); <span class="kw">return</span>; }
+    <span class="kw">const</span> hours = Math.max(1, (Date.now() - ticket.entryTime) / 3600000);
+    <span class="kw">const</span> fee = pricingStrategies[ticket.vehicle.type](hours);
+    ticket.spot.remove();
+    <span class="kw">this</span>.activeTickets.delete(licensePlate);
+    console.log(<span class="str">`🚗 Unparked ${licensePlate} — fee: ₹${fee.toFixed(2)}`</span>);
+    <span class="kw">return</span> fee;
+  }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> lot = ParkingLot.getInstance();
+lot.addLevel(<span class="kw">new</span> Level(1, [
+  <span class="kw">new</span> ParkingSpot(<span class="str">'L1-S1'</span>, SIZE.MOTORCYCLE),
+  <span class="kw">new</span> ParkingSpot(<span class="str">'L1-S2'</span>, SIZE.CAR),
+  <span class="kw">new</span> ParkingSpot(<span class="str">'L1-S3'</span>, SIZE.TRUCK),
+]));
+
+<span class="kw">const</span> bike = <span class="kw">new</span> Vehicle(<span class="str">'MH12AB1234'</span>, <span class="str">'motorcycle'</span>);
+<span class="kw">const</span> car = <span class="kw">new</span> Vehicle(<span class="str">'MH12CD5678'</span>, <span class="str">'car'</span>);
+<span class="kw">const</span> truck = <span class="kw">new</span> Vehicle(<span class="str">'MH12EF9999'</span>, <span class="str">'truck'</span>);
+
+lot.parkVehicle(bike);
+lot.parkVehicle(car);
+lot.parkVehicle(truck);
+lot.parkVehicle(<span class="kw">new</span> Vehicle(<span class="str">'MH12ZZ0000'</span>, <span class="str">'car'</span>)); <span class="cmt">// no spot left that fits -&gt; rejected</span>
+
+lot.unparkVehicle(<span class="str">'MH12AB1234'</span>);
+lot.unparkVehicle(<span class="str">'MH12CD5678'</span>);
+
+console.log(<span class="str">'same singleton instance?'</span>, ParkingLot.getInstance() === lot);
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the parking lot design without rewriting it.</span>
+<span class="cmt">// Copy design.js above this comment (or just edit design.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: Add a 'van' vehicle type — size between car and truck — to the SIZE map and add a</span>
+<span class="cmt">//         matching entry to pricingStrategies. Confirm you did NOT have to touch ParkingLot,</span>
+<span class="cmt">//         Level, or ParkingSpot — only the two registries. That's Open/Closed in action.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: Add an "EV discount" — give Vehicle an `isEV` flag, and make EVs get 20% off</span>
+<span class="cmt">//         whatever pricing strategy applies. Hint: this is the Decorator pattern (Lesson 12)</span>
+<span class="cmt">//         applied to a Strategy FUNCTION instead of an object — write a</span>
+<span class="cmt">//         `withEvDiscount(pricingFn)` wrapper instead of editing each strategy.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): today, if two vehicles try to park in the exact same millisecond, both could</span>
+<span class="cmt">//         call findSpotFor() before either calls park(), and both might get told the same spot</span>
+<span class="cmt">//         is free. Where would a real (multi-request, concurrent) system need a lock or</span>
+<span class="cmt">//         transaction that this single-threaded demo doesn't need? You don't need to implement</span>
+<span class="cmt">//         it — just identify the exact race window in the code.</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-lld-practice-02-splitwise">
+<div class="chapter-kicker">LLD Practice</div>
+<h1 class="chapter-title">30. Splitwise (Expense Sharing)</h1>
+<p>Asked at: Uber, Flipkart, Swiggy, and any company that wants to see you handle a non-trivial</p>
+<p>data model (not just objects — actual running balances).</p>
+<h2>Functional Requirements</h2>
+<ul>
+<li>Add users to a group</li>
+<li>Add an expense paid by one user, split among others: <strong>equal</strong>, <strong>exact amounts</strong>, or <strong>percentage</strong></li>
+<li>Track running balances: who owes whom, and how much</li>
+<li>Query the balance between any two users</li>
+</ul>
+<h2>Patterns used (and why)</h2>
+<ul>
+<li><strong>Strategy</strong> — the split calculation (<code>equal</code> / <code>exact</code> / <code>percent</code>) is the one piece that genuinely varies. Kept as a registry so a new split type never touches the ledger.</li>
+<li><strong>Facade</strong> — <code>ExpenseManager</code> is the one entry point callers use; it hides the interaction between split strategies and the <code>Ledger</code>.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node design.js      # the full working design + a runnable demo
+node exercise.js     # 🎯 extend it — settlements + an Observer hook</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you net balances (if A owes B ₹50 and B owes A ₹20, the ledger should just say "A owes B ₹30"), or do you let debts pile up unnormalized? The <code>Ledger.addDebt</code> method here nets them — that's usually the detail that separates a strong answer from a mediocre one.</li>
+<li>Do you validate <code>exact</code>/<code>percent</code> splits sum to the right total, or silently accept garbage?</li>
+<li>Can you add a 4th split type (e.g. "by shares", like 2 shares vs 1 share) without touching <code>Ledger</code> or <code>ExpenseManager</code>?</li>
+</ol>
+<h4 class="filename">✅ design.js — the full design</h4>
+<pre class="code"><code><span class="cmt">// 💰 SPLITWISE-LITE — expense sharing system, classic LLD question</span>
+<span class="cmt">// Chalao:  node design.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for functional requirements and which patterns are used.</span>
+
+<span class="kw">class</span> User {
+  <span class="kw">constructor</span>(id, name) { <span class="kw">this</span>.id = id; <span class="kw">this</span>.name = name; }
+}
+
+<span class="cmt">// ---- Strategy: how to split an expense among participants ----</span>
+<span class="kw">const</span> splitStrategies = {
+  equal: (amount, users) =&gt; {
+    <span class="kw">const</span> share = amount / users.length;
+    <span class="kw">return</span> users.map((u) =&gt; ({ user: u, amount: share }));
+  },
+  exact: (amount, users, extra) =&gt; {
+    <span class="kw">const</span> total = extra.amounts.reduce((a, b) =&gt; a + b, 0);
+    <span class="kw">if</span> (Math.abs(total - amount) &gt; 0.01) <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'exact amounts must sum to total'</span>);
+    <span class="kw">return</span> users.map((u, i) =&gt; ({ user: u, amount: extra.amounts[i] }));
+  },
+  percent: (amount, users, extra) =&gt; {
+    <span class="kw">const</span> total = extra.percents.reduce((a, b) =&gt; a + b, 0);
+    <span class="kw">if</span> (Math.abs(total - 100) &gt; 0.01) <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'percents must sum to 100'</span>);
+    <span class="kw">return</span> users.map((u, i) =&gt; ({ user: u, amount: (amount * extra.percents[i]) / 100 }));
+  },
+};
+
+<span class="cmt">// ---- Ledger: tracks NET pairwise balances (never lets both directions grow at once) ----</span>
+<span class="kw">class</span> Ledger {
+  #balances = <span class="kw">new</span> Map(); <span class="cmt">// key `${owesId}-&gt;${owedToId}` = amount owed</span>
+
+  #key(a, b) { <span class="kw">return</span> <span class="str">`${a}-&gt;${b}`</span>; }
+
+  addDebt(owesId, owedToId, amount) {
+    <span class="kw">if</span> (owesId === owedToId || amount === 0) <span class="kw">return</span>;
+    <span class="kw">const</span> opposite = <span class="kw">this</span>.#balances.<span class="kw">get</span>(<span class="kw">this</span>.#key(owedToId, owesId)) ?? 0;
+    <span class="kw">if</span> (opposite &gt;= amount) {
+      <span class="kw">this</span>.#balances.<span class="kw">set</span>(<span class="kw">this</span>.#key(owedToId, owesId), opposite - amount);
+    } <span class="kw">else</span> {
+      <span class="kw">this</span>.#balances.delete(<span class="kw">this</span>.#key(owedToId, owesId));
+      <span class="kw">const</span> existing = <span class="kw">this</span>.#balances.<span class="kw">get</span>(<span class="kw">this</span>.#key(owesId, owedToId)) ?? 0;
+      <span class="kw">this</span>.#balances.<span class="kw">set</span>(<span class="kw">this</span>.#key(owesId, owedToId), existing + (amount - opposite));
+    }
+  }
+
+  getBalance(aId, bId) {
+    <span class="kw">const</span> aOwesB = <span class="kw">this</span>.#balances.<span class="kw">get</span>(<span class="kw">this</span>.#key(aId, bId)) ?? 0;
+    <span class="kw">const</span> bOwesA = <span class="kw">this</span>.#balances.<span class="kw">get</span>(<span class="kw">this</span>.#key(bId, aId)) ?? 0;
+    <span class="kw">return</span> aOwesB - bOwesA; <span class="cmt">// positive =&gt; a owes b</span>
+  }
+
+  printAll(users) {
+    <span class="kw">for</span> (<span class="kw">const</span> [key, amount] <span class="kw">of</span> <span class="kw">this</span>.#balances) {
+      <span class="kw">if</span> (amount &lt;= 0.001) continue;
+      <span class="kw">const</span> [owesId, owedToId] = key.split(<span class="str">'-&gt;'</span>);
+      <span class="kw">const</span> owes = users.find((u) =&gt; u.id === owesId);
+      <span class="kw">const</span> owedTo = users.find((u) =&gt; u.id === owedToId);
+      console.log(<span class="str">`  ${owes.name} owes ${owedTo.name}: ₹${amount.toFixed(2)}`</span>);
+    }
+  }
+}
+
+<span class="cmt">// ---- Facade over split strategies + Ledger ----</span>
+<span class="kw">class</span> ExpenseManager {
+  <span class="kw">constructor</span>(users) { <span class="kw">this</span>.users = users; <span class="kw">this</span>.ledger = <span class="kw">new</span> Ledger(); }
+
+  addExpense(paidBy, amount, splitType, participants, extra = {}) {
+    <span class="kw">const</span> splits = splitStrategies[splitType](amount, participants, extra);
+    <span class="kw">for</span> (<span class="kw">const</span> { user, amount: share } <span class="kw">of</span> splits) {
+      <span class="kw">if</span> (user.id === paidBy.id) continue;
+      <span class="kw">this</span>.ledger.addDebt(user.id, paidBy.id, share);
+    }
+    console.log(<span class="str">`✅ ${paidBy.name} paid ₹${amount} (${splitType} split among ${participants.length})`</span>);
+  }
+
+  balanceBetween(a, b) {
+    <span class="kw">const</span> bal = <span class="kw">this</span>.ledger.getBalance(a.id, b.id);
+    <span class="kw">if</span> (bal === 0) { console.log(<span class="str">`${a.name} and ${b.name} are settled up`</span>); <span class="kw">return</span>; }
+    console.log(bal &gt; 0 ? <span class="str">`${a.name} owes ${b.name} ₹${bal.toFixed(2)}`</span> : <span class="str">`${b.name} owes ${a.name} ₹${(-bal).toFixed(2)}`</span>);
+  }
+
+  printBalances() {
+    console.log(<span class="str">'-- balances --'</span>);
+    <span class="kw">this</span>.ledger.printAll(<span class="kw">this</span>.users);
+  }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> alice = <span class="kw">new</span> User(<span class="str">'u1'</span>, <span class="str">'Alice'</span>);
+<span class="kw">const</span> bob = <span class="kw">new</span> User(<span class="str">'u2'</span>, <span class="str">'Bob'</span>);
+<span class="kw">const</span> carol = <span class="kw">new</span> User(<span class="str">'u3'</span>, <span class="str">'Carol'</span>);
+<span class="kw">const</span> manager = <span class="kw">new</span> ExpenseManager([alice, bob, carol]);
+
+manager.addExpense(alice, 300, <span class="str">'equal'</span>, [alice, bob, carol]);
+manager.addExpense(bob, 100, <span class="str">'exact'</span>, [alice, bob], { amounts: [60, 40] });
+manager.addExpense(carol, 500, <span class="str">'percent'</span>, [alice, carol], { percents: [30, 70] });
+
+manager.printBalances();
+manager.balanceBetween(alice, bob);
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the Splitwise design without rewriting it.</span>
+<span class="cmt">// Copy design.js above this comment (or just edit design.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: Add a `settle(a, b)` method to ExpenseManager that ACTUALLY clears the balance</span>
+<span class="cmt">//         between two users (not just prints it) — it should call `ledger.addDebt()` with</span>
+<span class="cmt">//         whatever amount zeroes out the current balance, then log a "settled up" message.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: Add a 4th split type: 'shares' — participants split by relative shares instead of</span>
+<span class="cmt">//         equal/exact/percent (e.g. Alice=2 shares, Bob=1 share means Alice pays 2/3, Bob 1/3).</span>
+<span class="cmt">//         Add it to splitStrategies ONLY — confirm ExpenseManager needs zero changes.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): if you wanted every participant to get notified (console.log a message to</span>
+<span class="cmt">//         them) whenever a new expense involving them is added, which pattern from the main</span>
+<span class="cmt">//         course would you reach for, and where exactly would you hook it in? (You don't have</span>
+<span class="cmt">//         to implement it — name the pattern and the hook point.)</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-lld-practice-03-elevator-system">
+<div class="chapter-kicker">LLD Practice</div>
+<h1 class="chapter-title">31. Elevator System</h1>
+<p>Asked at: Google, Microsoft, Amazon — a favorite because it's a real state machine, not just</p>
+<p>a bag of objects.</p>
+<h2>Functional Requirements</h2>
+<ul>
+<li>An elevator is Idle, Moving Up, Moving Down, or Doors Open at any moment</li>
+<li>External requests (someone presses a floor button) get queued</li>
+<li>The elevator processes requests one floor-step at a time, stopping when it reaches a requested floor</li>
+</ul>
+<h2>Patterns used (and why)</h2>
+<ul>
+<li><strong>State</strong> — this is the textbook State pattern use case. What <code>step()</code> and <code>onRequest()</code> do depends ENTIRELY on the elevator's current state. No <code>if (this.status === 'idle')</code> anywhere.</li>
+<li>(implicit) <strong>Strategy</strong> — "which floor to service next" is scheduling logic that could be swapped independently of the state machine itself (see the exercise).</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node design.js      # the full working design + a runnable demo (single elevator)
+node exercise.js     # 🎯 extend it — multiple elevators + a dispatch strategy</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you model states as OBJECTS (like here) instead of a string + switch statement? A string <code>status</code> field with <code>if/else</code> everywhere is exactly the naive version Lesson 20 warns about.</li>
+<li>Do transitions live inside the states themselves, not in the Elevator class?</li>
+<li>Can you add multiple elevators + a dispatch algorithm without touching the state objects?</li>
+</ol>
+<h4 class="filename">✅ design.js — the full design</h4>
+<pre class="code"><code><span class="cmt">// 🛗 ELEVATOR SYSTEM — classic LLD question, State pattern in action</span>
+<span class="cmt">// Chalao:  node design.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for functional requirements and which patterns are used.</span>
+
+<span class="kw">class</span> Elevator {
+  <span class="kw">constructor</span>(id) {
+    <span class="kw">this</span>.id = id;
+    <span class="kw">this</span>.currentFloor = 0;
+    <span class="kw">this</span>.requests = <span class="kw">new</span> Set(); <span class="cmt">// floors we still need to stop at</span>
+    <span class="kw">this</span>.state = idleState;
+  }
+  setState(state) {
+    console.log(<span class="str">`  elevator ${this.id}: ${this.state.name} -&gt; ${state.name}`</span>);
+    <span class="kw">this</span>.state = state;
+  }
+  requestFloor(floor) {
+    <span class="kw">this</span>.requests.add(floor);
+    <span class="kw">this</span>.state.onRequest(<span class="kw">this</span>);
+  }
+  step() { <span class="kw">this</span>.state.step(<span class="kw">this</span>); }
+}
+
+<span class="kw">const</span> idleState = {
+  name: <span class="str">'IDLE'</span>,
+  onRequest(elevator) {
+    <span class="kw">if</span> (elevator.requests.size === 0) <span class="kw">return</span>;
+    <span class="kw">const</span> target = [...elevator.requests][0];
+    <span class="kw">if</span> (target &gt; elevator.currentFloor) elevator.setState(movingUpState);
+    <span class="kw">else</span> <span class="kw">if</span> (target &lt; elevator.currentFloor) elevator.setState(movingDownState);
+    <span class="kw">else</span> elevator.setState(doorsOpenState);
+  },
+  step() {},
+};
+
+<span class="kw">const</span> movingUpState = {
+  name: <span class="str">'MOVING_UP'</span>,
+  onRequest() {}, <span class="cmt">// already moving — new requests just sit in the set until we pass them</span>
+  step(elevator) {
+    elevator.currentFloor++;
+    console.log(<span class="str">`  elevator ${elevator.id} passing floor ${elevator.currentFloor}`</span>);
+    <span class="kw">if</span> (elevator.requests.has(elevator.currentFloor)) {
+      elevator.requests.delete(elevator.currentFloor);
+      elevator.setState(doorsOpenState);
+    }
+  },
+};
+
+<span class="kw">const</span> movingDownState = {
+  name: <span class="str">'MOVING_DOWN'</span>,
+  onRequest() {},
+  step(elevator) {
+    elevator.currentFloor--;
+    console.log(<span class="str">`  elevator ${elevator.id} passing floor ${elevator.currentFloor}`</span>);
+    <span class="kw">if</span> (elevator.requests.has(elevator.currentFloor)) {
+      elevator.requests.delete(elevator.currentFloor);
+      elevator.setState(doorsOpenState);
+    }
+  },
+};
+
+<span class="kw">const</span> doorsOpenState = {
+  name: <span class="str">'DOORS_OPEN'</span>,
+  onRequest() {},
+  step(elevator) {
+    console.log(<span class="str">`  elevator ${elevator.id} doors closing at floor ${elevator.currentFloor}`</span>);
+    elevator.setState(idleState);
+    elevator.state.onRequest(elevator); <span class="cmt">// immediately re-evaluate: anything else pending?</span>
+  },
+};
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> elevator = <span class="kw">new</span> Elevator(<span class="str">'E1'</span>);
+elevator.requestFloor(3);
+elevator.requestFloor(5);
+
+<span class="kw">let</span> ticks = 0;
+<span class="kw">while</span> ((elevator.requests.size &gt; 0 || elevator.state !== idleState) &amp;&amp; ticks &lt; 20) {
+  elevator.step();
+  ticks++;
+}
+console.log(<span class="str">`done in ${ticks} steps, resting at floor ${elevator.currentFloor}`</span>);
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the elevator design without touching the state objects.</span>
+<span class="cmt">// Copy design.js above this comment (or just edit design.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: Build an `ElevatorSystem` class that holds multiple Elevator instances and a</span>
+<span class="cmt">//         `dispatch(floor)` method — it should pick the IDLE elevator whose currentFloor is</span>
+<span class="cmt">//         closest to the requested floor (fall back to any elevator if none are idle), then</span>
+<span class="cmt">//         call `.requestFloor(floor)` on it. You should NOT need to change idleState,</span>
+<span class="cmt">//         movingUpState, movingDownState, or doorsOpenState at all.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: Add a MAINTENANCE state — an elevator in this state ignores all requests and</span>
+<span class="cmt">//         doesn't move. Add a `setMaintenanceMode(elevator, on)` helper that transitions in</span>
+<span class="cmt">//         and out of it. What has to happen to `elevator.requests` when maintenance mode ends?</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): the current design services requests in the order they were queued</span>
+<span class="cmt">//         ([...requests][0]), not by "elevator's current direction" (the real SCAN/elevator</span>
+<span class="cmt">//         algorithm). Sketch — in a comment, no need to fully implement — how you'd change</span>
+<span class="cmt">//         `idleState.onRequest` to pick the nearest request in the current direction instead.</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-lld-practice-04-rate-limiter">
+<div class="chapter-kicker">LLD Practice</div>
+<h1 class="chapter-title">32. Rate Limiter</h1>
+<p>Asked at: Uber, Stripe, most API-platform companies — often phrased as "design an API rate</p>
+<p>limiter" in a system-design round, but the algorithm core is pure LLD/Strategy.</p>
+<h2>Functional Requirements</h2>
+<ul>
+<li>Limit how many requests a client can make within a time window</li>
+<li>Support multiple algorithms interchangeably: fixed window, sliding window log, token bucket</li>
+</ul>
+<h2>Patterns used (and why)</h2>
+<ul>
+<li><strong>Strategy</strong> — each algorithm is a self-contained object with the same <code>allow(clientId)</code> contract. <code>RateLimiter</code> (the context) never knows which one is plugged in.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node design.js      # three algorithms implemented + a runnable demo of each
+node exercise.js     # 🎯 extend it — a 4th algorithm + per-client overrides</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know the tradeoffs between algorithms? Fixed window is simple but allows a burst of 2x the limit right at the window boundary. Sliding window log is accurate but memory-heavy (stores every timestamp). Token bucket allows controlled bursts and is what most real systems (AWS, Stripe) actually use.</li>
+<li>Is the algorithm truly swappable — same <code>allow()</code> contract, zero <code>if (algo === 'x')</code> in the caller?</li>
+<li>Do you reason about per-client state (a <code>Map</code> keyed by clientId) vs. one global counter?</li>
+</ol>
+<h4 class="filename">✅ design.js — the full design</h4>
+<pre class="code"><code><span class="cmt">// 🚦 RATE LIMITER — classic system-design/LLD question, Strategy pattern</span>
+<span class="cmt">// Chalao:  node design.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for functional requirements, algorithms, and their tradeoffs.</span>
+
+<span class="kw">class</span> FixedWindowStrategy {
+  <span class="kw">constructor</span>(limit, windowMs) { <span class="kw">this</span>.limit = limit; <span class="kw">this</span>.windowMs = windowMs; <span class="kw">this</span>.counters = <span class="kw">new</span> Map(); }
+  allow(clientId) {
+    <span class="kw">const</span> now = Date.now();
+    <span class="kw">const</span> entry = <span class="kw">this</span>.counters.<span class="kw">get</span>(clientId);
+    <span class="kw">if</span> (!entry || now - entry.windowStart &gt;= <span class="kw">this</span>.windowMs) {
+      <span class="kw">this</span>.counters.<span class="kw">set</span>(clientId, { windowStart: now, count: 1 });
+      <span class="kw">return</span> <span class="kw">true</span>;
+    }
+    <span class="kw">if</span> (entry.count &lt; <span class="kw">this</span>.limit) { entry.count++; <span class="kw">return</span> <span class="kw">true</span>; }
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+}
+
+<span class="kw">class</span> SlidingWindowLogStrategy {
+  <span class="kw">constructor</span>(limit, windowMs) { <span class="kw">this</span>.limit = limit; <span class="kw">this</span>.windowMs = windowMs; <span class="kw">this</span>.log = <span class="kw">new</span> Map(); }
+  allow(clientId) {
+    <span class="kw">const</span> now = Date.now();
+    <span class="kw">const</span> timestamps = (<span class="kw">this</span>.log.<span class="kw">get</span>(clientId) ?? []).filter((t) =&gt; now - t &lt; <span class="kw">this</span>.windowMs);
+    <span class="kw">if</span> (timestamps.length &lt; <span class="kw">this</span>.limit) {
+      timestamps.push(now);
+      <span class="kw">this</span>.log.<span class="kw">set</span>(clientId, timestamps);
+      <span class="kw">return</span> <span class="kw">true</span>;
+    }
+    <span class="kw">this</span>.log.<span class="kw">set</span>(clientId, timestamps);
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+}
+
+<span class="kw">class</span> TokenBucketStrategy {
+  <span class="kw">constructor</span>(capacity, refillPerSec) { <span class="kw">this</span>.capacity = capacity; <span class="kw">this</span>.refillPerSec = refillPerSec; <span class="kw">this</span>.buckets = <span class="kw">new</span> Map(); }
+  allow(clientId) {
+    <span class="kw">const</span> now = Date.now();
+    <span class="kw">const</span> bucket = <span class="kw">this</span>.buckets.<span class="kw">get</span>(clientId) ?? { tokens: <span class="kw">this</span>.capacity, last: now };
+    <span class="kw">const</span> elapsedSec = (now - bucket.last) / 1000;
+    bucket.tokens = Math.min(<span class="kw">this</span>.capacity, bucket.tokens + elapsedSec * <span class="kw">this</span>.refillPerSec);
+    bucket.last = now;
+    <span class="kw">if</span> (bucket.tokens &gt;= 1) { bucket.tokens -= 1; <span class="kw">this</span>.buckets.<span class="kw">set</span>(clientId, bucket); <span class="kw">return</span> <span class="kw">true</span>; }
+    <span class="kw">this</span>.buckets.<span class="kw">set</span>(clientId, bucket);
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+}
+
+<span class="cmt">// ---- Context: doesn't know or care which algorithm is plugged in ----</span>
+<span class="kw">class</span> RateLimiter {
+  <span class="kw">constructor</span>(strategy) { <span class="kw">this</span>.strategy = strategy; }
+  setStrategy(strategy) { <span class="kw">this</span>.strategy = strategy; }
+  allowRequest(clientId) { <span class="kw">return</span> <span class="kw">this</span>.strategy.allow(clientId); }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> limiter = <span class="kw">new</span> RateLimiter(<span class="kw">new</span> FixedWindowStrategy(3, 1000)); <span class="cmt">// 3 req/sec</span>
+console.log(<span class="str">'-- fixed window (3/sec) --'</span>);
+<span class="kw">for</span> (<span class="kw">let</span> i = 1; i &lt;= 5; i++) {
+  console.log(<span class="str">`req ${i}:`</span>, limiter.allowRequest(<span class="str">'user-1'</span>) ? <span class="str">'✅ allowed'</span> : <span class="str">'❌ blocked'</span>);
+}
+
+limiter.setStrategy(<span class="kw">new</span> TokenBucketStrategy(3, 1)); <span class="cmt">// capacity 3, refill 1/sec</span>
+console.log(<span class="str">'-- token bucket (capacity 3, refill 1/sec) --'</span>);
+<span class="kw">for</span> (<span class="kw">let</span> i = 1; i &lt;= 5; i++) {
+  console.log(<span class="str">`req ${i}:`</span>, limiter.allowRequest(<span class="str">'user-2'</span>) ? <span class="str">'✅ allowed'</span> : <span class="str">'❌ blocked'</span>);
+}
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the rate limiter design without touching RateLimiter itself.</span>
+<span class="cmt">// Copy design.js above this comment (or just edit design.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: Implement a 4th strategy — SlidingWindowCounterStrategy — the hybrid approach real</span>
+<span class="cmt">//         systems favor: it splits time into fixed buckets (like FixedWindowStrategy) but</span>
+<span class="cmt">//         weights the previous bucket's count by how far into the current bucket we are,</span>
+<span class="cmt">//         approximating a true sliding window without storing every timestamp. Same `allow()`</span>
+<span class="cmt">//         contract as the others.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: Add per-client overrides — some clients (e.g. paid tier) should get a higher limit</span>
+<span class="cmt">//         than the default. Do this WITHOUT adding an `if (clientId === ...)` inside any</span>
+<span class="cmt">//         strategy — think about where a "limit lookup" belongs instead (hint: it's still the</span>
+<span class="cmt">//         strategy's job, just parameterized differently per client at construction time, or</span>
+<span class="cmt">//         via a small wrapper/decorator around any strategy).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): which of the three original strategies would you pick for a public API that</span>
+<span class="cmt">//         must run across multiple servers (not just one process)? What breaks about storing</span>
+<span class="cmt">//         `Map`s in memory once you have more than one server instance?</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-lld-practice-05-movie-ticket-booking">
+<div class="chapter-kicker">LLD Practice</div>
+<h1 class="chapter-title">33. Movie Ticket Booking (BookMyShow-lite)</h1>
+<p>Asked at: Amazon, BookMyShow, most consumer-app companies — good for testing whether you</p>
+<p>handle CONCURRENCY-shaped problems (double booking) even in a single-threaded demo.</p>
+<h2>Functional Requirements</h2>
+<ul>
+<li>A show has a fixed set of seats</li>
+<li>A user selects seats → they get <strong>locked</strong> (held) for a short time</li>
+<li>User confirms payment → seats become <strong>booked</strong></li>
+<li>Locking is all-or-nothing: if any requested seat can't be locked, none are</li>
+</ul>
+<h2>Patterns used (and why)</h2>
+<ul>
+<li><strong>State</strong> — a seat's allowed transitions depend entirely on its current state (Available → Locked → Booked). A booked seat structurally CANNOT be locked again by someone else — there's no <code>if</code> checking that anywhere, the state object itself refuses.</li>
+<li><strong>Facade</strong> — <code>BookingService</code> is the one entry point over seat-locking + confirmation.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node design.js      # the full working design + a runnable demo
+node exercise.js     # 🎯 extend it — cancellation as an explicit transition</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you make double-booking a seat structurally impossible (state objects), or just "check a boolean and hope nobody races you"?</li>
+<li>Is seat-locking all-or-nothing? (Lock A1+A2, but A2 is taken → A1 must be released too.)</li>
+<li>Do you treat "booked → available" as ONE transition (<code>release</code>) or do you correctly see that a hold timing out and a user cancelling a paid booking are different business events that probably need different rules (refunds, etc.)? See the exercise.</li>
+</ol>
+<h4 class="filename">✅ design.js — the full design</h4>
+<pre class="code"><code><span class="cmt">// 🎬 MOVIE TICKET BOOKING — BookMyShow-lite, classic LLD question</span>
+<span class="cmt">// Chalao:  node design.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for functional requirements and which patterns are used.</span>
+
+<span class="kw">const</span> availableState = {
+  name: <span class="str">'AVAILABLE'</span>,
+  lock(seat) { seat.setState(lockedState); <span class="kw">return</span> <span class="kw">true</span>; },
+  book() { <span class="kw">return</span> <span class="kw">false</span>; },
+  release() { <span class="kw">return</span> <span class="kw">false</span>; },
+};
+<span class="kw">const</span> lockedState = {
+  name: <span class="str">'LOCKED'</span>,
+  lock() { <span class="kw">return</span> <span class="kw">false</span>; }, <span class="cmt">// already locked by someone else</span>
+  book(seat) { seat.setState(bookedState); <span class="kw">return</span> <span class="kw">true</span>; },
+  release(seat) { seat.setState(availableState); <span class="kw">return</span> <span class="kw">true</span>; }, <span class="cmt">// hold timed out / user backed out</span>
+};
+<span class="kw">const</span> bookedState = {
+  name: <span class="str">'BOOKED'</span>,
+  lock() { <span class="kw">return</span> <span class="kw">false</span>; },
+  book() { <span class="kw">return</span> <span class="kw">false</span>; },
+  release() { <span class="kw">return</span> <span class="kw">false</span>; }, <span class="cmt">// booked seats need an explicit cancellation flow, not a plain release</span>
+};
+
+<span class="kw">class</span> Seat {
+  <span class="kw">constructor</span>(id) { <span class="kw">this</span>.id = id; <span class="kw">this</span>.state = availableState; }
+  setState(state) { <span class="kw">this</span>.state = state; }
+  lock() { <span class="kw">const</span> ok = <span class="kw">this</span>.state.lock(<span class="kw">this</span>); console.log(<span class="str">`  seat ${this.id}: lock -&gt; ${ok ? this.state.name : 'DENIED'}`</span>); <span class="kw">return</span> ok; }
+  book() { <span class="kw">const</span> ok = <span class="kw">this</span>.state.book(<span class="kw">this</span>); console.log(<span class="str">`  seat ${this.id}: book -&gt; ${ok ? this.state.name : 'DENIED'}`</span>); <span class="kw">return</span> ok; }
+  release() { <span class="kw">const</span> ok = <span class="kw">this</span>.state.release(<span class="kw">this</span>); console.log(<span class="str">`  seat ${this.id}: release -&gt; ${ok ? this.state.name : 'DENIED'}`</span>); <span class="kw">return</span> ok; }
+}
+
+<span class="kw">class</span> Show {
+  <span class="kw">constructor</span>(id, movieName, seatIds) {
+    <span class="kw">this</span>.id = id;
+    <span class="kw">this</span>.movieName = movieName;
+    <span class="kw">this</span>.seats = <span class="kw">new</span> Map(seatIds.map((sid) =&gt; [sid, <span class="kw">new</span> Seat(sid)]));
+  }
+}
+
+<span class="cmt">// ---- Facade ----</span>
+<span class="kw">class</span> BookingService {
+  lockSeats(show, seatIds) {
+    <span class="kw">const</span> seats = seatIds.map((id) =&gt; show.seats.<span class="kw">get</span>(id));
+    <span class="kw">const</span> locked = [];
+    <span class="kw">for</span> (<span class="kw">const</span> seat <span class="kw">of</span> seats) {
+      <span class="kw">if</span> (seat.lock()) locked.push(seat);
+      <span class="kw">else</span> { locked.forEach((s) =&gt; s.release()); <span class="kw">return</span> <span class="kw">null</span>; } <span class="cmt">// all-or-nothing</span>
+    }
+    <span class="kw">return</span> locked;
+  }
+  confirmBooking(seats) {
+    <span class="kw">const</span> allBooked = seats.every((s) =&gt; s.book());
+    console.log(allBooked ? <span class="str">'✅ booking confirmed'</span> : <span class="str">'❌ booking failed'</span>);
+    <span class="kw">return</span> allBooked;
+  }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> show = <span class="kw">new</span> Show(<span class="str">'S1'</span>, <span class="str">'Inception'</span>, [<span class="str">'A1'</span>, <span class="str">'A2'</span>, <span class="str">'A3'</span>]);
+<span class="kw">const</span> service = <span class="kw">new</span> BookingService();
+
+<span class="kw">const</span> locked = service.lockSeats(show, [<span class="str">'A1'</span>, <span class="str">'A2'</span>]);
+<span class="kw">if</span> (locked) service.confirmBooking(locked);
+
+<span class="cmt">// someone else tries to lock an already-booked seat — structurally denied</span>
+service.lockSeats(show, [<span class="str">'A1'</span>]);
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the booking design without weakening the state machine.</span>
+<span class="cmt">// Copy design.js above this comment (or just edit design.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: bookedState.release() deliberately returns false — a plain "release" shouldn't undo</span>
+<span class="cmt">//         a paid booking. Add a SEPARATE `cancel()` transition (distinct from `release()`) that</span>
+<span class="cmt">//         moves BOOKED -&gt; AVAILABLE, and log a "refund initiated" message when it happens.</span>
+<span class="cmt">//         lockedState and availableState should NOT support `cancel()` (only booked seats can</span>
+<span class="cmt">//         be cancelled — you can't cancel something that was never booked).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: Add a `lockedAt` timestamp on Seat, and a `releaseExpiredLocks(show, maxAgeMs)`</span>
+<span class="cmt">//         function on BookingService that walks all seats and releases any LOCKED seat older</span>
+<span class="cmt">//         than maxAgeMs. This simulates what a real background job would do for abandoned</span>
+<span class="cmt">//         carts.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): why is "all-or-nothing" locking (see lockSeats) important here? Write a</span>
+<span class="cmt">//         2-sentence explanation of what would go wrong for a user if locking were NOT</span>
+<span class="cmt">//         all-or-nothing.</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-lld-practice-06-notification-service">
+<div class="chapter-kicker">LLD Practice</div>
+<h1 class="chapter-title">34. Notification Service</h1>
+<p>Asked at: most companies with any kind of alerting/messaging feature (Uber, Swiggy, fintechs).</p>
+<h2>Functional Requirements</h2>
+<ul>
+<li>Send notifications over multiple channels: Email, SMS, Push</li>
+<li>Some notifications need retry-on-failure and delivery logging; others don't — and that extra behavior shouldn't be baked into the channels themselves</li>
+</ul>
+<h2>Patterns used (and why)</h2>
+<ul>
+<li><strong>Factory</strong> — picks the right channel object from a type string; adding a channel is a one-line registry entry.</li>
+<li><strong>Decorator</strong> — <code>RetryDecorator</code> and <code>LoggingDecorator</code> wrap a channel with extra behavior WITHOUT touching the channel's own code, and can be stacked in any combination (same idea as Lesson 12's coffee add-ons, applied to a "send" behavior instead of a drink).</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node design.js      # the full working design + a runnable demo
+node exercise.js     # 🎯 extend it — a new channel + a new decorator</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do "retry" and "logging" live INSIDE each channel (duplicated 3x), or are they cross-cutting concerns applied once, generically, to any channel? Decorator is the whole point here.</li>
+<li>Is adding a channel (Slack, WhatsApp) a one-line registry addition, or does it require editing a big switch statement?</li>
+<li>Can decorators be composed in different orders, and do you understand what changes about behavior when you do (e.g. <code>Logging(Retry(channel))</code> logs once per attempt vs. <code>Retry(Logging(channel))</code> logs each individual attempt)?</li>
+</ol>
+<h4 class="filename">✅ design.js — the full design</h4>
+<pre class="code"><code><span class="cmt">// 🔔 NOTIFICATION SERVICE — multi-channel notifications, classic LLD question</span>
+<span class="cmt">// Chalao:  node design.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for functional requirements and which patterns are used.</span>
+
+<span class="kw">class</span> EmailChannel { send(to, msg) { console.log(<span class="str">`📧 Email to ${to}: ${msg}`</span>); <span class="kw">return</span> <span class="kw">true</span>; } }
+<span class="kw">class</span> SmsChannel { send(to, msg) { console.log(<span class="str">`📱 SMS to ${to}: ${msg}`</span>); <span class="kw">return</span> <span class="kw">true</span>; } }
+<span class="kw">class</span> PushChannel {
+  send(to, msg) {
+    <span class="kw">const</span> ok = Math.random() &gt; 0.4; <span class="cmt">// pretend push occasionally fails (device offline etc.)</span>
+    console.log(ok ? <span class="str">`🔔 Push to ${to}: ${msg}`</span> : <span class="str">`🔔 Push to ${to}: FAILED (device offline)`</span>);
+    <span class="kw">return</span> ok;
+  }
+}
+
+<span class="cmt">// ---- Factory ----</span>
+<span class="kw">function</span> createChannel(type) {
+  <span class="kw">const</span> channels = { email: EmailChannel, sms: SmsChannel, push: PushChannel };
+  <span class="kw">const</span> ChannelClass = channels[type];
+  <span class="kw">if</span> (!ChannelClass) <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown channel: ${type}`</span>);
+  <span class="kw">return</span> <span class="kw">new</span> ChannelClass();
+}
+
+<span class="cmt">// ---- Decorators: same `send()` interface as a plain channel ----</span>
+<span class="kw">class</span> RetryDecorator {
+  <span class="kw">constructor</span>(channel, maxAttempts = 3) { <span class="kw">this</span>.channel = channel; <span class="kw">this</span>.maxAttempts = maxAttempts; }
+  send(to, msg) {
+    <span class="kw">for</span> (<span class="kw">let</span> attempt = 1; attempt &lt;= <span class="kw">this</span>.maxAttempts; attempt++) {
+      <span class="kw">if</span> (<span class="kw">this</span>.channel.send(to, msg)) <span class="kw">return</span> <span class="kw">true</span>;
+      <span class="kw">if</span> (attempt &lt; <span class="kw">this</span>.maxAttempts) console.log(<span class="str">`  retrying... (attempt ${attempt + 1}/${this.maxAttempts})`</span>);
+    }
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+}
+<span class="kw">class</span> LoggingDecorator {
+  <span class="kw">constructor</span>(channel) { <span class="kw">this</span>.channel = channel; }
+  send(to, msg) {
+    console.log(<span class="str">`  [log] sending to ${to} at ${new Date().toISOString()}`</span>);
+    <span class="kw">const</span> ok = <span class="kw">this</span>.channel.send(to, msg);
+    console.log(<span class="str">`  [log] result: ${ok ? 'delivered' : 'failed'}`</span>);
+    <span class="kw">return</span> ok;
+  }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> plainEmail = createChannel(<span class="str">'email'</span>);
+plainEmail.send(<span class="str">'alice@example.com'</span>, <span class="str">'Your order shipped'</span>);
+
+<span class="kw">let</span> reliablePush = createChannel(<span class="str">'push'</span>);
+reliablePush = <span class="kw">new</span> LoggingDecorator(<span class="kw">new</span> RetryDecorator(reliablePush, 3));
+reliablePush.send(<span class="str">'device-123'</span>, <span class="str">'Flash sale starts now!'</span>);
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the notification design without touching existing channels/decorators.</span>
+<span class="cmt">// Copy design.js above this comment (or just edit design.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: Add a 'slack' channel to the createChannel() registry (a SlackChannel class with the</span>
+<span class="cmt">//         same `send(to, msg)` contract). Confirm you didn't need to touch EmailChannel,</span>
+<span class="cmt">//         SmsChannel, or PushChannel.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: Write a TimeoutDecorator — it should call the wrapped channel's send(), and if it</span>
+<span class="cmt">//         doesn't resolve fast enough, log a timeout message and return false. (Since our</span>
+<span class="cmt">//         `send()` is synchronous here, simulate "slow" with a random chance instead of a real</span>
+<span class="cmt">//         timer — the point is the DECORATOR SHAPE, not real async timing.)</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): wrap the same push channel two different ways —</span>
+<span class="cmt">//         `new LoggingDecorator(new RetryDecorator(channel))` vs.</span>
+<span class="cmt">//         `new RetryDecorator(new LoggingDecorator(channel))` — run both and describe in a</span>
+<span class="cmt">//         comment what's different about the log output between the two orderings.</span>
+</code></pre>
+</section>
+<section class="part-divider">
+<div class="part-kicker">Part IV — System Design (HLD)</div>
+<h1>System Design (HLD) — Primer</h1>
+<p>Patterns and SOLID teach you to design a single service well. LLD practice teaches you to</p>
+<p>design one class hierarchy well. This is the layer above both: how you design a system that</p>
+<p>runs across MANY machines, where the failure modes are different (networks partition,</p>
+<p>servers die, data has to live somewhere and get copied around).</p>
+<p>Unlike the other modules, most of these topics can't be fully "solved" with a clean class —</p>
+<p>they're fundamentally about <strong>tradeoffs</strong>. So each lesson pairs a runnable simulation (to</p>
+<p>make the mechanism concrete) with a README that's honest about "it depends."</p>
+<h2>How to use this module</h2>
+<ol>
+<li>Read the README's "Core idea(s)" section first.</li>
+<li>Run <code>simulate.js</code> and actually read the output — several of these are designed to show you a concrete, measurable number (e.g. "only 2/20 keys moved") rather than just asserting a claim.</li>
+<li>Do <code>exercise.js</code> — several of these ask you to extend toward what a REAL system (SQS, DynamoDB, Redis) actually does, past the simplified demo.</li>
+</ol>
+<h2>Topics</h2>
+<table><thead><tr><th>#</th><th>Topic</th><th>Also asked at</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="01-load-balancing/">Load Balancing</a></td><td>every company with &gt;1 server</td></tr>
+<tr><td>2</td><td><a href="02-caching-strategies/">Caching Strategies (LRU)</a></td><td>Amazon, Google, everyone</td></tr>
+<tr><td>3</td><td><a href="03-consistent-hashing/">Consistent Hashing</a></td><td>Amazon, Uber, distributed-systems teams</td></tr>
+<tr><td>4</td><td><a href="04-database-sharding-replication/">DB Sharding &amp; Replication</a></td><td>any company past 1 DB server</td></tr>
+<tr><td>5</td><td><a href="05-cap-theorem-and-consistency/">CAP Theorem &amp; Consistency</a></td><td>senior/staff system-design rounds</td></tr>
+<tr><td>6</td><td><a href="06-message-queues-async-processing/">Message Queues &amp; Async</a></td><td>Uber, Swiggy, background-jobs-heavy systems</td></tr>
+</tbody></table>
+<h2>How this connects to the rest of the course</h2>
+<ul>
+<li>Load Balancing's health-check exercise reuses <strong>Decorator</strong> (Lesson 12).</li>
+<li>Pub-Sub in the Message Queues lesson IS <strong>Observer</strong> (Lesson 2), just across services.</li>
+<li>Consistent Hashing is the real mechanism behind sticky-session <strong>Strategy</strong> routing (Lesson 1 / HLD Lesson 1).</li>
+<li>CAP's replication-lag demo is the exact same mechanism as the Sharding &amp; Replication lesson's <code>ReplicatedStore</code> — same code idea, viewed from a different angle.</li>
+</ul>
+<p>Real system-design interviews expect you to move fluidly between these layers: "I'd shard by</p>
+<p>hash for even load (HLD 4), use consistent hashing so resharding is cheap (HLD 3), and cache</p>
+<p>hot reads with an LRU eviction policy (HLD 2)" is a sentence that uses three of these lessons</p>
+<p>at once — that fluency is the actual goal, not memorizing each topic in isolation.</p>
+</section>
+<section class="chapter" id="ch-system-design-01-load-balancing">
+<div class="chapter-kicker">System Design (HLD)</div>
+<h1 class="chapter-title">35. Load Balancing</h1>
+<p>Asked at: every company with more than one server. Often the FIRST thing you draw in a</p>
+<p>system-design round, and interviewers probe whether you know the algorithm tradeoffs, not</p>
+<p>just the box-and-arrow diagram.</p>
+<h2>Core idea</h2>
+<p>A load balancer sits in front of a pool of servers and decides which one handles each</p>
+<p>incoming request. The algorithm you pick has real consequences:</p>
+<ul>
+<li><strong>Round Robin</strong> — dead simple, cycles through servers evenly. Bad if servers have different capacity, or if some requests are much heavier than others.</li>
+<li><strong>Weighted Round Robin</strong> — like Round Robin, but bigger/faster servers get proportionally more requests.</li>
+<li><strong>Least Connections</strong> — send the request to whichever server currently has the fewest active connections. Adapts to uneven request duration, unlike Round Robin.</li>
+<li><strong>Consistent Hashing / IP Hash</strong> — the same client (or key) always lands on the same server, which matters for <strong>sticky sessions</strong> or when a server holds local cache state. (Full implementation in <a href="../03-consistent-hashing/">Lesson 3 — Consistent Hashing</a>.)</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node simulate.js     # all 3 basic algorithms, run against the same server pool
+node exercise.js      # 🎯 extend it — health checks + a hybrid strategy</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know Round Robin can overload a slow/small server just as much as a fast one?</li>
+<li>Do you know WHY sticky sessions matter (stateful in-memory session data) and what breaks without them (a user's session "disappears" if their next request hits a different server)?</li>
+<li>Real load balancers (Nginx, AWS ELB, HAProxy) combine health checks with the algorithm — a server that's failing health checks should be pulled out of rotation. That's the exercise.</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the load balancer design without breaking existing strategies.</span>
+<span class="cmt">// Copy simulate.js above this comment (or just edit simulate.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: add a `healthy` flag (default true) to Server. Write a `HealthAwareBalancer`</span>
+<span class="cmt">//         wrapper that takes ANY of the three existing balancers and skips unhealthy</span>
+<span class="cmt">//         servers when picking — you should NOT need to modify RoundRobinBalancer,</span>
+<span class="cmt">//         WeightedRoundRobinBalancer, or LeastConnectionsBalancer themselves (this is the</span>
+<span class="cmt">//         Decorator pattern from Lesson 12, applied to a load balancer instead of a coffee).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: simulate server C going down mid-run (set its `healthy = false` partway through</span>
+<span class="cmt">//         a loop of pick() calls) and show that HealthAwareBalancer stops routing to it.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): what would go wrong if a load balancer used Round Robin for a service</span>
+<span class="cmt">//         where each server keeps user sessions in local memory (not a shared session</span>
+<span class="cmt">//         store)? Write a 2-sentence explanation of the failure a user would actually see.</span>
+</code></pre>
+<h4 class="filename">✅ simulate.js — the simulation</h4>
+<pre class="code"><code><span class="cmt">// ⚖️ LOAD BALANCING — simulate 3 balancing strategies against the same server pool</span>
+<span class="cmt">// Chalao:  node simulate.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for what each algorithm is good/bad at.</span>
+
+<span class="kw">class</span> Server {
+  <span class="kw">constructor</span>(id, weight = 1) { <span class="kw">this</span>.id = id; <span class="kw">this</span>.weight = weight; <span class="kw">this</span>.activeConnections = 0; }
+}
+
+<span class="cmt">// ---- Strategy: Round Robin ----</span>
+<span class="kw">class</span> RoundRobinBalancer {
+  <span class="kw">constructor</span>(servers) { <span class="kw">this</span>.servers = servers; <span class="kw">this</span>.index = 0; }
+  pick() {
+    <span class="kw">const</span> server = <span class="kw">this</span>.servers[<span class="kw">this</span>.index % <span class="kw">this</span>.servers.length];
+    <span class="kw">this</span>.index++;
+    <span class="kw">return</span> server;
+  }
+}
+
+<span class="cmt">// ---- Strategy: Weighted Round Robin ----</span>
+<span class="kw">class</span> WeightedRoundRobinBalancer {
+  <span class="kw">constructor</span>(servers) {
+    <span class="kw">this</span>.pool = servers.flatMap((s) =&gt; Array(s.weight).fill(s)); <span class="cmt">// heavier servers repeat more often</span>
+    <span class="kw">this</span>.index = 0;
+  }
+  pick() {
+    <span class="kw">const</span> server = <span class="kw">this</span>.pool[<span class="kw">this</span>.index % <span class="kw">this</span>.pool.length];
+    <span class="kw">this</span>.index++;
+    <span class="kw">return</span> server;
+  }
+}
+
+<span class="cmt">// ---- Strategy: Least Connections ----</span>
+<span class="kw">class</span> LeastConnectionsBalancer {
+  <span class="kw">constructor</span>(servers) { <span class="kw">this</span>.servers = servers; }
+  pick() {
+    <span class="kw">return</span> <span class="kw">this</span>.servers.reduce((min, s) =&gt; (s.activeConnections &lt; min.activeConnections ? s : min));
+  }
+}
+
+<span class="kw">function</span> simulateRequests(balancer, servers, count, label) {
+  console.log(<span class="str">`-- ${label} --`</span>);
+  <span class="kw">const</span> hits = Object.fromEntries(servers.map((s) =&gt; [s.id, 0]));
+  <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; count; i++) {
+    <span class="kw">const</span> server = balancer.pick();
+    hits[server.id]++;
+    server.activeConnections++;
+    <span class="kw">if</span> (i % 3 === 0) server.activeConnections = Math.max(0, server.activeConnections - 1); <span class="cmt">// some finish early</span>
+  }
+  console.log(<span class="str">'  requests per server:'</span>, hits);
+}
+
+<span class="kw">const</span> servers = [<span class="kw">new</span> Server(<span class="str">'A'</span>, 1), <span class="kw">new</span> Server(<span class="str">'B'</span>, 1), <span class="kw">new</span> Server(<span class="str">'C'</span>, 2)]; <span class="cmt">// C is a bigger machine</span>
+
+simulateRequests(<span class="kw">new</span> RoundRobinBalancer(servers), servers, 9, <span class="str">'Round Robin'</span>);
+servers.forEach((s) =&gt; (s.activeConnections = 0));
+
+simulateRequests(<span class="kw">new</span> WeightedRoundRobinBalancer(servers), servers, 8, <span class="str">'Weighted Round Robin (C has weight 2)'</span>);
+servers.forEach((s) =&gt; (s.activeConnections = 0));
+
+simulateRequests(<span class="kw">new</span> LeastConnectionsBalancer(servers), servers, 9, <span class="str">'Least Connections'</span>);
+</code></pre>
+</section>
+<section class="chapter" id="ch-system-design-02-caching-strategies">
+<div class="chapter-kicker">System Design (HLD)</div>
+<h1 class="chapter-title">36. Caching Strategies</h1>
+<p>Asked at: literally everywhere. "Design an LRU cache" is one of the most common</p>
+<p>data-structure-meets-system-design questions there is, asked standalone AND as a building</p>
+<p>block in bigger system-design answers (CDN, DB query cache, session store).</p>
+<h2>Core ideas</h2>
+<p><strong>Where the cache sits (the pattern, not the eviction policy):</strong></p>
+<ul>
+<li><strong>Cache-aside (lazy loading)</strong> — app checks cache first; on a miss, reads from the DB and populates the cache. Most common pattern. Cache can go stale if the DB changes elsewhere.</li>
+<li><strong>Write-through</strong> — every write goes to the cache AND the DB synchronously. Cache is always fresh, but writes are slower.</li>
+<li><strong>Write-back (write-behind)</strong> — writes go to the cache immediately, DB is updated asynchronously later. Fast writes, but risks data loss if the cache dies before flushing.</li>
+</ul>
+<p><strong>Eviction policy (what gets removed when the cache is full):</strong></p>
+<ul>
+<li><strong>LRU (Least Recently Used)</strong> — evict whatever hasn't been touched in the longest time. The default almost everywhere (Redis, most CDNs) because access patterns are usually "recently used = likely to be used again."</li>
+<li><strong>LFU (Least Frequently Used)</strong> — evict whatever's been accessed the fewest times. Better for some workloads, but needs extra bookkeeping (a frequency counter) and can keep old "one-time popular" items around too long.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node simulate.js     # LRUCache with O(1) get/put, using a JS idiom worth knowing
+node exercise.js      # 🎯 extend it — TTL expiry + a cache-aside wrapper</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Can you get O(1) <code>get</code>/<code>put</code>? The classic answer is a hash map + doubly linked list. In JS specifically, a <strong><code>Map</code> already preserves insertion order</strong> and has O(1) delete+re-insert — <code>simulate.js</code> uses that instead of hand-rolling a linked list. Knowing this JS-specific shortcut is a good signal you're not just reciting a memorized answer.</li>
+<li>Do you know the difference between cache-aside/write-through/write-back, and can you say which one fits a given scenario (e.g. a read-heavy product catalog vs. a write-heavy counter)?</li>
+<li>Do you think about cache INVALIDATION — the other classic hard problem ("there are only two hard things in computer science: cache invalidation and naming things")?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the LRU cache without breaking its O(1) contract.</span>
+<span class="cmt">// Copy simulate.js above this comment (or just edit simulate.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: add TTL (time-to-live) expiry — `put(key, value, ttlMs)` should store an expiry</span>
+<span class="cmt">//         timestamp alongside the value, and `get(key)` should treat an expired entry as a</span>
+<span class="cmt">//         miss (return -1 AND actually delete it, don't leave dead weight in the map).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: write a `getOrCompute(cache, db, key)` function implementing the CACHE-ASIDE</span>
+<span class="cmt">//         pattern from the README: check the cache first; on a miss, call `db.fetch(key)`,</span>
+<span class="cmt">//         `cache.put()` the result, then return it. Use a fake `db` object with a `fetch()`</span>
+<span class="cmt">//         that just logs "hit the database" so you can see cache hits vs misses in the</span>
+<span class="cmt">//         console output.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): implement an `LFUCache` (Least Frequently Used) — same get/put contract as</span>
+<span class="cmt">//         LRUCache, but evicts whichever key has the LOWEST access count (track counts in a</span>
+<span class="cmt">//         second Map). What's a realistic access pattern where LFU would outperform LRU?</span>
+</code></pre>
+<h4 class="filename">✅ simulate.js — the simulation</h4>
+<pre class="code"><code><span class="cmt">// 💾 CACHING STRATEGIES — LRU (Least Recently Used) cache, O(1) get/put</span>
+<span class="cmt">// Chalao:  node simulate.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for cache-aside vs write-through vs write-back, and why LRU is the</span>
+<span class="cmt">// default eviction policy almost everywhere.</span>
+
+<span class="kw">class</span> LRUCache {
+  #capacity;
+  #map; <span class="cmt">// JS Map preserves INSERTION order -- we exploit that for O(1) "recency" tracking</span>
+  <span class="kw">constructor</span>(capacity) { <span class="kw">this</span>.#capacity = capacity; <span class="kw">this</span>.#map = <span class="kw">new</span> Map(); }
+
+  <span class="kw">get</span>(key) {
+    <span class="kw">if</span> (!<span class="kw">this</span>.#map.has(key)) <span class="kw">return</span> -1;
+    <span class="kw">const</span> value = <span class="kw">this</span>.#map.<span class="kw">get</span>(key);
+    <span class="kw">this</span>.#map.delete(key);
+    <span class="kw">this</span>.#map.<span class="kw">set</span>(key, value); <span class="cmt">// re-insert -&gt; now "most recently used"</span>
+    <span class="kw">return</span> value;
+  }
+
+  put(key, value) {
+    <span class="kw">if</span> (<span class="kw">this</span>.#map.has(key)) <span class="kw">this</span>.#map.delete(key);
+    <span class="kw">else</span> <span class="kw">if</span> (<span class="kw">this</span>.#map.size &gt;= <span class="kw">this</span>.#capacity) {
+      <span class="kw">const</span> oldestKey = <span class="kw">this</span>.#map.keys().next().value; <span class="cmt">// first inserted = least recently used</span>
+      <span class="kw">this</span>.#map.delete(oldestKey);
+      console.log(<span class="str">`  evicted (LRU): ${oldestKey}`</span>);
+    }
+    <span class="kw">this</span>.#map.<span class="kw">set</span>(key, value);
+  }
+
+  peekOrder() { <span class="kw">return</span> [...<span class="kw">this</span>.#map.keys()]; } <span class="cmt">// oldest -&gt; newest</span>
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> cache = <span class="kw">new</span> LRUCache(3);
+cache.put(<span class="str">'a'</span>, 1);
+cache.put(<span class="str">'b'</span>, 2);
+cache.put(<span class="str">'c'</span>, 3);
+console.log(<span class="str">'order:'</span>, cache.peekOrder()); <span class="cmt">// [a, b, c]</span>
+
+cache.<span class="kw">get</span>(<span class="str">'a'</span>); <span class="cmt">// touches 'a' -&gt; moves to most-recent</span>
+console.log(<span class="str">'order after get(a):'</span>, cache.peekOrder()); <span class="cmt">// [b, c, a]</span>
+
+cache.put(<span class="str">'d'</span>, 4); <span class="cmt">// capacity full -&gt; evicts LEAST recently used = 'b'</span>
+console.log(<span class="str">'order after put(d):'</span>, cache.peekOrder()); <span class="cmt">// [c, a, d]</span>
+
+console.log(<span class="str">'get(b):'</span>, cache.<span class="kw">get</span>(<span class="str">'b'</span>)); <span class="cmt">// -1, evicted</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-system-design-03-consistent-hashing">
+<div class="chapter-kicker">System Design (HLD)</div>
+<h1 class="chapter-title">37. Consistent Hashing</h1>
+<p>Asked at: Amazon, Uber, any company running distributed caches/DBs. A favorite "implement it</p>
+<p>live" question because it's genuinely non-obvious until you've seen it once, and it's the</p>
+<p>mechanism behind DynamoDB, Cassandra, and most CDN/memcached client routing.</p>
+<h2>The problem it solves</h2>
+<p>Naive routing does <code>hash(key) % serverCount</code>. That works fine — until you add or remove a</p>
+<p>server. <code>serverCount</code> changes, and almost <strong>every</strong> key's <code>% serverCount</code> result changes</p>
+<p>with it, meaning almost every key suddenly maps to a different server. For a cache, that's</p>
+<p>a mass cache-miss stampede. For a database, that's a massive, unnecessary data migration.</p>
+<h2>The idea</h2>
+<p>Place servers AND keys on a conceptual ring (hash values from 0 to 2³²-1). A key belongs to</p>
+<p>the first server clockwise from its position. Adding/removing one server only affects the</p>
+<p>keys between it and its neighbor — roughly <code>1/N</code> of all keys, not nearly all of them.</p>
+<p><strong>Virtual nodes</strong>: a real server gets placed on the ring many times (under different hashes)</p>
+<p>instead of once, so the keys it owns are spread evenly around the ring instead of one big</p>
+<p>contiguous chunk. Without virtual nodes, you can get very uneven load by bad luck.</p>
+<h2>Files</h2>
+<pre class="mdcode"><code>node simulate.js     # naive modulo hashing vs. consistent hashing, side by side
+node exercise.js      # 🎯 extend it — removeServer() + measure virtual-node impact</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Can you explain WHY modulo hashing breaks on scale-up/down, concretely (not just "it's bad")?</li>
+<li>Do you know virtual nodes exist and why (even distribution, not just "more nodes")?</li>
+<li>Can you reason about the actual number of keys that move — "roughly 1/N" is the answer they're listening for, and <code>simulate.js</code> proves it with real numbers.</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the consistent hashing simulation.</span>
+<span class="cmt">// Copy simulate.js above this comment (or just edit simulate.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: demonstrate `removeServer()` the same way the demo demonstrates `addServer()` —</span>
+<span class="cmt">//         build a ring with 4 servers, snapshot every key's assigned server, remove one</span>
+<span class="cmt">//         server, snapshot again, and print how many keys moved. It should again be roughly</span>
+<span class="cmt">//         1/N, not nearly all of them.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: measure the IMPACT of virtual node count. Build two rings — one with</span>
+<span class="cmt">//         `virtualNodesPerServer = 1`, one with the default 100 — assign 1000 keys</span>
+<span class="cmt">//         (`user-0` through `user-999`) on each, and print how many keys land on each</span>
+<span class="cmt">//         server. Compute the difference between the busiest and least-busy server for</span>
+<span class="cmt">//         both rings. The low-virtual-node ring should show a much bigger imbalance.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): why does adding virtual nodes fix the imbalance instead of just placing</span>
+<span class="cmt">//         each real server on the ring once but at a "smarter" position? Write a 2-sentence</span>
+<span class="cmt">//         answer — think about what happens when a 4th server needs to be added later.</span>
+</code></pre>
+<h4 class="filename">✅ simulate.js — the simulation</h4>
+<pre class="code"><code><span class="cmt">// 🔗 CONSISTENT HASHING — why it beats naive modulo hashing when servers scale in/out</span>
+<span class="cmt">// Chalao:  node simulate.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for the problem this solves and how virtual nodes fit in.</span>
+
+<span class="cmt">// MD5 as a diffusion hash — this is a Node built-in (no npm install), and it's what real</span>
+<span class="cmt">// consistent-hashing implementations (e.g. libketama) actually use: not for security, but</span>
+<span class="cmt">// because it spreads similar-looking keys (`user-0`, `user-1`, `user-2`...) evenly across</span>
+<span class="cmt">// the full 32-bit range. A cheaper hand-rolled hash (djb2, FNV) sounds appealing but often</span>
+<span class="cmt">// clusters near-identical short strings together instead of spreading them — which silently</span>
+<span class="cmt">// breaks this whole demo by making one virtual node "own" a huge cluster of keys at once.</span>
+<span class="kw">import</span> { createHash } from <span class="str">'node:crypto'</span>;
+<span class="kw">function</span> hash(str) {
+  <span class="kw">return</span> createHash(<span class="str">'md5'</span>).update(str).digest().readUInt32BE(0);
+}
+
+<span class="cmt">// ---- Naive: modulo hashing ----</span>
+<span class="kw">function</span> naiveAssign(key, serverCount) {
+  <span class="kw">return</span> hash(key) % serverCount;
+}
+
+<span class="cmt">// ---- Consistent hashing: a ring with virtual nodes for even distribution ----</span>
+<span class="kw">class</span> ConsistentHashRing {
+  #ring = <span class="kw">new</span> Map(); <span class="cmt">// ringHash -&gt; serverId</span>
+  #sortedHashes = [];
+  #virtualNodesPerServer;
+
+  <span class="kw">constructor</span>(virtualNodesPerServer = 100) { <span class="kw">this</span>.#virtualNodesPerServer = virtualNodesPerServer; }
+
+  addServer(serverId) {
+    <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; <span class="kw">this</span>.#virtualNodesPerServer; i++) {
+      <span class="kw">this</span>.#ring.<span class="kw">set</span>(hash(<span class="str">`${serverId}#${i}`</span>), serverId);
+    }
+    <span class="kw">this</span>.#resort();
+  }
+
+  removeServer(serverId) {
+    <span class="kw">for</span> (<span class="kw">const</span> [h, id] <span class="kw">of</span> <span class="kw">this</span>.#ring) <span class="kw">if</span> (id === serverId) <span class="kw">this</span>.#ring.delete(h);
+    <span class="kw">this</span>.#resort();
+  }
+
+  #resort() { <span class="kw">this</span>.#sortedHashes = [...<span class="kw">this</span>.#ring.keys()].sort((a, b) =&gt; a - b); }
+
+  getServer(key) {
+    <span class="kw">const</span> h = hash(key);
+    <span class="cmt">// first server hash &gt;= key hash, walking clockwise; wrap around at the end of the ring</span>
+    <span class="kw">const</span> idx = <span class="kw">this</span>.#sortedHashes.findIndex((serverHash) =&gt; serverHash &gt;= h);
+    <span class="kw">const</span> ringHash = idx === -1 ? <span class="kw">this</span>.#sortedHashes[0] : <span class="kw">this</span>.#sortedHashes[idx];
+    <span class="kw">return</span> <span class="kw">this</span>.#ring.<span class="kw">get</span>(ringHash);
+  }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+<span class="kw">const</span> keys = Array.from({ length: 20 }, (_, i) =&gt; <span class="str">`user-${i}`</span>);
+
+console.log(<span class="str">'-- naive modulo hashing --'</span>);
+<span class="kw">const</span> before3 = keys.map((k) =&gt; naiveAssign(k, 3));
+<span class="kw">const</span> after4 = keys.map((k) =&gt; naiveAssign(k, 4)); <span class="cmt">// one server added</span>
+<span class="kw">const</span> naiveMoved = before3.filter((_, i) =&gt; before3[i] !== after4[i]).length;
+console.log(<span class="str">`  keys that moved when going 3 -&gt; 4 servers: ${naiveMoved}/${keys.length}`</span>);
+
+console.log(<span class="str">'-- consistent hashing --'</span>);
+<span class="kw">const</span> ring = <span class="kw">new</span> ConsistentHashRing();
+[<span class="str">'server-A'</span>, <span class="str">'server-B'</span>, <span class="str">'server-C'</span>].forEach((s) =&gt; ring.addServer(s));
+<span class="kw">const</span> beforeRing = keys.map((k) =&gt; ring.getServer(k));
+ring.addServer(<span class="str">'server-D'</span>); <span class="cmt">// one server added</span>
+<span class="kw">const</span> afterRing = keys.map((k) =&gt; ring.getServer(k));
+<span class="kw">const</span> ringMoved = beforeRing.filter((_, i) =&gt; beforeRing[i] !== afterRing[i]).length;
+console.log(<span class="str">`  keys that moved when going 3 -&gt; 4 servers: ${ringMoved}/${keys.length}`</span>);
+
+console.log(<span class="str">'\nThis is THE reason distributed caches/DBs use consistent hashing: adding a'</span>);
+console.log(<span class="str">'server should only reshuffle ~1/N of the keys, not almost all of them.'</span>);
+</code></pre>
+</section>
+<section class="chapter" id="ch-system-design-04-database-sharding-replication">
+<div class="chapter-kicker">System Design (HLD)</div>
+<h1 class="chapter-title">38. Database Sharding &amp; Replication</h1>
+<p>Asked at: any company past "single database" scale — Amazon, Uber, most fintechs.</p>
+<p>Interviewers use this to see if you understand the REAL consequences of scaling data, not</p>
+<p>just "add more servers."</p>
+<h2>Sharding (horizontal partitioning) — spreading data ACROSS machines</h2>
+<ul>
+<li><strong>Range-based</strong> — e.g. user IDs 0-999 on shard 1, 1000-1999 on shard 2. Simple, but can create <strong>hot shards</strong>: if new users get sequential IDs, all new traffic hits the newest (and often least-provisioned) shard.</li>
+<li><strong>Hash-based</strong> — <code>hash(userId) % shardCount</code>, or better, consistent hashing (see <a href="../03-consistent-hashing/">Lesson 3</a>) so resharding doesn't move almost everything. Spreads load evenly but makes range queries ("all users created this week") expensive — they now have to fan out across every shard.</li>
+<li><strong>Geo-based</strong> — shard by region, so EU user data stays in an EU shard. Often driven by data-residency LAW (GDPR), not just performance.</li>
+</ul>
+<h2>Replication — copies of the SAME data for availability/read-scaling</h2>
+<ul>
+<li><strong>Primary-replica (leader-follower)</strong> — writes go to one primary; replicas copy the primary's changes asynchronously and serve reads. Scales read throughput, but replicas can lag behind — this is exactly the "eventual consistency" tradeoff from CAP theorem (see <a href="../05-cap-theorem-and-consistency/">Lesson 5</a>).</li>
+<li><strong>Replication lag</strong> creates a real bug class: a user writes something, then immediately reads it back from a lagging replica and doesn't see their own write. <code>simulate.js</code> shows this exact failure.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node simulate.js     # range-based sharding + primary-replica with simulated lag
+node exercise.js      # 🎯 extend it — hash-based sharding + "read your own writes"</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know sharding (spreading DIFFERENT data across machines) and replication (copying the SAME data across machines) are solving different problems, and most real systems use BOTH together (each shard has its own primary + replicas)?</li>
+<li>Can you name a concrete failure mode of range sharding (hot shards) and hash sharding (expensive range queries)?</li>
+<li>Do you understand replication lag well enough to propose a fix (route a user's reads to the primary right after their own write) rather than just naming the problem?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the sharding/replication design.</span>
+<span class="cmt">// Copy simulate.js above this comment (or just edit simulate.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: implement `HashShardRouter` — same `route(key)` contract as RangeShardRouter, but</span>
+<span class="cmt">//         uses `hash(key) % shardCount` (reuse the MD5-based `hash()` from Lesson 3 — it's</span>
+<span class="cmt">//         what gives an even spread; a cheap hand-rolled hash can silently cluster similar</span>
+<span class="cmt">//         keys together). Route the same 20 keys through both routers and eyeball how much</span>
+<span class="cmt">//         more evenly the hash router spreads them.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: fix the "read your own writes" problem from simulate.js — add a</span>
+<span class="cmt">//         `writeThenReadOwn(store, key, value)` helper that: writes the value, then reads it</span>
+<span class="cmt">//         back from the PRIMARY (not the replica) immediately after, so the caller always</span>
+<span class="cmt">//         sees their own write regardless of replication lag.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): ReplicatedStore currently has exactly one replica. Extend it to support</span>
+<span class="cmt">//         MULTIPLE replicas (an array instead of a single Map), and add a</span>
+<span class="cmt">//         `readFromAnyReplica(key)` that round-robins across them. What new problem does</span>
+<span class="cmt">//         this introduce that a single replica didn't have? (Hint: think about what happens</span>
+<span class="cmt">//         if replicas lag by DIFFERENT amounts.)</span>
+</code></pre>
+<h4 class="filename">✅ simulate.js — the simulation</h4>
+<pre class="code"><code><span class="cmt">// 🗄️ DATABASE SHARDING &amp; REPLICATION — routing writes/reads across a distributed DB layer</span>
+<span class="cmt">// Chalao:  node simulate.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for sharding strategies and what replication lag actually breaks.</span>
+
+<span class="cmt">// ---- Sharding: range-based ----</span>
+<span class="kw">class</span> RangeShardRouter {
+  <span class="kw">constructor</span>(ranges) { <span class="kw">this</span>.ranges = ranges; } <span class="cmt">// [{ shard, min, max }]</span>
+  route(userId) {
+    <span class="kw">const</span> range = <span class="kw">this</span>.ranges.find((r) =&gt; userId &gt;= r.min &amp;&amp; userId &lt;= r.max);
+    <span class="kw">if</span> (!range) <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`no shard for userId ${userId}`</span>);
+    <span class="kw">return</span> range.shard;
+  }
+}
+
+<span class="kw">const</span> router = <span class="kw">new</span> RangeShardRouter([
+  { shard: <span class="str">'shard-1'</span>, min: 0, max: 999 },
+  { shard: <span class="str">'shard-2'</span>, min: 1000, max: 1999 },
+  { shard: <span class="str">'shard-3'</span>, min: 2000, max: 2999 },
+]);
+console.log(<span class="str">'-- range-based sharding --'</span>);
+console.log(<span class="str">'user 42   -&gt;'</span>, router.route(42));
+console.log(<span class="str">'user 1500 -&gt;'</span>, router.route(1500));
+console.log(<span class="str">'user 2800 -&gt;'</span>, router.route(2800));
+console.log(<span class="str">"range sharding is simple but can create HOT shards if user IDs cluster (e.g. all"</span>);
+console.log(<span class="str">"new signups land in the newest range) -- that's why hash-based sharding (see the"</span>);
+console.log(<span class="str">'consistent-hashing lesson) is often preferred for even load.'</span>);
+
+<span class="cmt">// ---- Replication: primary-replica with simulated lag ----</span>
+<span class="kw">class</span> ReplicatedStore {
+  #primary = <span class="kw">new</span> Map();
+  #replica = <span class="kw">new</span> Map();
+  #pendingReplication = [];
+
+  write(key, value) {
+    <span class="kw">this</span>.#primary.<span class="kw">set</span>(key, value);
+    <span class="kw">this</span>.#pendingReplication.push({ key, value }); <span class="cmt">// "arrives" at the replica only after a tick</span>
+    console.log(<span class="str">`  ✍️  write ${key}=${value} -&gt; PRIMARY`</span>);
+  }
+
+  readFromPrimary(key) { <span class="kw">return</span> <span class="kw">this</span>.#primary.<span class="kw">get</span>(key); }
+  readFromReplica(key) { <span class="kw">return</span> <span class="kw">this</span>.#replica.<span class="kw">get</span>(key); }
+
+  tickReplication() { <span class="cmt">// simulate the async replication delay finally catching up</span>
+    <span class="kw">const</span> batch = <span class="kw">this</span>.#pendingReplication.splice(0, <span class="kw">this</span>.#pendingReplication.length);
+    <span class="kw">for</span> (<span class="kw">const</span> { key, value } <span class="kw">of</span> batch) {
+      <span class="kw">this</span>.#replica.<span class="kw">set</span>(key, value);
+      console.log(<span class="str">`  🔁 replicated ${key}=${value} -&gt; REPLICA`</span>);
+    }
+  }
+}
+
+console.log(<span class="str">'\n-- replication lag demo --'</span>);
+<span class="kw">const</span> store = <span class="kw">new</span> ReplicatedStore();
+store.write(<span class="str">'balance'</span>, 100);
+console.log(<span class="str">'  read from replica immediately:'</span>, store.readFromReplica(<span class="str">'balance'</span>)); <span class="cmt">// undefined!</span>
+console.log(<span class="str">'  read from primary immediately:'</span>, store.readFromPrimary(<span class="str">'balance'</span>)); <span class="cmt">// 100</span>
+store.tickReplication();
+console.log(<span class="str">'  read from replica after replication:'</span>, store.readFromReplica(<span class="str">'balance'</span>)); <span class="cmt">// 100</span>
+
+console.log(<span class="str">"\nThis is why \"read your own writes\" is a real problem: right after a write, a"</span>);
+console.log(<span class="str">'read hitting a REPLICA can see stale data. Common fixes: route read-after-write'</span>);
+console.log(<span class="str">"reads to the primary, or have the client track a \"read your writes\" token."</span>);
+</code></pre>
+</section>
+<section class="chapter" id="ch-system-design-05-cap-theorem-and-consistency">
+<div class="chapter-kicker">System Design (HLD)</div>
+<h1 class="chapter-title">39. CAP Theorem &amp; Consistency Models</h1>
+<p>Asked at: nearly every senior/staff system-design round, usually as a follow-up to "what</p>
+<p>happens if a server in your design goes down / the network splits?"</p>
+<h2>The theorem</h2>
+<p>In a <strong>distributed</strong> system, during a <strong>network partition</strong> (some nodes can't talk to</p>
+<p>others), you must choose between:</p>
+<ul>
+<li><strong>Consistency (C)</strong> — every read gets the most recent write, or an error. Refuse to serve possibly-stale data.</li>
+<li><strong>Availability (A)</strong> — every request gets a response, even if it might be stale.</li>
+</ul>
+<p>You can't have both DURING a partition (Partition tolerance, P, isn't really optional for</p>
+<p>any real distributed system — networks fail, so P is a given, and CAP is really "C vs A when</p>
+<p>P happens"). When there's no partition, you can have both C and A.</p>
+<h2>Real systems, real choices</h2>
+<ul>
+<li><strong>CP</strong> (favor consistency) — MongoDB (default config), Zookeeper, etcd, HBase. Good for: bank balances, inventory counts, leader election — anywhere stale data causes real harm (double-spending, overselling).</li>
+<li><strong>AP</strong> (favor availability) — Cassandra, DynamoDB, CouchDB. Good for: social feeds, product catalogs, shopping carts — anywhere "show something, even if slightly stale" beats "show an error."</li>
+</ul>
+<h2>Consistency models (the more nuanced answer beyond "CP or AP")</h2>
+<ul>
+<li><strong>Strong consistency</strong> — every read sees the latest write, always.</li>
+<li><strong>Eventual consistency</strong> — replicas converge to the same value EVENTUALLY, if writes stop. (This is exactly what <a href="../04-database-sharding-replication/">Lesson 4</a>'s replication lag demo showed.)</li>
+<li><strong>Causal consistency</strong> — writes that are causally related (a reply always appears after the comment it replies to) are seen in order; unrelated writes can be seen in any order.</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node simulate.js     # a CP store and an AP store behaving differently during a partition
+node exercise.js      # 🎯 extend it — quorum-based tunable consistency</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you know P isn't a choice (networks partition whether you like it or not) — the real choice is C vs A, and only DURING a partition?</li>
+<li>Can you map a REAL requirement ("users must never see a negative balance" vs "the feed can be a few seconds stale") to CP or AP, with a reason?</li>
+<li>Do you know quorum systems (Dynamo-style <code>W + R &gt; N</code>) let you tune consistency PER OPERATION instead of being locked into pure CP or pure AP? That's the exercise.</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — go beyond "pure CP or pure AP" with quorum-based consistency.</span>
+<span class="cmt">// Copy simulate.js above this comment (or just edit simulate.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: implement a `QuorumStore` with N nodes, a write quorum W, and a read quorum R.</span>
+<span class="cmt">//         `write(key, value)` succeeds once at least W nodes have the value.</span>
+<span class="cmt">//         `read(key)` reads from R nodes and returns the value with the HIGHEST version</span>
+<span class="cmt">//         number seen (track a version counter per key). This is the Dynamo-style approach:</span>
+<span class="cmt">//         you tune W and R per your consistency needs instead of being locked into CP or AP.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: show that when `W + R &gt; N` (e.g. N=3, W=2, R=2), a read is GUARANTEED to overlap</span>
+<span class="cmt">//         with the most recent write's quorum — so it always sees the latest value. Then</span>
+<span class="cmt">//         show that when `W + R &lt;= N` (e.g. W=1, R=1), a read CAN miss the latest write</span>
+<span class="cmt">//         (simulate this by writing to nodes [0] only, then reading from node [2] only).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): what W/R combination would you pick for a "like" counter on a social post</span>
+<span class="cmt">//         (where losing a stray like under heavy load is fine) vs. a bank account balance</span>
+<span class="cmt">//         (where it's never fine)? Justify each in one sentence.</span>
+</code></pre>
+<h4 class="filename">✅ simulate.js — the simulation</h4>
+<pre class="code"><code><span class="cmt">// ⚖️ CAP THEOREM — during a network partition, pick Consistency OR Availability (not both)</span>
+<span class="cmt">// Chalao:  node simulate.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for the full theorem, real systems, and consistency models.</span>
+
+<span class="kw">class</span> Node {
+  <span class="kw">constructor</span>(id) { <span class="kw">this</span>.id = id; <span class="kw">this</span>.data = <span class="kw">new</span> Map(); }
+}
+
+<span class="cmt">// ---- CP system: during a partition, refuse requests rather than risk stale data ----</span>
+<span class="kw">class</span> CPStore {
+  <span class="kw">constructor</span>(nodes) { <span class="kw">this</span>.nodes = nodes; <span class="kw">this</span>.partitioned = <span class="kw">false</span>; }
+  write(key, value) {
+    <span class="kw">if</span> (<span class="kw">this</span>.partitioned) { console.log(<span class="str">`  ❌ [CP] write REJECTED — partition detected, can't guarantee consistency`</span>); <span class="kw">return</span> <span class="kw">false</span>; }
+    <span class="kw">this</span>.nodes.forEach((n) =&gt; n.data.<span class="kw">set</span>(key, value));
+    console.log(<span class="str">`  ✅ [CP] write succeeded on all ${this.nodes.length} nodes`</span>);
+    <span class="kw">return</span> <span class="kw">true</span>;
+  }
+  read(key) {
+    <span class="kw">if</span> (<span class="kw">this</span>.partitioned) { console.log(<span class="str">`  ❌ [CP] read REJECTED — can't guarantee it's not stale`</span>); <span class="kw">return</span> <span class="kw">null</span>; }
+    <span class="kw">return</span> <span class="kw">this</span>.nodes[0].data.<span class="kw">get</span>(key);
+  }
+}
+
+<span class="cmt">// ---- AP system: during a partition, keep serving, accept possible staleness ----</span>
+<span class="kw">class</span> APStore {
+  <span class="kw">constructor</span>(nodes) { <span class="kw">this</span>.nodes = nodes; <span class="kw">this</span>.partitioned = <span class="kw">false</span>; }
+  write(key, value) {
+    <span class="kw">const</span> reachable = <span class="kw">this</span>.partitioned ? [<span class="kw">this</span>.nodes[0]] : <span class="kw">this</span>.nodes; <span class="cmt">// only reach some nodes during a partition</span>
+    reachable.forEach((n) =&gt; n.data.<span class="kw">set</span>(key, value));
+    console.log(<span class="str">`  ✅ [AP] write succeeded on ${reachable.length}/${this.nodes.length} nodes${this.partitioned ? ' (partitioned!)' : ''}`</span>);
+    <span class="kw">return</span> <span class="kw">true</span>;
+  }
+  read(key, fromNodeIndex = 0) {
+    <span class="kw">const</span> value = <span class="kw">this</span>.nodes[fromNodeIndex].data.<span class="kw">get</span>(key);
+    console.log(<span class="str">`  ✅ [AP] read from node ${fromNodeIndex}: ${value}${this.partitioned ? ' (might be stale!)' : ''}`</span>);
+    <span class="kw">return</span> value;
+  }
+}
+
+<span class="cmt">// ---------------- DEMO ----------------</span>
+console.log(<span class="str">'-- normal operation (no partition) --'</span>);
+<span class="kw">const</span> cp = <span class="kw">new</span> CPStore([<span class="kw">new</span> Node(<span class="str">'n1'</span>), <span class="kw">new</span> Node(<span class="str">'n2'</span>), <span class="kw">new</span> Node(<span class="str">'n3'</span>)]);
+cp.write(<span class="str">'x'</span>, 1);
+cp.read(<span class="str">'x'</span>);
+
+console.log(<span class="str">'\n-- network partition happens --'</span>);
+cp.partitioned = <span class="kw">true</span>;
+cp.write(<span class="str">'x'</span>, 2); <span class="cmt">// rejected -- CP chooses Consistency over Availability</span>
+cp.read(<span class="str">'x'</span>);      <span class="cmt">// rejected</span>
+
+<span class="kw">const</span> ap = <span class="kw">new</span> APStore([<span class="kw">new</span> Node(<span class="str">'n1'</span>), <span class="kw">new</span> Node(<span class="str">'n2'</span>), <span class="kw">new</span> Node(<span class="str">'n3'</span>)]);
+ap.write(<span class="str">'y'</span>, 1);
+ap.partitioned = <span class="kw">true</span>;
+ap.write(<span class="str">'y'</span>, 2);  <span class="cmt">// "succeeds" but only reaches 1 node -- AP chooses Availability</span>
+ap.read(<span class="str">'y'</span>, 0);    <span class="cmt">// sees the new value</span>
+ap.read(<span class="str">'y'</span>, 1);    <span class="cmt">// sees the OLD value -- stale read, but the system stayed UP</span>
+
+console.log(<span class="str">'\nNeither choice is "wrong" -- it depends on the product. A payments ledger'</span>);
+console.log(<span class="str">'usually wants CP (better to reject than double-spend). A social media feed'</span>);
+console.log(<span class="str">'usually wants AP (better to show slightly stale data than an error page).'</span>);
+</code></pre>
+</section>
+<section class="chapter" id="ch-system-design-06-message-queues-async-processing">
+<div class="chapter-kicker">System Design (HLD)</div>
+<h1 class="chapter-title">40. Message Queues &amp; Async Processing</h1>
+<p>Asked at: Uber, Swiggy, any company with background jobs (emails, payments, notifications).</p>
+<p>Comes up whenever a system-design answer needs to avoid making the user WAIT for slow work.</p>
+<h2>Why queues exist</h2>
+<p>Some work shouldn't block the request that triggered it — sending a confirmation email,</p>
+<p>resizing an uploaded image, charging a payment. A queue lets a producer say "do this later"</p>
+<p>and move on, while one or more consumers process the backlog independently. This DECOUPLES</p>
+<p>producers from consumers: neither needs to know the other exists, or be up at the same time.</p>
+<h2>Two shapes</h2>
+<ul>
+<li><strong>Point-to-point queue</strong> — each message is processed by exactly ONE consumer (e.g. "charge this order" should happen once, not once per service that's listening).</li>
+<li><strong>Pub-Sub (publish-subscribe)</strong> — each message is broadcast to EVERY subscriber independently. This is the <a href="../../02-observer/">Observer pattern</a> at the scale of independent services instead of objects in one process — an <code>order.placed</code> event might need to reach inventory, email, AND analytics, and none of them should know the others exist.</li>
+</ul>
+<h2>Delivery guarantees (know these cold)</h2>
+<ul>
+<li><strong>At-most-once</strong> — message might be lost, never processed twice. Fast, simplest, riskiest.</li>
+<li><strong>At-least-once</strong> — message is guaranteed to be processed, but MIGHT be processed twice (e.g. consumer crashes after processing but before acknowledging). Requires consumers to be <strong>idempotent</strong> (processing the same message twice has the same effect as once).</li>
+<li><strong>Exactly-once</strong> — the ideal, genuinely hard to guarantee across a network; most "exactly once" systems are really at-least-once + deduplication (an idempotency key).</li>
+</ul>
+<h2>Files</h2>
+<pre class="mdcode"><code>node simulate.js     # a retrying point-to-point queue with a dead-letter queue, plus pub-sub
+node exercise.js      # 🎯 extend it — visibility timeout + idempotent processing</code></pre>
+<h2>What an interviewer is watching for</h2>
+<ol>
+<li>Do you reach for a queue specifically to decouple slow/unreliable work from the user-facing request path?</li>
+<li>Do you know what a <strong>dead-letter queue</strong> is for (messages that fail repeatedly get set aside for manual inspection, instead of blocking/retrying forever)?</li>
+<li>Do you understand why "at-least-once + idempotency" is the realistic target, not "exactly-once", and can explain what idempotency means concretely (a <code>messageId</code> you've already processed gets skipped, not reprocessed)?</li>
+</ol>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — extend the queue design toward what a real message broker does.</span>
+<span class="cmt">// Copy simulate.js above this comment (or just edit simulate.js directly), then:</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 1: add a VISIBILITY TIMEOUT (like AWS SQS) — when a consumer dequeues a message, it</span>
+<span class="cmt">//         should become invisible to OTHER consumers for some duration instead of being</span>
+<span class="cmt">//         removed immediately. If the consumer doesn't explicitly "delete" it (call a new</span>
+<span class="cmt">//         `ack(messageId)` method) within that window, it should become visible again for</span>
+<span class="cmt">//         someone else to pick up. This is what makes "at-least-once" delivery work when a</span>
+<span class="cmt">//         consumer crashes mid-processing.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: make message processing IDEMPOTENT — add a `processedIds` Set to the consumer</span>
+<span class="cmt">//         side (not the Queue itself), and have the handler skip (log "already processed,</span>
+<span class="cmt">//         skipping") any payload whose `messageId` it's seen before. Enqueue the SAME</span>
+<span class="cmt">//         message twice on purpose and show it only has its real effect once.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): PubSub here delivers synchronously and in-process. What would have to</span>
+<span class="cmt">//         change for subscribers to run as genuinely separate services (e.g. different</span>
+<span class="cmt">//         Node processes, possibly on different machines)? Name 2 concrete things (in a</span>
+<span class="cmt">//         comment) that this in-memory PubSub is hiding from you.</span>
+</code></pre>
+<h4 class="filename">✅ simulate.js — the simulation</h4>
+<pre class="code"><code><span class="cmt">// 📬 MESSAGE QUEUES &amp; ASYNC PROCESSING — decoupling producers from consumers</span>
+<span class="cmt">// Chalao:  node simulate.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// See README.md for point-to-point vs pub-sub, and delivery guarantees.</span>
+
+<span class="cmt">// ---- Point-to-point queue with retry + dead-letter queue ----</span>
+<span class="kw">class</span> Queue {
+  #messages = [];
+  #deadLetter = [];
+  <span class="kw">constructor</span>(maxRetries = 3) { <span class="kw">this</span>.maxRetries = maxRetries; }
+
+  enqueue(payload) { <span class="kw">this</span>.#messages.push({ payload, attempts: 0 }); }
+
+  process(handler) {
+    <span class="kw">while</span> (<span class="kw">this</span>.#messages.length) {
+      <span class="kw">const</span> msg = <span class="kw">this</span>.#messages.shift();
+      <span class="kw">try</span> {
+        handler(msg.payload);
+        console.log(<span class="str">`  ✅ processed: ${JSON.stringify(msg.payload)}`</span>);
+      } <span class="kw">catch</span> (err) {
+        msg.attempts++;
+        <span class="kw">if</span> (msg.attempts &gt;= <span class="kw">this</span>.maxRetries) {
+          <span class="kw">this</span>.#deadLetter.push(msg);
+          console.log(<span class="str">`  ☠️  moved to dead-letter after ${msg.attempts} attempts: ${JSON.stringify(msg.payload)}`</span>);
+        } <span class="kw">else</span> {
+          console.log(<span class="str">`  🔁 retrying (attempt ${msg.attempts}/${this.maxRetries}): ${JSON.stringify(msg.payload)}`</span>);
+          <span class="kw">this</span>.#messages.push(msg); <span class="cmt">// requeue</span>
+        }
+      }
+    }
+  }
+
+  deadLetterCount() { <span class="kw">return</span> <span class="kw">this</span>.#deadLetter.length; }
+}
+
+console.log(<span class="str">'-- point-to-point queue with retries --'</span>);
+<span class="kw">const</span> orderQueue = <span class="kw">new</span> Queue(3);
+orderQueue.enqueue({ orderId: 1 });
+orderQueue.enqueue({ orderId: 2, forceFail: <span class="kw">true</span> }); <span class="cmt">// always fails -&gt; ends up in the DLQ</span>
+orderQueue.process((payload) =&gt; {
+  <span class="kw">if</span> (payload.forceFail) <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'processing failed'</span>);
+  console.log(<span class="str">`    charging payment for order ${payload.orderId}`</span>);
+});
+console.log(<span class="str">`  dead-letter queue size: ${orderQueue.deadLetterCount()}`</span>);
+
+<span class="cmt">// ---- Pub-Sub: one event, many independent subscribers ----</span>
+<span class="kw">class</span> PubSub {
+  #subscribers = <span class="kw">new</span> Map(); <span class="cmt">// topic -&gt; [handlers]</span>
+  subscribe(topic, handler) {
+    <span class="kw">if</span> (!<span class="kw">this</span>.#subscribers.has(topic)) <span class="kw">this</span>.#subscribers.<span class="kw">set</span>(topic, []);
+    <span class="kw">this</span>.#subscribers.<span class="kw">get</span>(topic).push(handler);
+  }
+  publish(topic, event) {
+    <span class="kw">const</span> handlers = <span class="kw">this</span>.#subscribers.<span class="kw">get</span>(topic) ?? [];
+    console.log(<span class="str">`  📢 publishing to '${topic}' (${handlers.length} subscribers)`</span>);
+    handlers.forEach((h) =&gt; h(event));
+  }
+}
+
+console.log(<span class="str">'\n-- pub-sub: one event, independent subscribers --'</span>);
+<span class="kw">const</span> bus = <span class="kw">new</span> PubSub();
+bus.subscribe(<span class="str">'order.placed'</span>, (e) =&gt; console.log(<span class="str">`    [inventory-service] reserving stock for order ${e.orderId}`</span>));
+bus.subscribe(<span class="str">'order.placed'</span>, (e) =&gt; console.log(<span class="str">`    [email-service] sending confirmation for order ${e.orderId}`</span>));
+bus.subscribe(<span class="str">'order.placed'</span>, (e) =&gt; console.log(<span class="str">`    [analytics-service] logging order ${e.orderId}`</span>));
+bus.publish(<span class="str">'order.placed'</span>, { orderId: 99 });
+
+console.log(<span class="str">'\nNotice inventory/email/analytics services never call each other directly --'</span>);
+console.log(<span class="str">'exactly the decoupling the Observer pattern (Lesson 2) teaches, just at the'</span>);
+console.log(<span class="str">'scale of independent SERVICES instead of objects in one process.'</span>);
 </code></pre>
 </section>
 
