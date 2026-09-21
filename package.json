@@ -1,0 +1,103 @@
+{
+  "name": "design-patterns-course",
+  "version": "1.0.0",
+  "description": "Learn design patterns in JavaScript by running each example locally",
+  "type": "module",
+  "scripts": {
+    "strategy:naive": "node 01-strategy/1-naive.js",
+    "strategy:class": "node 01-strategy/2-strategy-class.js",
+    "strategy:registry": "node 01-strategy/3-strategy-registry.js",
+    "strategy:exercise": "node 01-strategy/exercise.js",
+
+    "observer:naive": "node 02-observer/1-naive.js",
+    "observer:observer": "node 02-observer/2-observer.js",
+    "observer:emitter": "node 02-observer/3-eventemitter.js",
+    "observer:exercise": "node 02-observer/exercise.js",
+
+    "command:naive": "node 03-command/1-naive.js",
+    "command:pattern": "node 03-command/2-command.js",
+    "command:queue": "node 03-command/3-command-queue.js",
+    "command:exercise": "node 03-command/exercise.js",
+
+    "singleton:naive": "node 04-singleton/1-naive.js",
+    "singleton:class": "node 04-singleton/2-singleton.js",
+    "singleton:module": "node 04-singleton/3-singleton-module.js",
+    "singleton:exercise": "node 04-singleton/exercise.js",
+
+    "factory-method:naive": "node 05-factory-method/1-naive.js",
+    "factory-method:pattern": "node 05-factory-method/2-factory-method.js",
+    "factory-method:exercise": "node 05-factory-method/exercise.js",
+
+    "abstract-factory:naive": "node 06-abstract-factory/1-naive.js",
+    "abstract-factory:pattern": "node 06-abstract-factory/2-abstract-factory.js",
+    "abstract-factory:exercise": "node 06-abstract-factory/exercise.js",
+
+    "builder:naive": "node 07-builder/1-naive.js",
+    "builder:pattern": "node 07-builder/2-builder.js",
+    "builder:exercise": "node 07-builder/exercise.js",
+
+    "prototype:naive": "node 08-prototype/1-naive.js",
+    "prototype:pattern": "node 08-prototype/2-prototype.js",
+    "prototype:exercise": "node 08-prototype/exercise.js",
+
+    "adapter:naive": "node 09-adapter/1-naive.js",
+    "adapter:pattern": "node 09-adapter/2-adapter.js",
+    "adapter:exercise": "node 09-adapter/exercise.js",
+
+    "bridge:naive": "node 10-bridge/1-naive.js",
+    "bridge:pattern": "node 10-bridge/2-bridge.js",
+    "bridge:exercise": "node 10-bridge/exercise.js",
+
+    "composite:naive": "node 11-composite/1-naive.js",
+    "composite:pattern": "node 11-composite/2-composite.js",
+    "composite:exercise": "node 11-composite/exercise.js",
+
+    "decorator:naive": "node 12-decorator/1-naive.js",
+    "decorator:pattern": "node 12-decorator/2-decorator.js",
+    "decorator:exercise": "node 12-decorator/exercise.js",
+
+    "facade:naive": "node 13-facade/1-naive.js",
+    "facade:pattern": "node 13-facade/2-facade.js",
+    "facade:exercise": "node 13-facade/exercise.js",
+
+    "flyweight:naive": "node 14-flyweight/1-naive.js",
+    "flyweight:pattern": "node 14-flyweight/2-flyweight.js",
+    "flyweight:exercise": "node 14-flyweight/exercise.js",
+
+    "proxy:naive": "node 15-proxy/1-naive.js",
+    "proxy:pattern": "node 15-proxy/2-proxy.js",
+    "proxy:exercise": "node 15-proxy/exercise.js",
+
+    "chain:naive": "node 16-chain-of-responsibility/1-naive.js",
+    "chain:pattern": "node 16-chain-of-responsibility/2-chain-of-responsibility.js",
+    "chain:exercise": "node 16-chain-of-responsibility/exercise.js",
+
+    "iterator:naive": "node 17-iterator/1-naive.js",
+    "iterator:pattern": "node 17-iterator/2-iterator.js",
+    "iterator:exercise": "node 17-iterator/exercise.js",
+
+    "mediator:naive": "node 18-mediator/1-naive.js",
+    "mediator:pattern": "node 18-mediator/2-mediator.js",
+    "mediator:exercise": "node 18-mediator/exercise.js",
+
+    "memento:naive": "node 19-memento/1-naive.js",
+    "memento:pattern": "node 19-memento/2-memento.js",
+    "memento:exercise": "node 19-memento/exercise.js",
+
+    "state:naive": "node 20-state/1-naive.js",
+    "state:pattern": "node 20-state/2-state.js",
+    "state:exercise": "node 20-state/exercise.js",
+
+    "template-method:naive": "node 21-template-method/1-naive.js",
+    "template-method:pattern": "node 21-template-method/2-template-method.js",
+    "template-method:exercise": "node 21-template-method/exercise.js",
+
+    "visitor:naive": "node 22-visitor/1-naive.js",
+    "visitor:pattern": "node 22-visitor/2-visitor.js",
+    "visitor:exercise": "node 22-visitor/exercise.js",
+
+    "interpreter:naive": "node 23-interpreter/1-naive.js",
+    "interpreter:pattern": "node 23-interpreter/2-interpreter.js",
+    "interpreter:exercise": "node 23-interpreter/exercise.js"
+  }
+}

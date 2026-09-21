@@ -1,0 +1,3030 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design Patterns Course</title>
+<style>
+  @page { size: A4; margin: 22mm 18mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #1c1c1e;
+    line-height: 1.55;
+    font-size: 11.5pt;
+  }
+  code, pre, .code, .mdcode {
+    font-family: 'Consolas', 'SFMono-Regular', Menlo, monospace;
+  }
+  .cover {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    page-break-after: always;
+  }
+  .cover .kicker { letter-spacing: 4px; text-transform: uppercase; color: #7a5cff; font-size: 12pt; margin-bottom: 18px; font-family: Arial, sans-serif; }
+  .cover h1 { font-size: 40pt; margin: 0 0 12px; }
+  .cover .sub { font-size: 14pt; color: #555; max-width: 520px; margin-bottom: 30px; }
+  .cover .meta { font-size: 10pt; color: #888; font-family: Arial, sans-serif; }
+
+  .intro { page-break-after: always; }
+  .intro h1 { font-size: 22pt; }
+  .intro h2 { font-size: 15pt; margin-top: 22px; }
+  .intro pre.mdcode { background: #f4f3fb; border: 1px solid #e3e1f5; border-radius: 6px; padding: 10px 14px; font-size: 9.3pt; white-space: pre-wrap; }
+
+  .toc { page-break-after: always; }
+  .toc h1 { font-size: 22pt; margin-bottom: 4px; }
+  .toc-cat h3 { font-family: Arial, sans-serif; font-size: 11pt; text-transform: uppercase; letter-spacing: 1px; color: #7a5cff; margin: 20px 0 6px; }
+  .toc-cat ul { list-style: none; margin: 0; padding: 0; }
+  .toc-cat li { padding: 3px 0; font-size: 11.5pt; }
+  .toc-cat a { color: #1c1c1e; text-decoration: none; }
+
+  .chapter { page-break-before: always; }
+  .chapter-kicker { font-family: Arial, sans-serif; font-size: 9pt; text-transform: uppercase; letter-spacing: 2px; color: #7a5cff; margin-bottom: 6px; }
+  .chapter-title { font-size: 22pt; margin: 0 0 16px; border-bottom: 2px solid #1c1c1e; padding-bottom: 10px; }
+  .chapter h2 { font-size: 13.5pt; margin-top: 20px; font-family: Arial, sans-serif; }
+  .chapter p { margin: 8px 0; }
+  .chapter pre.mdcode {
+    background: #f4f3fb; border: 1px solid #e3e1f5; border-radius: 6px;
+    padding: 10px 14px; font-size: 9.3pt; white-space: pre-wrap; margin: 10px 0;
+  }
+  .chapter ul, .chapter ol { margin: 6px 0 6px 22px; padding: 0; }
+  .chapter li { margin: 3px 0; }
+  /* Inline code in prose only. Scoped OFF of pre > code (full code blocks) —
+     an inline element with padding wrapping many lines paints an overlapping
+     padding box per wrapped line, which looked like smeared/corrupted text. */
+  code { background: #f0eefb; padding: 1px 5px; border-radius: 3px; font-size: 0.92em; }
+  pre code { background: none; padding: 0; border-radius: 0; font-size: inherit; }
+
+  .filename {
+    font-family: Arial, sans-serif; font-size: 10pt; font-weight: bold;
+    background: #1c1c1e; color: #fff; display: inline-block;
+    padding: 4px 10px; border-radius: 4px 4px 0 0; margin: 18px 0 0;
+  }
+  pre.code {
+    background: #1e1e2e; color: #e8e6f5; font-size: 8.6pt; line-height: 1.5;
+    padding: 12px 14px; border-radius: 0 4px 4px 4px; overflow-x: auto;
+    white-space: pre-wrap; word-break: break-word; margin: 0 0 4px;
+  }
+  pre.code .kw { color: #ff9d76; }
+  pre.code .str { color: #a8e0a0; }
+  pre.code .cmt { color: #8a8aa3; font-style: italic; }
+
+  a { color: #5a3fd6; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">A hands-on JavaScript course</div>
+  <h1>Design Patterns</h1>
+  <div class="sub">All 23 classic (Gang of Four) design patterns — the naive problem, the pattern that fixes it, and an exercise for each.</div>
+  <div class="meta">Compiled for reading — run the code from the original project to experiment.</div>
+</div>
+
+<div class="intro">
+<h1>Design Patterns Course (JavaScript) — run locally</h1>
+<p>Har pattern ko <strong>chala kar</strong> samajhne ke liye. Koi npm install ki zaroorat nahi —</p>
+<p>sab kuch pure Node hai.</p>
+<h2>Requirement</h2>
+<ul>
+<li>Node.js 18+ installed. Check karo:</li>
+</ul>
+<pre class="mdcode"><code>  node --version</code></pre>
+<p>  Agar nahi hai: https://nodejs.org se LTS install karo.</p>
+<h2>Kaise use karein (har lesson ke liye same flow)</h2>
+<ol>
+<li>Lesson folder ka <code>README.md</code> padho.</li>
+<li><code>1-naive.js</code> chalao — dekho problem kaisi dikhti hai:</li>
+</ol>
+<pre class="mdcode"><code>   node 01-strategy/1-naive.js</code></pre>
+<ol>
+<li>Pattern wali files chalao — dekho kaise clean hota hai.</li>
+<li><code>exercise.js</code> khol ke khud solve karo. Chala kar test karo.</li>
+</ol>
+<h2>Structure — saare 23 classic (GoF) patterns</h2>
+<h3>Creational — object *kaise banta hai*</h3>
+<pre class="mdcode"><code>design-patterns-course/
+├── 04-singleton/         ← sirf ek instance guarantee karo
+├── 05-factory-method/    ← object banane ka kaam ek function ko do
+├── 06-abstract-factory/  ← related objects ka poora consistent family banao
+├── 07-builder/           ← complex object ko step-by-step banao
+├── 08-prototype/         ← naye instance existing object ko CLONE karke banao</code></pre>
+<h3>Structural — objects *kaise jude/compose hote hain*</h3>
+<pre class="mdcode"><code>├── 09-adapter/            ← mismatched interface ko apne shape mein convert karo
+├── 10-bridge/             ← do independent dimensions ko alag hierarchies mein todo
+├── 11-composite/          ← tree (leaf + branch) ko uniform interface do
+├── 12-decorator/          ← runtime pe stackable behavior jodo
+├── 13-facade/             ← complex subsystem ke aage ek simple entry point
+├── 14-flyweight/          ← shared data reuse karo, memory bachao
+├── 15-proxy/              ← real object ke aage access-control/lazy-load stand-in</code></pre>
+<h3>Behavioral — objects *kaise interact/communicate karte hain*</h3>
+<pre class="mdcode"><code>├── 01-strategy/                    ← runtime pe interchangeable algorithms (yahin se shuru karo)
+├── 02-observer/                    ← ek-se-anek: state badle, sab subscribers ko pata chale
+├── 03-command/                     ← action ko object banao (undo/queue/replay)
+├── 16-chain-of-responsibility/     ← handlers ki chain, jo handle kar sake wahi kare
+├── 17-iterator/                    ← kisi bhi collection ko uniform tarike se traverse karo
+├── 18-mediator/                    ← components sirf ek central mediator se baat karein
+├── 19-memento/                     ← object khud apna snapshot save/restore kare
+├── 20-state/                       ← behavior current status pe depend kare, state khud transition kare
+├── 21-template-method/             ← shared skeleton, sirf steps subclass mein override
+├── 22-visitor/                     ← classes ko chhue bina naye operations add karo
+├── 23-interpreter/                 ← chhoti grammar ko composable nodes se evaluate karo
+└── package.json                    ← shortcut scripts (optional)</code></pre>
+<h2>Shortcut scripts (optional)</h2>
+<p><code>package.json</code> mein scripts hain, toh yeh bhi kaam karta hai:</p>
+<pre class="mdcode"><code>npm run strategy:registry
+npm run observer:emitter
+npm run singleton:class
+npm run visitor:pattern</code></pre>
+<p>Poori list ke liye <code>package.json</code> kholo — har lesson ke <code>naive</code>/pattern</p>
+<p>files ke liye ek script hai.</p>
+<h2>Golden rule</h2>
+<p>Sirf padhna nahi — <strong>chalao, tood-fod karo, dobara chalao.</strong> Jo pattern tumne</p>
+<p>khud break karke wapas jode ho, wahi yaad rehta hai.</p>
+
+</div>
+
+<div class="toc">
+<h1>Table of Contents</h1>
+<div class="toc-cat"><h3>Creational Patterns</h3><ul>
+<li><a href="#ch-04-singleton">1. Singleton</a></li>
+<li><a href="#ch-05-factory-method">2. Factory Method</a></li>
+<li><a href="#ch-06-abstract-factory">3. Abstract Factory</a></li>
+<li><a href="#ch-07-builder">4. Builder</a></li>
+<li><a href="#ch-08-prototype">5. Prototype</a></li>
+</ul></div>
+<div class="toc-cat"><h3>Structural Patterns</h3><ul>
+<li><a href="#ch-09-adapter">6. Adapter</a></li>
+<li><a href="#ch-10-bridge">7. Bridge</a></li>
+<li><a href="#ch-11-composite">8. Composite</a></li>
+<li><a href="#ch-12-decorator">9. Decorator</a></li>
+<li><a href="#ch-13-facade">10. Facade</a></li>
+<li><a href="#ch-14-flyweight">11. Flyweight</a></li>
+<li><a href="#ch-15-proxy">12. Proxy</a></li>
+</ul></div>
+<div class="toc-cat"><h3>Behavioral Patterns</h3><ul>
+<li><a href="#ch-01-strategy">13. Strategy</a></li>
+<li><a href="#ch-02-observer">14. Observer</a></li>
+<li><a href="#ch-03-command">15. Command</a></li>
+<li><a href="#ch-16-chain-of-responsibility">16. Chain of Responsibility</a></li>
+<li><a href="#ch-17-iterator">17. Iterator</a></li>
+<li><a href="#ch-18-mediator">18. Mediator</a></li>
+<li><a href="#ch-19-memento">19. Memento</a></li>
+<li><a href="#ch-20-state">20. State</a></li>
+<li><a href="#ch-21-template-method">21. Template Method</a></li>
+<li><a href="#ch-22-visitor">22. Visitor</a></li>
+<li><a href="#ch-23-interpreter">23. Interpreter</a></li>
+</ul></div>
+
+</div>
+
+<section class="chapter" id="ch-04-singleton">
+<div class="chapter-kicker">Creational Patterns</div>
+<h1 class="chapter-title">1. Singleton</h1>
+<p><strong>Problem:</strong> kuch cheezein app mein <strong>sirf ek hi</strong> honi chahiye — config,</p>
+<p>connection pool, logger. Agar har jagah <code>new</code> karte raho to alag-alag state</p>
+<p>ban jaata hai aur sab out of sync ho jaate hain.</p>
+<p><strong>Idea:</strong> class khud control kare ki uska sirf ek instance bane. Pehli baar</p>
+<p><code>new</code>/<code>getInstance()</code> call hone par instance banta hai, uske baad wahi wapas</p>
+<p>milta hai.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js            # ❌ har `new Config()` alag object
+node 2-singleton.js        # ✅ class + static instance
+node 3-singleton-module.js # ✅ idiomatic JS: module scope khud singleton hai
+node exercise.js           # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Single source of truth</strong> — ek hi state, jahan se bhi access karo.</li>
+<li><strong>Controlled instantiation</strong> — constructor khud check karta hai ki instance</li>
+</ol>
+<p>   already ban chuka hai ya nahi.</p>
+<h2>When to skip</h2>
+<p>Singleton <strong>global mutable state</strong> hai — testing mushkil kar deta hai (state</p>
+<p>tests ke beech leak hota hai) aur hidden dependencies bana deta hai. Agar</p>
+<p>dependency injection se kaam chal sakta hai (function/constructor ko object</p>
+<p>pass karo), woh usually behtar hai. JS mein simple config/constants ke liye</p>
+<p>module export (<code>3-singleton-module.js</code>) aksar kaafi hai — poora class/pattern</p>
+<p>zaroori nahi.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — har jagah naya config object bana rahe hain.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> Config {
+  <span class="kw">constructor</span>() {
+    <span class="kw">this</span>.settings = { theme: <span class="str">'light'</span>, retries: 3 };
+  }
+}
+
+<span class="kw">const</span> configA = <span class="kw">new</span> Config();
+<span class="kw">const</span> configB = <span class="kw">new</span> Config();
+
+configA.settings.theme = <span class="str">'dark'</span>;
+console.log(<span class="str">'configA.theme:'</span>, configA.settings.theme);
+console.log(<span class="str">'configB.theme:'</span>, configB.settings.theme); <span class="cmt">// still 'light' — inconsistent!</span>
+
+<span class="cmt">// PROBLEM: Config app-wide ek hi hona chahiye (ek hi source of truth). Har</span>
+<span class="cmt">// `new Config()` alag state banata hai — kahin change karo, kahin nahi dikhta.</span>
+</code></pre>
+<h4 class="filename">✅ 2-singleton.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ SINGLETON PATTERN — sirf ek instance, jahan se bhi maango wahi milega.</span>
+<span class="cmt">// Chalao:  node 2-singleton.js</span>
+
+<span class="kw">class</span> Config {
+  <span class="kw">static</span> #instance;
+
+  <span class="kw">constructor</span>() {
+    <span class="kw">if</span> (Config.#instance) <span class="kw">return</span> Config.#instance; <span class="cmt">// already bana hai to wahi do</span>
+    <span class="kw">this</span>.settings = { theme: <span class="str">'light'</span>, retries: 3 };
+    Config.#instance = <span class="kw">this</span>;
+  }
+
+  <span class="kw">static</span> getInstance() {
+    <span class="kw">return</span> Config.#instance ?? <span class="kw">new</span> Config();
+  }
+}
+
+<span class="kw">const</span> configA = Config.getInstance();
+<span class="kw">const</span> configB = Config.getInstance();
+
+configA.settings.theme = <span class="str">'dark'</span>;
+console.log(<span class="str">'configA.theme:'</span>, configA.settings.theme);
+console.log(<span class="str">'configB.theme:'</span>, configB.settings.theme); <span class="cmt">// 'dark' — same object hai</span>
+console.log(<span class="str">'same instance?'</span>, configA === configB);
+</code></pre>
+<h4 class="filename">✅ 3-singleton-module.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ IDIOMATIC JS: ES module khud hi singleton hai — module-level object</span>
+<span class="cmt">// export karo, JS engine use sirf EK baar evaluate karta hai (import cache).</span>
+<span class="cmt">// Chalao:  node 3-singleton-module.js</span>
+
+<span class="kw">const</span> settings = { theme: <span class="str">'light'</span>, retries: 3 }; <span class="cmt">// module scope = automatically singleton</span>
+<span class="kw">export</span> <span class="kw">default</span> settings;
+
+<span class="cmt">// Isko do jagah "import" karke dikhate hain (simulate):</span>
+<span class="kw">const</span> configA = settings;
+<span class="kw">const</span> configB = settings;
+configA.theme = <span class="str">'dark'</span>;
+console.log(<span class="str">'configA.theme:'</span>, configA.theme);
+console.log(<span class="str">'configB.theme:'</span>, configB.theme); <span class="cmt">// 'dark' — same reference</span>
+
+<span class="cmt">// Yehi tarika JS mein sabse zyada use hota hai: class + getInstance() ki</span>
+<span class="cmt">// zaroorat kam padti hai, module system khud singleton de deta hai.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — Logger ko Singleton banao taaki poore app mein ek hi log</span>
+<span class="cmt">// history ho.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">class</span> Logger {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.logs = []; }
+  log(msg) { <span class="kw">this</span>.logs.push(msg); console.log(<span class="str">'LOG:'</span>, msg); }
+}
+
+<span class="kw">const</span> loggerA = <span class="kw">new</span> Logger();
+<span class="kw">const</span> loggerB = <span class="kw">new</span> Logger();
+loggerA.log(<span class="str">'user signed up'</span>);
+loggerB.log(<span class="str">'payment received'</span>);
+console.log(<span class="str">'loggerA has'</span>, loggerA.logs.length, <span class="str">'logs'</span>); <span class="cmt">// 1 — but chahiye 2!</span>
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: Logger class mein static #instance field + getInstance() add karo</span>
+<span class="cmt">//         (2-singleton.js jaisa), taaki loggerA aur loggerB same object hon.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2 (bonus): ek module-level `export default new Logger()` variant bhi</span>
+<span class="cmt">//         try karo (3-singleton-module.js jaisa) — dono approach ka tradeoff</span>
+<span class="cmt">//         socho: class singleton lazy hai (pehli baar use hone par banta</span>
+<span class="cmt">//         hai), module singleton eager hai (import hote hi ban jaata hai).</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-05-factory-method">
+<div class="chapter-kicker">Creational Patterns</div>
+<h1 class="chapter-title">2. Factory Method</h1>
+<p><strong>Problem:</strong> object banane ka logic (<code>new X()</code>, kaunsi class chuni) caller ke</p>
+<p>code mein bikhra hua hai. Naya type add karna matlab har jagah if/else dhoondh</p>
+<p>ke edit karna.</p>
+<p><strong>Idea:</strong> object banane ka kaam ek dedicated factory function/method ko do.</p>
+<p>Caller sirf "mujhe X type chahiye" bolta hai, konsi class instantiate hui —</p>
+<p>uski chinta nahi karta.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js            # ❌ caller khud class chunta hai
+node 2-factory-method.js   # ✅ factory function + registry
+node exercise.js           # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Separate creation from use</strong> — "kya banaya" aur "kaise use kiya" alag.</li>
+<li><strong>Open/closed</strong> — naya type = registry mein entry, caller code same rehta.</li>
+</ol>
+<h2>When to skip</h2>
+<p>Sirf ek hi class hai jo kabhi variant nahi legi? Seedha <code>new X()</code> karo —</p>
+<p>factory ki indirection tabhi kamaati hai jab <strong>multiple related types</strong> ho</p>
+<p>jinke beech runtime pe chunna ho.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — caller khud decide karta hai KAUNSI class banani hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> EmailNotification {
+  send(msg) { console.log(<span class="str">`📧 Email: ${msg}`</span>); }
+}
+<span class="kw">class</span> SmsNotification {
+  send(msg) { console.log(<span class="str">`📱 SMS: ${msg}`</span>); }
+}
+
+<span class="kw">function</span> notify(type, msg) {
+  <span class="kw">let</span> notification;
+  <span class="kw">if</span> (type === <span class="str">'email'</span>) notification = <span class="kw">new</span> EmailNotification();
+  <span class="kw">else</span> <span class="kw">if</span> (type === <span class="str">'sms'</span>) notification = <span class="kw">new</span> SmsNotification();
+  <span class="kw">else</span> <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown type: ${type}`</span>);
+  notification.send(msg);
+}
+
+notify(<span class="str">'email'</span>, <span class="str">'Order shipped'</span>);
+notify(<span class="str">'sms'</span>, <span class="str">'Order shipped'</span>);
+
+<span class="cmt">// PROBLEM: naya notification type (push) add karne ke liye notify() function</span>
+<span class="cmt">// dobara edit karna padega. Creation logic aur usage logic mixed hain.</span>
+</code></pre>
+<h4 class="filename">✅ 2-factory-method.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ FACTORY METHOD — object banane ka kaam ek dedicated function/method ko</span>
+<span class="cmt">// do, caller sirf "type" maangta hai, "how to build" nahi jaanta.</span>
+<span class="cmt">// Chalao:  node 2-factory-method.js</span>
+
+<span class="kw">class</span> EmailNotification {
+  send(msg) { console.log(<span class="str">`📧 Email: ${msg}`</span>); }
+}
+<span class="kw">class</span> SmsNotification {
+  send(msg) { console.log(<span class="str">`📱 SMS: ${msg}`</span>); }
+}
+<span class="kw">class</span> PushNotification {
+  send(msg) { console.log(<span class="str">`🔔 Push: ${msg}`</span>); }
+}
+
+<span class="cmt">// Factory — ye "kaunsi class banani hai" ka decision yahin rakhta hai</span>
+<span class="kw">function</span> createNotification(type) {
+  <span class="kw">const</span> notifications = {
+    email: EmailNotification,
+    sms: SmsNotification,
+    push: PushNotification,
+  };
+  <span class="kw">const</span> NotificationClass = notifications[type];
+  <span class="kw">if</span> (!NotificationClass) <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown type: ${type}`</span>);
+  <span class="kw">return</span> <span class="kw">new</span> NotificationClass();
+}
+
+<span class="kw">function</span> notify(type, msg) {
+  <span class="kw">const</span> notification = createNotification(type); <span class="cmt">// caller ko class ka naam pata hi nahi</span>
+  notification.send(msg);
+}
+
+notify(<span class="str">'email'</span>, <span class="str">'Order shipped'</span>);
+notify(<span class="str">'push'</span>, <span class="str">'Order shipped'</span>);
+
+<span class="cmt">// Naya type add karna = registry mein ek line, notify() ko CHHUE BINA.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — shape banane ka if/else ko Factory Method mein refactor karo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> makeShape(type, size) {
+  <span class="kw">if</span> (type === <span class="str">'circle'</span>)   <span class="kw">return</span> { type, area: () =&gt; Math.PI * size * size };
+  <span class="kw">if</span> (type === <span class="str">'square'</span>)   <span class="kw">return</span> { type, area: () =&gt; size * size };
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown shape: ${type}`</span>);
+}
+
+console.log(<span class="str">'circle area:'</span>, makeShape(<span class="str">'circle'</span>, 3).area().toFixed(2));
+console.log(<span class="str">'square area:'</span>, makeShape(<span class="str">'square'</span>, 3).area());
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `shapeFactories` registry object banao — { circle: (size) =&gt; {...},</span>
+<span class="cmt">//         square: (size) =&gt; {...} } — jismein har entry ek factory function</span>
+<span class="cmt">//         hai jo shape object return karta hai.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `makeShape(type, size)` ko registry lookup karne wala banao (jaisa</span>
+<span class="cmt">//         2-factory-method.js mein hai).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): 'triangle' add karo (area = base*height/2, size ko base aur</span>
+<span class="cmt">//         height dono maan lo ya function signature adjust karo) — makeShape</span>
+<span class="cmt">//         ko chhue bina.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-06-abstract-factory">
+<div class="chapter-kicker">Creational Patterns</div>
+<h1 class="chapter-title">3. Abstract Factory</h1>
+<p><strong>Problem:</strong> kuch objects <strong>families</strong> mein aate hain jinka saath mein</p>
+<p>consistent rehna zaroori hai (theme ke button+checkbox, DB ke</p>
+<p>connection+query-builder). Agar har object alag jagah se banta hai, mismatch</p>
+<p>(dark button + light checkbox) possible ho jaata hai.</p>
+<p><strong>Idea:</strong> ek factory poori family banaye. Caller ek hi factory pakadta hai aur</p>
+<p>usi se saare related objects nikalta hai — mismatch structurally impossible</p>
+<p>ho jaata hai.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js             # ❌ har object alag factory function se — mismatch possible
+node 2-abstract-factory.js  # ✅ ek factory = poori consistent family
+node exercise.js            # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Factory Method ka bada bhai</strong> — ek object ke bajaye, related objects ka</li>
+</ol>
+<p>   poora *set* banata hai.</p>
+<ol>
+<li><strong>Consistency by construction</strong> — galat combination banana structurally</li>
+</ol>
+<p>   mushkil ho jaata hai, runtime check ki zaroorat nahi.</p>
+<h2>When to skip</h2>
+<p>Agar objects ke beech koi "family" relationship nahi hai (wo independently</p>
+<p>change ho sakte hain), plain Factory Method (Lesson 5) kaafi hai — Abstract</p>
+<p>Factory ka extra layer overkill hoga.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — button aur checkbox alag-alag banaye ja rahe hain,</span>
+<span class="cmt">// theme consistency guarantee nahi hoti.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">function</span> createButton(theme) {
+  <span class="kw">return</span> theme === <span class="str">'dark'</span>
+    ? { render: () =&gt; console.log(<span class="str">'🔘 [dark button]'</span>) }
+    : { render: () =&gt; console.log(<span class="str">'⚪ [light button]'</span>) };
+}
+<span class="kw">function</span> createCheckbox(theme) {
+  <span class="kw">return</span> theme === <span class="str">'dark'</span>
+    ? { render: () =&gt; console.log(<span class="str">'☑️ [dark checkbox]'</span>) }
+    : { render: () =&gt; console.log(<span class="str">'⬜ [light checkbox]'</span>) };
+}
+
+<span class="cmt">// Bug: kisi ne galti se mismatched theme pass kar diya</span>
+<span class="kw">const</span> button = createButton(<span class="str">'dark'</span>);
+<span class="kw">const</span> checkbox = createCheckbox(<span class="str">'light'</span>); <span class="cmt">// 😬 mismatch — koi compile-time check nahi</span>
+button.render();
+checkbox.render();
+
+<span class="cmt">// PROBLEM: button aur checkbox alag-alag jagah se banaye jaate hain — kuch bhi</span>
+<span class="cmt">// unhe "same family" (same theme) rehne ki guarantee nahi deta.</span>
+</code></pre>
+<h4 class="filename">✅ 2-abstract-factory.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ ABSTRACT FACTORY — related objects ka poora "family" ek hi factory se</span>
+<span class="cmt">// banta hai, taaki wo hamesha consistent rahein (e.g. sab dark, ya sab light).</span>
+<span class="cmt">// Chalao:  node 2-abstract-factory.js</span>
+
+<span class="kw">const</span> lightFactory = {
+  createButton:   () =&gt; ({ render: () =&gt; console.log(<span class="str">'⚪ [light button]'</span>) }),
+  createCheckbox: () =&gt; ({ render: () =&gt; console.log(<span class="str">'⬜ [light checkbox]'</span>) }),
+};
+<span class="kw">const</span> darkFactory = {
+  createButton:   () =&gt; ({ render: () =&gt; console.log(<span class="str">'🔘 [dark button]'</span>) }),
+  createCheckbox: () =&gt; ({ render: () =&gt; console.log(<span class="str">'☑️ [dark checkbox]'</span>) }),
+};
+
+<span class="kw">function</span> getFactory(theme) {
+  <span class="kw">const</span> factories = { light: lightFactory, dark: darkFactory };
+  <span class="kw">return</span> factories[theme] ?? (() =&gt; { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown theme: ${theme}`</span>); })();
+}
+
+<span class="cmt">// UI code ko sirf EK factory milta hai — mismatch ab possible hi nahi</span>
+<span class="kw">function</span> renderForm(factory) {
+  factory.createButton().render();
+  factory.createCheckbox().render();
+}
+
+console.log(<span class="str">'-- dark theme form --'</span>);
+renderForm(getFactory(<span class="str">'dark'</span>));
+console.log(<span class="str">'-- light theme form --'</span>);
+renderForm(getFactory(<span class="str">'light'</span>));
+
+<span class="cmt">// Naya theme (e.g. "high-contrast") add karna = naya factory object,</span>
+<span class="cmt">// renderForm() ko CHHUE BINA.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — postgres aur mysql "families" (connection + query builder)</span>
+<span class="cmt">// ko Abstract Factory se consistent banao.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> createConnection(db) {
+  <span class="kw">return</span> db === <span class="str">'mysql'</span> ? { name: <span class="str">'MySQL conn'</span> } : { name: <span class="str">'Postgres conn'</span> };
+}
+<span class="kw">function</span> createQueryBuilder(db) {
+  <span class="kw">return</span> db === <span class="str">'mysql'</span> ? { name: <span class="str">'MySQL builder'</span> } : { name: <span class="str">'Postgres builder'</span> };
+}
+
+<span class="kw">const</span> conn = createConnection(<span class="str">'mysql'</span>);
+<span class="kw">const</span> builder = createQueryBuilder(<span class="str">'postgres'</span>); <span class="cmt">// 😬 mismatch possible</span>
+console.log(conn.name, <span class="str">'+'</span>, builder.name);
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `mysqlFactory` aur `postgresFactory` objects banao, dono mein</span>
+<span class="cmt">//         `createConnection()` aur `createQueryBuilder()` methods hon.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `getFactory(db)` function banao jo sahi factory return kare.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3: `setup(factory)` function likho jo EK factory leke connection +</span>
+<span class="cmt">//         builder dono banaye — ab mismatch structurally impossible hona</span>
+<span class="cmt">//         chahiye.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-07-builder">
+<div class="chapter-kicker">Creational Patterns</div>
+<h1 class="chapter-title">4. Builder</h1>
+<p><strong>Problem:</strong> ek object banane ke liye bohot saare (zyadatar optional) params</p>
+<p>chahiye. Constructor mein sabko positional pass karna unreadable hai aur order</p>
+<p>galat hone par silent bug ban jaata hai.</p>
+<p><strong>Idea:</strong> object ko ek baar mein nahi, <strong>step-by-step methods</strong> se banao. Har</p>
+<p>method ek field set karke <code>this</code> return kare (chaining), aakhir mein <code>build()</code></p>
+<p>final object de.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js     # ❌ 6 positional params, order-sensitive
+node 2-builder.js   # ✅ fluent chain, sirf jo chahiye set karo
+node exercise.js    # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Step-by-step construction</strong> — complex object ek chain of readable calls</li>
+</ol>
+<p>   se banta hai.</p>
+<ol>
+<li><strong>Sensible defaults</strong> — sirf jo customize karna hai woh set karo, baaki</li>
+</ol>
+<p>   default rahe.</p>
+<h2>When to skip</h2>
+<p>Agar object mein 2-3 hi (mostly required) fields hain, plain object literal</p>
+<p><code>{ ... }</code> ya normal constructor kaafi hai — Builder tabhi kamaata hai jab</p>
+<p>fields zyada hon aur zyada optional hon.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — constructor mein bohot saare positional params,</span>
+<span class="cmt">// order yaad rakhna mushkil, optional cheezon ke liye undefined pass karna</span>
+<span class="cmt">// padta hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> HttpRequest {
+  <span class="kw">constructor</span>(method, url, headers, body, timeout, retries) {
+    <span class="kw">this</span>.method = method; <span class="kw">this</span>.url = url; <span class="kw">this</span>.headers = headers;
+    <span class="kw">this</span>.body = body; <span class="kw">this</span>.timeout = timeout; <span class="kw">this</span>.retries = retries;
+  }
+}
+
+<span class="cmt">// Headers ya body nahi chahiye? undefined pass karna padega, order galat</span>
+<span class="cmt">// hui to bug — pata bhi nahi chalega (retries ki jagah timeout chala jaayega)</span>
+<span class="kw">const</span> req = <span class="kw">new</span> HttpRequest(<span class="str">'POST'</span>, <span class="str">'/api/orders'</span>, <span class="kw">undefined</span>, { id: 1 }, 5000, <span class="kw">undefined</span>);
+console.log(req);
+
+<span class="cmt">// PROBLEM: 6 positional args yaad rakhna, optional wale skip karne ke liye</span>
+<span class="cmt">// undefined chain karna, aur order-mistake ka silently wrong behavior.</span>
+</code></pre>
+<h4 class="filename">✅ 2-builder.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ BUILDER PATTERN — object ko step-by-step, readable chaining se banao.</span>
+<span class="cmt">// Chalao:  node 2-builder.js</span>
+
+<span class="kw">class</span> HttpRequest {
+  <span class="kw">constructor</span>() {
+    <span class="kw">this</span>.method = <span class="str">'GET'</span>; <span class="kw">this</span>.headers = {}; <span class="kw">this</span>.retries = 0;
+  }
+}
+
+<span class="kw">class</span> HttpRequestBuilder {
+  #request = <span class="kw">new</span> HttpRequest();
+
+  setMethod(method)   { <span class="kw">this</span>.#request.method = method; <span class="kw">return</span> <span class="kw">this</span>; }
+  setUrl(url)          { <span class="kw">this</span>.#request.url = url; <span class="kw">return</span> <span class="kw">this</span>; }
+  setHeader(key, val)  { <span class="kw">this</span>.#request.headers[key] = val; <span class="kw">return</span> <span class="kw">this</span>; }
+  setBody(body)        { <span class="kw">this</span>.#request.body = body; <span class="kw">return</span> <span class="kw">this</span>; }
+  setTimeout(ms)        { <span class="kw">this</span>.#request.timeout = ms; <span class="kw">return</span> <span class="kw">this</span>; }
+  setRetries(n)          { <span class="kw">this</span>.#request.retries = n; <span class="kw">return</span> <span class="kw">this</span>; }
+  build()                { <span class="kw">return</span> <span class="kw">this</span>.#request; }
+}
+
+<span class="cmt">// Fluent chain — sirf jo chahiye woh set karo, order matter nahi karta</span>
+<span class="kw">const</span> req = <span class="kw">new</span> HttpRequestBuilder()
+  .setMethod(<span class="str">'POST'</span>)
+  .setUrl(<span class="str">'/api/orders'</span>)
+  .setHeader(<span class="str">'Content-Type'</span>, <span class="str">'application/json'</span>)
+  .setBody({ id: 1 })
+  .setTimeout(5000)
+  .build();
+
+console.log(req);
+
+<span class="cmt">// Naya optional field add karna = ek naya `set...()` method, purane</span>
+<span class="cmt">// callers ko CHHUE BINA (woh method call hi nahi karenge to default rahega).</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — pizza order ko Builder pattern se refactor karo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> makePizza(size, crust, toppings, extraCheese) {
+  <span class="kw">return</span> { size, crust, toppings: toppings ?? [], extraCheese: !!extraCheese };
+}
+console.log(makePizza(<span class="str">'large'</span>, <span class="str">'thin'</span>, [<span class="str">'mushroom'</span>, <span class="str">'olives'</span>], <span class="kw">true</span>));
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `PizzaBuilder` class banao with methods: setSize(size),</span>
+<span class="cmt">//         setCrust(crust), addTopping(name), setExtraCheese(bool), build().</span>
+<span class="cmt">//         Har set/add method `this` return kare (chaining ke liye).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: default size 'medium', default crust 'regular' rakho constructor</span>
+<span class="cmt">//         mein, toppings [] se start karo.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): agar `build()` call hone tak size set nahi hua (still</span>
+<span class="cmt">//         default) to warn console.log karo — "using default size".</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// new PizzaBuilder().setSize('large').addTopping('mushroom').build()</span>
+<span class="cmt">// jaisa use hona chahiye.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-08-prototype">
+<div class="chapter-kicker">Creational Patterns</div>
+<h1 class="chapter-title">5. Prototype</h1>
+<p><strong>Problem:</strong> naya object banana expensive hai (heavy setup, nested config),</p>
+<p>lekin zyadatar naye objects kisi existing object se <strong>milte-julte</strong> hote hain</p>
+<p>— sirf 1-2 field alag.</p>
+<p><strong>Idea:</strong> ek "template" (prototype) object rakho. Naya instance scratch se</p>
+<p>banane ke bajaye prototype ko <strong>clone</strong> karo, phir jo chahiye woh change karo.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js      # ❌ har baar scratch se setup
+node 2-prototype.js  # ✅ clone() se template reuse
+node exercise.js     # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Clone instead of construct</strong> — setup cost ek hi baar, uske baad copy.</li>
+<li><strong>Deep clone matters</strong> — <code>structuredClone</code> (ya deep clone) use karo,</li>
+</ol>
+<p>   warna nested objects/arrays accidentally share ho jaate hain (shallow</p>
+<p>   <code>{...obj}</code> sirf top-level copy karta hai).</p>
+<h2>When to skip</h2>
+<p>Agar object banana already cheap hai (simple literal, no heavy setup), plain</p>
+<p><code>{ ... }</code> ya factory function likhna simpler hai — cloning ki extra</p>
+<p>indirection ki zaroorat nahi.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — similar object har baar scratch se, expensive setup</span>
+<span class="cmt">// duplicate ho raha hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">function</span> createGoblin() {
+  <span class="cmt">// pretend yeh expensive hai (asset load, stat calculation, etc.)</span>
+  <span class="kw">return</span> { type: <span class="str">'goblin'</span>, hp: 30, speed: 5, loot: [<span class="str">'dagger'</span>] };
+}
+
+<span class="kw">const</span> goblin1 = createGoblin();
+<span class="kw">const</span> goblin2 = createGoblin();
+goblin2.hp = 45; <span class="cmt">// is goblin ko thoda strong banana hai</span>
+
+console.log(goblin1);
+console.log(goblin2);
+
+<span class="cmt">// PROBLEM: har goblin poori setup logic dobara chalata hai, sirf ek field</span>
+<span class="cmt">// tweak karne ke liye bhi. Agar setup expensive ho (e.g. deep nested config,</span>
+<span class="cmt">// file load) to yeh wasteful hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-prototype.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ PROTOTYPE PATTERN — ek baar "template" object banao, naye instances</span>
+<span class="cmt">// usse CLONE karke banao (expensive setup dobara nahi chalta).</span>
+<span class="cmt">// Chalao:  node 2-prototype.js</span>
+
+<span class="cmt">// Class use karte hain taaki clone() method PROTOTYPE chain pe rahe, instance</span>
+<span class="cmt">// ki apni "own" data properties mein nahi — structuredClone(this) sirf data</span>
+<span class="cmt">// clone karta hai, functions clone nahi kar sakta (agar clone() khud ek own</span>
+<span class="cmt">// property hoti, jaisa plain object literal mein hota, to yeh crash karta).</span>
+<span class="kw">class</span> Goblin {
+  <span class="kw">constructor</span>() {
+    <span class="kw">this</span>.type = <span class="str">'goblin'</span>; <span class="kw">this</span>.hp = 30; <span class="kw">this</span>.speed = 5; <span class="kw">this</span>.loot = [<span class="str">'dagger'</span>];
+  }
+  clone() {
+    <span class="kw">return</span> structuredClone(<span class="kw">this</span>); <span class="cmt">// deep copy, prototype ke reference se independent</span>
+  }
+}
+
+<span class="kw">const</span> goblinPrototype = <span class="kw">new</span> Goblin(); <span class="cmt">// ek baar "expensive" setup</span>
+
+<span class="kw">const</span> goblin1 = goblinPrototype.clone();
+<span class="kw">const</span> goblin2 = goblinPrototype.clone();
+goblin2.hp = 45; <span class="cmt">// sirf clone mein change, prototype untouched</span>
+
+console.log(goblin1);
+console.log(goblin2);
+console.log(<span class="str">'prototype still:'</span>, goblinPrototype.hp);
+
+<span class="cmt">// Naya enemy type (orc) add karna = ek nayi class jo yehi clone() pattern</span>
+<span class="cmt">// follow kare, goblinPrototype ko CHHUE BINA.</span>
+<span class="kw">class</span> Orc {
+  <span class="kw">constructor</span>() {
+    <span class="kw">this</span>.type = <span class="str">'orc'</span>; <span class="kw">this</span>.hp = 60; <span class="kw">this</span>.speed = 3; <span class="kw">this</span>.loot = [<span class="str">'axe'</span>];
+  }
+  clone() { <span class="kw">return</span> structuredClone(<span class="kw">this</span>); }
+}
+<span class="kw">const</span> orcPrototype = <span class="kw">new</span> Orc();
+console.log(orcPrototype.clone());
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — invoice template ko Prototype pattern se clone karo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> createInvoice() {
+  <span class="kw">return</span> {
+    header: { company: <span class="str">'Acme Inc'</span>, address: <span class="str">'123 Main St'</span> },
+    items: [],
+    tax: 0.18,
+  };
+}
+<span class="kw">const</span> invoiceA = createInvoice();
+invoiceA.items.push({ name: <span class="str">'Widget'</span>, price: 100 });
+console.log(invoiceA);
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `InvoicePrototype` CLASS banao (constructor mein header + empty</span>
+<span class="cmt">//         items + tax set kare) with ek `clone()` method jo</span>
+<span class="cmt">//         `structuredClone(this)` return kare.</span>
+<span class="cmt">//         (Class use karo, plain object literal nahi — warna clone() khud</span>
+<span class="cmt">//         ek "own property" ban jaayegi aur structuredClone use clone nahi</span>
+<span class="cmt">//         kar payega kyunki functions clone-able nahi hote. Class method</span>
+<span class="cmt">//         prototype chain pe rehta hai, isliye safe hai — 2-prototype.js</span>
+<span class="cmt">//         mein yehi tarika dikhaya gaya hai.)</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `const invoicePrototype = new InvoicePrototype()` banao, phir do</span>
+<span class="cmt">//         invoices clone karo (`invoiceA`, `invoiceB`), dono mein alag items</span>
+<span class="cmt">//         push karo, dikhao ki ek doosre ko affect nahi karte (structuredClone</span>
+<span class="cmt">//         deep copy hai, shallow spread {...this} nahi).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): socho — agar tumne `clone()` mein `{...this}` (shallow</span>
+<span class="cmt">//         copy) use kiya hota, to `items` array kya problem create karta?</span>
+<span class="cmt">//         (Hint: dono clones same array reference share karte.)</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-09-adapter">
+<div class="chapter-kicker">Structural Patterns</div>
+<h1 class="chapter-title">6. Adapter</h1>
+<p><strong>Problem:</strong> tumhare app ko ek interface chahiye, lekin jo library/API mil</p>
+<p>rahi hai uska shape alag hai (different param order, different field names).</p>
+<p>Tum usko change nahi kar sakte (third-party/legacy).</p>
+<p><strong>Idea:</strong> ek thin wrapper (adapter) banao jo purani/mismatched interface ko</p>
+<p>apne app ke expected shape mein convert kare. App sirf apne expected interface</p>
+<p>se baat karta hai, adapter ke peeche kya hai — usse fark nahi padta.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js     # ❌ har jagah mismatch-handling duplicate
+node 2-adapter.js   # ✅ ek wrapper, clean interface
+node exercise.js    # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Isolate the mismatch</strong> — conversion logic ek hi jagah rehta hai.</li>
+<li><strong>App depends on ITS interface, not theirs</strong> — third-party SDK badle to</li>
+</ol>
+<p>   sirf adapter badalta hai.</p>
+<h2>When to skip</h2>
+<p>Agar tum khud us API/library ke owner ho (usko directly badal sakte ho),</p>
+<p>adapter mat banao — seedha shape fix karo. Adapter tabhi zaroori hai jab</p>
+<p>tum kisi cheez ko control nahi kar sakte.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — third-party lib ka "alag shape" wala response</span>
+<span class="cmt">// direct use ho raha hai, jahan bhi use hota hai wahi conversion duplicate.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="cmt">// Pretend yeh ek third-party payment SDK hai jiska shape hum control nahi</span>
+<span class="cmt">// kar sakte:</span>
+<span class="kw">const</span> legacyPaymentSdk = {
+  makeCharge: (cents) =&gt; ({ status_code: 200, charged_amount_cents: cents }),
+};
+
+<span class="kw">function</span> checkout(amountRupees) {
+  <span class="kw">const</span> result = legacyPaymentSdk.makeCharge(amountRupees * 100);
+  <span class="cmt">// har jagah jahan yeh SDK use hoga, yeh conversion + shape-reading duplicate hogi</span>
+  <span class="kw">if</span> (result.status_code === 200) {
+    console.log(<span class="str">`✅ Charged ₹${result.charged_amount_cents / 100}`</span>);
+  }
+}
+
+checkout(499);
+
+<span class="cmt">// PROBLEM: baaki poora app "amount in rupees, { success, amount }" shape</span>
+<span class="cmt">// expect karta hai, lekin yeh SDK cents + status_code deta hai. Yeh</span>
+<span class="cmt">// mismatch-handling code har call-site pe copy-paste hoga.</span>
+</code></pre>
+<h4 class="filename">✅ 2-adapter.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ ADAPTER PATTERN — third-party ke ajeeb shape ko apne app ke expected</span>
+<span class="cmt">// interface mein convert karne wala ek wrapper banao.</span>
+<span class="cmt">// Chalao:  node 2-adapter.js</span>
+
+<span class="kw">const</span> legacyPaymentSdk = {
+  makeCharge: (cents) =&gt; ({ status_code: 200, charged_amount_cents: cents }),
+};
+
+<span class="cmt">// Adapter — apne app ke liye "clean" interface: pay(amountRupees) -&gt; {success, amount}</span>
+<span class="kw">class</span> PaymentAdapter {
+  pay(amountRupees) {
+    <span class="kw">const</span> result = legacyPaymentSdk.makeCharge(amountRupees * 100);
+    <span class="kw">return</span> {
+      success: result.status_code === 200,
+      amount: result.charged_amount_cents / 100,
+    };
+  }
+}
+
+<span class="kw">function</span> checkout(amountRupees, paymentGateway) {
+  <span class="kw">const</span> result = paymentGateway.pay(amountRupees); <span class="cmt">// apna clean interface, SDK ka pata nahi</span>
+  <span class="kw">if</span> (result.success) console.log(<span class="str">`✅ Charged ₹${result.amount}`</span>);
+}
+
+checkout(499, <span class="kw">new</span> PaymentAdapter());
+
+<span class="cmt">// Kal ko SDK badal jaaye (Stripe, Razorpay) — sirf Adapter badlega,</span>
+<span class="cmt">// checkout() ka baaki poora app CHHUE BINA rahega.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — purani `oldLogger` (positional args) ko naye app ke expected</span>
+<span class="cmt">// `log({level, message})` interface mein Adapter se convert karo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- third-party jise hum control nahi kar sakte -----</span>
+<span class="kw">const</span> oldLogger = {
+  write: (level, msg) =&gt; console.log(<span class="str">`[${level.toUpperCase()}] ${msg}`</span>),
+};
+
+<span class="cmt">// ----- naive usage (isse refactor karna hai) -----</span>
+<span class="kw">function</span> reportError(msg) {
+  oldLogger.write(<span class="str">'error'</span>, msg); <span class="cmt">// direct coupling — har jagah 'level, msg' order yaad rakhna</span>
+}
+reportError(<span class="str">'Payment failed'</span>);
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `LoggerAdapter` class banao with ek method `log({ level, message })`</span>
+<span class="cmt">//         jo internally `oldLogger.write(level, message)` call kare.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `reportError(msg, logger)` ko refactor karo taaki woh</span>
+<span class="cmt">//         `logger.log({ level: 'error', message: msg })` call kare —</span>
+<span class="cmt">//         `oldLogger` ka naam ab reportError() ke andar kahin na aaye.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): ek doosra adapter socho jo console.log ko hi seedha</span>
+<span class="cmt">//         `log({level, message})` interface de (no real "old" system) —</span>
+<span class="cmt">//         dikhao ki reportError() dono adapters ke saath kaam karta hai.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-10-bridge">
+<div class="chapter-kicker">Structural Patterns</div>
+<h1 class="chapter-title">7. Bridge</h1>
+<p><strong>Problem:</strong> ek cheez do independent dimensions mein badalti hai (e.g. urgency</p>
+<p>× channel, shape × renderer). Har combination ke liye alag class banao to</p>
+<p>combinations ke saath class count <strong>exponentially</strong> badhta hai.</p>
+<p><strong>Idea:</strong> do dimensions ko DO alag hierarchies mein tod do — ek "abstraction"</p>
+<p>(kya) aur ek "implementation" (kaise) — aur abstraction implementation ko</p>
+<p>*hold* (reference) kare, inherit nahi kare. Ab dono independently badhte hain.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js   # ❌ (urgency × channel) har combo ke liye class
+node 2-bridge.js  # ✅ do hierarchies, ek doosre ko hold karti hain
+node exercise.js  # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Composition over inheritance</strong> — dusri dimension ko *inherit* nahi,</li>
+</ol>
+<p>   *hold* karo.</p>
+<ol>
+<li><strong>Independent extensibility</strong> — naya channel ya nayi urgency level add</li>
+</ol>
+<p>   karna doosri dimension ko touch nahi karta.</p>
+<h2>When to skip</h2>
+<p>Agar sirf EK dimension hai jo badalti hai (channel ya urgency, dono nahi),</p>
+<p>Strategy pattern (Lesson 1) kaafi hai — Bridge tabhi chahiye jab do</p>
+<p>dimensions ho jo independently combine hoti hon.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — har (notification-type × channel) combination ke</span>
+<span class="cmt">// liye alag class — class explosion.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> UrgentEmailAlert {
+  send(msg) { console.log(<span class="str">`📧🚨 URGENT EMAIL: ${msg}`</span>); }
+}
+<span class="kw">class</span> NormalEmailAlert {
+  send(msg) { console.log(<span class="str">`📧 email: ${msg}`</span>); }
+}
+<span class="kw">class</span> UrgentSmsAlert {
+  send(msg) { console.log(<span class="str">`📱🚨 URGENT SMS: ${msg}`</span>); }
+}
+<span class="kw">class</span> NormalSmsAlert {
+  send(msg) { console.log(<span class="str">`📱 sms: ${msg}`</span>); }
+}
+
+<span class="kw">new</span> UrgentEmailAlert().send(<span class="str">'Server down'</span>);
+<span class="kw">new</span> NormalSmsAlert().send(<span class="str">'Deploy finished'</span>);
+
+<span class="cmt">// PROBLEM: 2 urgency levels × 2 channels = 4 classes. Teesra channel (push)</span>
+<span class="cmt">// add karo -&gt; 6 classes. Teesri urgency level add karo -&gt; 9 classes. Yeh</span>
+<span class="cmt">// (urgency × channel) combinations ke saath EXPONENTIALLY badhta hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-bridge.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ BRIDGE PATTERN — do dimensions (urgency × channel) ko DO alag</span>
+<span class="cmt">// hierarchies mein tod do, ek doosre ko "hold" karke connect karo.</span>
+<span class="cmt">// Chalao:  node 2-bridge.js</span>
+
+<span class="cmt">// Implementation hierarchy — "kaise bheja jaaye" (channel)</span>
+<span class="kw">const</span> emailChannel = { deliver: (text) =&gt; console.log(<span class="str">`📧 ${text}`</span>) };
+<span class="kw">const</span> smsChannel   = { deliver: (text) =&gt; console.log(<span class="str">`📱 ${text}`</span>) };
+
+<span class="cmt">// Abstraction hierarchy — "kya bheja jaaye" (urgency), channel ko bas HOLD karta hai</span>
+<span class="kw">class</span> Alert {
+  <span class="kw">constructor</span>(channel) { <span class="kw">this</span>.channel = channel; }
+  send(msg) { <span class="kw">this</span>.channel.deliver(msg); }
+}
+<span class="kw">class</span> UrgentAlert <span class="kw">extends</span> Alert {
+  send(msg) { <span class="kw">this</span>.channel.deliver(<span class="str">`🚨 URGENT: ${msg}`</span>); }
+}
+
+<span class="cmt">// Ab dono dimensions INDEPENDENTLY combine hote hain — class explosion nahi</span>
+<span class="kw">new</span> Alert(emailChannel).send(<span class="str">'Deploy finished'</span>);
+<span class="kw">new</span> UrgentAlert(smsChannel).send(<span class="str">'Server down'</span>);
+<span class="kw">new</span> UrgentAlert(emailChannel).send(<span class="str">'Payment failed'</span>);
+
+<span class="cmt">// Naya channel (push) add karna = 1 naya object. Nayi urgency level add</span>
+<span class="cmt">// karna = 1 nayi class. Dono independently badhte hain, combinations nahi.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — Shape (circle/square) × Renderer (vector/raster) ko Bridge</span>
+<span class="cmt">// se refactor karo taaki class explosion na ho.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">class</span> VectorCircle { draw() { console.log(<span class="str">'vector circle ◯'</span>); } }
+<span class="kw">class</span> RasterCircle { draw() { console.log(<span class="str">'raster circle (pixels) ●'</span>); } }
+<span class="kw">class</span> VectorSquare { draw() { console.log(<span class="str">'vector square □'</span>); } }
+<span class="kw">class</span> RasterSquare { draw() { console.log(<span class="str">'raster square (pixels) ■'</span>); } }
+
+<span class="kw">new</span> VectorCircle().draw();
+<span class="kw">new</span> RasterSquare().draw();
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: do "renderer" objects banao — `vectorRenderer`, `rasterRenderer` —</span>
+<span class="cmt">//         dono mein ek `renderShape(shapeName)` method ho jo shape ka naam</span>
+<span class="cmt">//         leke apne style mein console.log kare.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `Shape` base class banao jo constructor mein renderer le, aur</span>
+<span class="cmt">//         `Circle extends Shape`, `Square extends Shape` banao jo apna naam</span>
+<span class="cmt">//         renderer ko pass karein (draw() method se).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): naya renderer 'asciiRenderer' add karo — dikhao ki Circle</span>
+<span class="cmt">//         aur Square dono classes ko CHHUE BINA naya renderer kaam karta hai.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-11-composite">
+<div class="chapter-kicker">Structural Patterns</div>
+<h1 class="chapter-title">8. Composite</h1>
+<p><strong>Problem:</strong> ek tree structure hai (files/folders, menu/combo, org chart) —</p>
+<p>kuch nodes "leaf" hain (single item), kuch "branch" hain (group jisme aur</p>
+<p>nodes hain). Har operation mein "leaf ya branch?" check karna padta hai.</p>
+<p><strong>Idea:</strong> leaf aur branch dono ko EK hi interface do (e.g. <code>getSize()</code>,</p>
+<p><code>getPrice()</code>). Branch apna operation apne children pe recursively call karke</p>
+<p>implement karta hai. Caller ko fark hi nahi karna padta — woh bas</p>
+<p><code>node.getSize()</code> call karta hai.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js      # ❌ har operation mein type-check duplicate
+node 2-composite.js  # ✅ File aur Folder same interface follow karte hain
+node exercise.js     # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Uniform treatment</strong> — single object aur group ko same tarike se treat</li>
+</ol>
+<p>   karo.</p>
+<ol>
+<li><strong>Recursive composition</strong> — branch apna kaam apne children ko delegate</li>
+</ol>
+<p>   karke karta hai.</p>
+<h2>When to skip</h2>
+<p>Agar structure kabhi nested nahi hoga (sirf flat list), plain array +</p>
+<p><code>.reduce()</code> kaafi hai — Composite ki recursion tabhi chahiye jab genuinely</p>
+<p>tree-shaped data ho.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — file aur folder ko har jagah alag treat karna padta</span>
+<span class="cmt">// hai, har naye operation ke liye type-check duplicate hota hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">function</span> getSize(node) {
+  <span class="kw">if</span> (node.type === <span class="str">'file'</span>) <span class="kw">return</span> node.size;
+  <span class="kw">if</span> (node.type === <span class="str">'folder'</span>) {
+    <span class="kw">let</span> total = 0;
+    <span class="kw">for</span> (<span class="kw">const</span> child <span class="kw">of</span> node.children) total += getSize(child); <span class="cmt">// recursion, par type-check saath</span>
+    <span class="kw">return</span> total;
+  }
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'unknown node type'</span>);
+}
+
+<span class="kw">const</span> tree = {
+  type: <span class="str">'folder'</span>, name: <span class="str">'src'</span>,
+  children: [
+    { type: <span class="str">'file'</span>, name: <span class="str">'index.js'</span>, size: 10 },
+    { type: <span class="str">'folder'</span>, name: <span class="str">'utils'</span>, children: [{ type: <span class="str">'file'</span>, name: <span class="str">'math.js'</span>, size: 5 }] },
+  ],
+};
+
+console.log(<span class="str">'total size:'</span>, getSize(tree));
+
+<span class="cmt">// PROBLEM: har naya operation (print, count files, search) getSize() jaisa</span>
+<span class="cmt">// har jagah "file vs folder" if/else dobara likhega. Caller ko bhi hamesha</span>
+<span class="cmt">// yaad rakhna padta hai ki node file hai ya folder.</span>
+</code></pre>
+<h4 class="filename">✅ 2-composite.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ COMPOSITE PATTERN — File aur Folder dono EK hi interface follow karte</span>
+<span class="cmt">// hain (getSize()), caller ko fark nahi karna padta "leaf" hai ya "branch".</span>
+<span class="cmt">// Chalao:  node 2-composite.js</span>
+
+<span class="kw">class</span> File {
+  <span class="kw">constructor</span>(name, size) { <span class="kw">this</span>.name = name; <span class="kw">this</span>.size = size; }
+  getSize() { <span class="kw">return</span> <span class="kw">this</span>.size; }
+  print(indent = <span class="str">''</span>) { console.log(<span class="str">`${indent}📄 ${this.name} (${this.size})`</span>); }
+}
+
+<span class="kw">class</span> Folder {
+  <span class="kw">constructor</span>(name) { <span class="kw">this</span>.name = name; <span class="kw">this</span>.children = []; }
+  add(node) { <span class="kw">this</span>.children.push(node); <span class="kw">return</span> <span class="kw">this</span>; }
+  getSize() { <span class="kw">return</span> <span class="kw">this</span>.children.reduce((sum, c) =&gt; sum + c.getSize(), 0); } <span class="cmt">// same method name!</span>
+  print(indent = <span class="str">''</span>) {
+    console.log(<span class="str">`${indent}📁 ${this.name}/`</span>);
+    <span class="kw">this</span>.children.forEach((c) =&gt; c.print(indent + <span class="str">'  '</span>));
+  }
+}
+
+<span class="kw">const</span> utils = <span class="kw">new</span> Folder(<span class="str">'utils'</span>).add(<span class="kw">new</span> File(<span class="str">'math.js'</span>, 5));
+<span class="kw">const</span> tree = <span class="kw">new</span> Folder(<span class="str">'src'</span>)
+  .add(<span class="kw">new</span> File(<span class="str">'index.js'</span>, 10))
+  .add(utils);
+
+tree.print();
+console.log(<span class="str">'total size:'</span>, tree.getSize());
+
+<span class="cmt">// Naya operation (print) add karna = File aur Folder dono mein ek method,</span>
+<span class="cmt">// caller code (`tree.print()`) file/folder ka fark kiye bina kaam karta hai.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — restaurant menu (single item vs combo/submenu) ko Composite</span>
+<span class="cmt">// se refactor karo taaki total price recursively, uniformly nikle.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> getPrice(entry) {
+  <span class="kw">if</span> (entry.kind === <span class="str">'item'</span>) <span class="kw">return</span> entry.price;
+  <span class="kw">if</span> (entry.kind === <span class="str">'combo'</span>) <span class="kw">return</span> entry.items.reduce((sum, e) =&gt; sum + getPrice(e), 0);
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'unknown kind'</span>);
+}
+
+<span class="kw">const</span> menu = {
+  kind: <span class="str">'combo'</span>, name: <span class="str">'Family Meal'</span>,
+  items: [
+    { kind: <span class="str">'item'</span>, name: <span class="str">'Burger'</span>, price: 150 },
+    { kind: <span class="str">'combo'</span>, name: <span class="str">'Sides'</span>, items: [{ kind: <span class="str">'item'</span>, name: <span class="str">'Fries'</span>, price: 50 }] },
+  ],
+};
+console.log(<span class="str">'total price:'</span>, getPrice(menu));
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `MenuItem` class banao (name, price) with `getPrice()` method</span>
+<span class="cmt">//         jo price return kare.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `ComboMeal` class banao (name, empty children array) with</span>
+<span class="cmt">//         `add(entry)` aur `getPrice()` (children ka sum, recursively —</span>
+<span class="cmt">//         chahe entry MenuItem ho ya nested ComboMeal, same method call hota</span>
+<span class="cmt">//         hai) methods.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): dono classes mein `print(indent)` method add karo jo tree</span>
+<span class="cmt">//         ko nicely console.log kare (2-composite.js jaisa).</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-12-decorator">
+<div class="chapter-kicker">Structural Patterns</div>
+<h1 class="chapter-title">9. Decorator</h1>
+<p><strong>Problem:</strong> ek base object mein runtime pe extra behavior/features jodne</p>
+<p>hain (coffee add-ons, text formatting, middleware), lekin har combination ke</p>
+<p>liye subclass banana class-explosion ban jaata hai.</p>
+<p><strong>Idea:</strong> har add-on ko ek wrapper object banao jo asli object jaisa hi</p>
+<p>interface follow kare, aur wrapped object ko call karke apna kaam upar se</p>
+<p>jode. Decorators ko <strong>kisi bhi order mein, kitne bhi stack</strong> kiya ja sakta hai.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js      # ❌ har combination ke liye subclass
+node 2-decorator.js  # ✅ stackable wrapper objects
+node exercise.js     # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Same interface as wrapped object</strong> — decorator aur base dono</li>
+</ol>
+<p>   <code>cost()</code>/<code>describe()</code> follow karte hain, caller ko fark nahi padta.</p>
+<ol>
+<li><strong>Composable at runtime</strong> — combinations *code* mein nahi, *chaining* se</li>
+</ol>
+<p>   banti hain.</p>
+<h2>When to skip</h2>
+<p>Agar sirf 1-2 fixed variants hain jo kabhi combine nahi hongi, simple</p>
+<p>subclass ya if/else kaafi hai — Decorator tabhi kamaata hai jab</p>
+<p><strong>independent add-ons ko mix-and-match</strong> karna ho.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — har add-on combination ke liye alag subclass —</span>
+<span class="cmt">// class explosion (Bridge lesson jaisa hi problem, dusre context mein).</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> Coffee { cost() { <span class="kw">return</span> 100; } describe() { <span class="kw">return</span> <span class="str">'Coffee'</span>; } }
+<span class="kw">class</span> CoffeeWithMilk <span class="kw">extends</span> Coffee {
+  cost() { <span class="kw">return</span> <span class="kw">super</span>.cost() + 20; }
+  describe() { <span class="kw">return</span> <span class="kw">super</span>.describe() + <span class="str">' + Milk'</span>; }
+}
+<span class="kw">class</span> CoffeeWithMilkAndSugar <span class="kw">extends</span> CoffeeWithMilk {
+  cost() { <span class="kw">return</span> <span class="kw">super</span>.cost() + 10; }
+  describe() { <span class="kw">return</span> <span class="kw">super</span>.describe() + <span class="str">' + Sugar'</span>; }
+}
+
+<span class="kw">const</span> order = <span class="kw">new</span> CoffeeWithMilkAndSugar();
+console.log(order.describe(), <span class="str">'='</span>, order.cost());
+
+<span class="cmt">// PROBLEM: Milk, Sugar, Whip, ExtraShot — 4 add-ons ke 2^4 = 16 possible</span>
+<span class="cmt">// combinations, har combo ke liye subclass nahi bana sakte.</span>
+</code></pre>
+<h4 class="filename">✅ 2-decorator.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ DECORATOR PATTERN — add-ons ko wrapper objects banao jo SAME interface</span>
+<span class="cmt">// (cost/describe) follow karte hain aur asli object ko "wrap" karte hain.</span>
+<span class="cmt">// Chalao:  node 2-decorator.js</span>
+
+<span class="kw">class</span> Coffee {
+  cost() { <span class="kw">return</span> 100; }
+  describe() { <span class="kw">return</span> <span class="str">'Coffee'</span>; }
+}
+
+<span class="cmt">// Har decorator wahi interface (cost/describe) follow karta hai, aur jo</span>
+<span class="cmt">// wrap kiya hai uske result mein apna add-on jodta hai</span>
+<span class="kw">class</span> MilkDecorator {
+  <span class="kw">constructor</span>(coffee) { <span class="kw">this</span>.coffee = coffee; }
+  cost() { <span class="kw">return</span> <span class="kw">this</span>.coffee.cost() + 20; }
+  describe() { <span class="kw">return</span> <span class="kw">this</span>.coffee.describe() + <span class="str">' + Milk'</span>; }
+}
+<span class="kw">class</span> SugarDecorator {
+  <span class="kw">constructor</span>(coffee) { <span class="kw">this</span>.coffee = coffee; }
+  cost() { <span class="kw">return</span> <span class="kw">this</span>.coffee.cost() + 10; }
+  describe() { <span class="kw">return</span> <span class="kw">this</span>.coffee.describe() + <span class="str">' + Sugar'</span>; }
+}
+
+<span class="cmt">// Ab koi bhi combination RUNTIME pe chain ki jaa sakti hai, subclass nahi chahiye</span>
+<span class="kw">let</span> order = <span class="kw">new</span> Coffee();
+order = <span class="kw">new</span> MilkDecorator(order);
+order = <span class="kw">new</span> SugarDecorator(order);
+
+console.log(order.describe(), <span class="str">'='</span>, order.cost());
+
+<span class="cmt">// Naya add-on (whip) = ek naya decorator class, existing decorators ko</span>
+<span class="cmt">// CHHUE BINA, aur kisi bhi order mein stack ho sakta hai.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — text formatters (bold/italic) ko Decorator pattern se</span>
+<span class="cmt">// refactor karo taaki koi bhi combination stack ho sake.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> boldItalic(text) { <span class="kw">return</span> <span class="str">`**_${text}_**`</span>; }
+<span class="kw">function</span> boldOnly(text) { <span class="kw">return</span> <span class="str">`**${text}**`</span>; }
+<span class="cmt">// Naya combo (underline+bold) chahiye? Naya function likhna padega...</span>
+
+console.log(boldItalic(<span class="str">'Hello'</span>));
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `PlainText` class banao with constructor(text) aur</span>
+<span class="cmt">//         `render()` method jo bas text return kare.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `BoldDecorator` aur `ItalicDecorator` classes banao, dono</span>
+<span class="cmt">//         constructor mein "wrapped" text-object lein aur `render()` mein</span>
+<span class="cmt">//         `wrapped.render()` ke around apna marker (** ya _) laga dein.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): `UnderlineDecorator` add karo aur teeno ko kisi bhi order</span>
+<span class="cmt">//         mein stack karke dikhao — dikhao ki order badalne se output ka</span>
+<span class="cmt">//         "nesting order" badalta hai.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-13-facade">
+<div class="chapter-kicker">Structural Patterns</div>
+<h1 class="chapter-title">10. Facade</h1>
+<p><strong>Problem:</strong> ek kaam poora karne ke liye kai subsystems ko sahi order mein</p>
+<p>call karna padta hai (decode → normalize → encode; reserve → charge → ship).</p>
+<p>Har caller ko yeh poora orchestration aur order yaad rakhna padta hai.</p>
+<p><strong>Idea:</strong> subsystem ke aage ek simple object/function rakho jo saare steps</p>
+<p>internally sahi order mein chalaye. Caller sirf ek method call karta hai,</p>
+<p>subsystem ke internals se bekhabar.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js    # ❌ caller khud subsystem orchestrate karta hai
+node 2-facade.js   # ✅ ek simple entry point, internals chhupe hue
+node exercise.js   # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Hide complexity, don't remove it</strong> — subsystem waisa hi rehta hai, bas</li>
+</ol>
+<p>   uske use karne ka tarika simple ho jaata hai.</p>
+<ol>
+<li><strong>Single entry point</strong> — orchestration logic ek hi jagah, duplicate nahi</li>
+</ol>
+<p>   hoti har caller mein.</p>
+<h2>When to skip</h2>
+<p>Agar subsystem already simple hai (1-2 calls), facade ek extra layer hi hai</p>
+<p>jo kuch nahi kamaata — sirf tab banao jab <strong>orchestration genuinely complex</strong></p>
+<p>ho aur multiple callers ho.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — caller ko poore subsystem (codec, audio, subtitle)</span>
+<span class="cmt">// ke saare steps aur unka sahi order khud yaad rakhna padta hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">const</span> codec = { decode: (file) =&gt; <span class="str">`decoded(${file})`</span>, encode: (data, fmt) =&gt; <span class="str">`${data}.${fmt}`</span> };
+<span class="kw">const</span> audioMixer = { normalize: (data) =&gt; <span class="str">`normalized(${data})`</span> };
+<span class="kw">const</span> subtitleEngine = { burnIn: (data, subs) =&gt; (subs ? <span class="str">`${data}+subs`</span> : data) };
+
+<span class="kw">function</span> convertVideo(file, format, subs) {
+  <span class="kw">const</span> decoded = codec.decode(file);
+  <span class="kw">const</span> normalized = audioMixer.normalize(decoded);
+  <span class="kw">const</span> withSubs = subtitleEngine.burnIn(normalized, subs);
+  <span class="kw">return</span> codec.encode(withSubs, format);
+}
+
+console.log(convertVideo(<span class="str">'movie.mkv'</span>, <span class="str">'mp4'</span>, <span class="kw">true</span>));
+
+<span class="cmt">// PROBLEM: caller (ya iske UI/CLI) ko subsystem ke saare internal steps</span>
+<span class="cmt">// (decode -&gt; normalize -&gt; subs -&gt; encode) aur unka sahi order pata hona</span>
+<span class="cmt">// chahiye. Har naya caller yeh poora orchestration dobara likhega.</span>
+</code></pre>
+<h4 class="filename">✅ 2-facade.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ FACADE PATTERN — poore complex subsystem ke aage ek SIMPLE, single</span>
+<span class="cmt">// entry-point object rakho. Caller ko internal steps ka pata hi nahi hona</span>
+<span class="cmt">// chahiye.</span>
+<span class="cmt">// Chalao:  node 2-facade.js</span>
+
+<span class="kw">const</span> codec = { decode: (file) =&gt; <span class="str">`decoded(${file})`</span>, encode: (data, fmt) =&gt; <span class="str">`${data}.${fmt}`</span> };
+<span class="kw">const</span> audioMixer = { normalize: (data) =&gt; <span class="str">`normalized(${data})`</span> };
+<span class="kw">const</span> subtitleEngine = { burnIn: (data, subs) =&gt; (subs ? <span class="str">`${data}+subs`</span> : data) };
+
+<span class="cmt">// Facade — subsystem ke saare steps ko ek simple method ke peeche chhupata hai</span>
+<span class="kw">class</span> VideoConverterFacade {
+  convert(file, format, subs = <span class="kw">false</span>) {
+    <span class="kw">const</span> decoded = codec.decode(file);
+    <span class="kw">const</span> normalized = audioMixer.normalize(decoded);
+    <span class="kw">const</span> withSubs = subtitleEngine.burnIn(normalized, subs);
+    <span class="kw">return</span> codec.encode(withSubs, format);
+  }
+}
+
+<span class="kw">const</span> converter = <span class="kw">new</span> VideoConverterFacade();
+console.log(converter.convert(<span class="str">'movie.mkv'</span>, <span class="str">'mp4'</span>, <span class="kw">true</span>));
+console.log(converter.convert(<span class="str">'clip.avi'</span>, <span class="str">'webm'</span>));
+
+<span class="cmt">// Caller ko codec/audioMixer/subtitleEngine ke naam tak pata nahi — sirf</span>
+<span class="cmt">// EK simple method call karta hai. Subsystem internally reorganize ho sakta</span>
+<span class="cmt">// hai, facade ka interface same rehta hai.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — order placement (inventory check + payment + shipping) ko</span>
+<span class="cmt">// Facade se ek simple `placeOrder()` ke peeche chhupao.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- subsystems (already given, inhe badalna nahi hai) -----</span>
+<span class="kw">const</span> inventory = { reserve: (item) =&gt; console.log(<span class="str">`📦 reserved: ${item}`</span>) };
+<span class="kw">const</span> payment   = { charge: (amount) =&gt; console.log(<span class="str">`💳 charged ₹${amount}`</span>) };
+<span class="kw">const</span> shipping  = { schedule: (item) =&gt; console.log(<span class="str">`🚚 shipping scheduled: ${item}`</span>) };
+
+<span class="cmt">// ----- naive usage (isse refactor karna hai) -----</span>
+<span class="kw">function</span> buyNow(item, amount) {
+  inventory.reserve(item);
+  payment.charge(amount);
+  shipping.schedule(item);
+}
+buyNow(<span class="str">'Headphones'</span>, 1999);
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `OrderFacade` class banao with ek method `placeOrder(item, amount)`</span>
+<span class="cmt">//         jo internally inventory.reserve -&gt; payment.charge -&gt; shipping.schedule</span>
+<span class="cmt">//         (yahi order mein) call kare.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `buyNow` function ko hata kar `new OrderFacade().placeOrder(...)`</span>
+<span class="cmt">//         use karo.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): agar `payment.charge` fail ho jaaye (throw kare) to socho —</span>
+<span class="cmt">//         kya inventory.reserve() undo hona chahiye? Ek naya method</span>
+<span class="cmt">//         `inventory.release(item)` maan lo aur facade mein try/catch se</span>
+<span class="cmt">//         rollback add karo.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-14-flyweight">
+<div class="chapter-kicker">Structural Patterns</div>
+<h1 class="chapter-title">11. Flyweight</h1>
+<p><strong>Problem:</strong> bohot saare (hazaron/lakhon) similar objects banane hain, aur</p>
+<p>har object apna heavy/shared data (texture, font, config) alag se duplicate</p>
+<p>karta hai — memory waste hota hai.</p>
+<p><strong>Idea:</strong> jo data <strong>shared</strong> ho sakta hai (same type ke sab objects ke liye</p>
+<p>same) usse alag nikaal ke ek jagah reuse karo. Har instance mein sirf</p>
+<p><strong>unique</strong> data (position, jaisi cheezein) rakho.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js      # ❌ har object apna shared data duplicate karta hai
+node 2-flyweight.js  # ✅ shared data ek factory se reuse hota hai
+node exercise.js     # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Intrinsic vs extrinsic state</strong> — intrinsic (shared, type-level) alag,</li>
+</ol>
+<p>   extrinsic (unique, instance-level) alag.</p>
+<ol>
+<li><strong>Factory ensures reuse</strong> — naya object banane se pehle check karo ki</li>
+</ol>
+<p>   shared version already exist karta hai kya.</p>
+<h2>When to skip</h2>
+<p>Agar objects ki count chhoti hai (sainkdo, hazaron nahi) ya shared data heavy</p>
+<p>nahi hai, yeh optimization ki zaroorat nahi — premature optimization se</p>
+<p>bachna behtar hai.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — har tree object apna poora heavy "texture" data</span>
+<span class="cmt">// duplicate karta hai, hazaron trees banate hi memory phat jaayegi.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> Tree {
+  <span class="kw">constructor</span>(x, y, type) {
+    <span class="kw">this</span>.x = x; <span class="kw">this</span>.y = y;
+    <span class="kw">this</span>.type = type;
+    <span class="cmt">// pretend yeh heavy shared data hai (mesh, texture...) — har tree isko duplicate karta hai</span>
+    <span class="kw">this</span>.texture = <span class="str">`${type}-texture-data-(pretend this is large)`</span>;
+    <span class="kw">this</span>.mesh = <span class="str">`${type}-mesh-data-(pretend this is large)`</span>;
+  }
+  render() { console.log(<span class="str">`🌳 ${this.type} at (${this.x},${this.y}) using ${this.texture}`</span>); }
+}
+
+<span class="kw">const</span> forest = [];
+<span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; 5; i++) forest.push(<span class="kw">new</span> Tree(i, i * 2, <span class="str">'oak'</span>));
+forest.forEach((t) =&gt; t.render());
+console.log(<span class="str">'trees created:'</span>, forest.length, <span class="str">'— har ek apna texture+mesh copy leke'</span>);
+
+<span class="cmt">// PROBLEM: 'oak' texture/mesh SAME hai sab trees ke liye, phir bhi har Tree</span>
+<span class="cmt">// apna alag copy rakhta hai. 1 lakh trees banao to woh data 1 lakh baar</span>
+<span class="cmt">// duplicate hoga — memory waste.</span>
+</code></pre>
+<h4 class="filename">✅ 2-flyweight.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ FLYWEIGHT PATTERN — shared/heavy data (texture, mesh) ko ALAG rakho aur</span>
+<span class="cmt">// same-type objects ke beech REUSE karo. Sirf unique data (x, y) har</span>
+<span class="cmt">// instance mein rehta hai.</span>
+<span class="cmt">// Chalao:  node 2-flyweight.js</span>
+
+<span class="cmt">// Flyweight factory — same type ke liye same shared object reuse karta hai</span>
+<span class="kw">class</span> TreeTypeFactory {
+  <span class="kw">static</span> #types = <span class="kw">new</span> Map();
+  <span class="kw">static</span> getType(type) {
+    <span class="kw">if</span> (!TreeTypeFactory.#types.has(type)) {
+      console.log(<span class="str">`  (creating shared texture+mesh for '${type}' — sirf EK baar)`</span>);
+      TreeTypeFactory.#types.<span class="kw">set</span>(type, {
+        texture: <span class="str">`${type}-texture-data`</span>,
+        mesh: <span class="str">`${type}-mesh-data`</span>,
+      });
+    }
+    <span class="kw">return</span> TreeTypeFactory.#types.<span class="kw">get</span>(type); <span class="cmt">// same object wapas milta hai</span>
+  }
+  <span class="kw">static</span> count() { <span class="kw">return</span> TreeTypeFactory.#types.size; }
+}
+
+<span class="cmt">// Tree ab sirf UNIQUE data (x, y) rakhta hai, shared data ko reference karta hai</span>
+<span class="kw">class</span> Tree {
+  <span class="kw">constructor</span>(x, y, type) {
+    <span class="kw">this</span>.x = x; <span class="kw">this</span>.y = y;
+    <span class="kw">this</span>.sharedData = TreeTypeFactory.getType(type); <span class="cmt">// reused, duplicate nahi</span>
+  }
+  render() { console.log(<span class="str">`🌳 tree at (${this.x},${this.y}) using ${this.sharedData.texture}`</span>); }
+}
+
+<span class="kw">const</span> forest = [];
+<span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; 5; i++) forest.push(<span class="kw">new</span> Tree(i, i * 2, <span class="str">'oak'</span>));
+forest.forEach((t) =&gt; t.render());
+
+console.log(<span class="str">'unique shared objects created:'</span>, TreeTypeFactory.count(), <span class="str">'(sirf 1, chahe 5 trees hon)'</span>);
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — document mein har character ka "font style" (heavy, shared)</span>
+<span class="cmt">// ko Flyweight se reuse karo, sirf position+char unique rakho.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">class</span> Character {
+  <span class="kw">constructor</span>(char, x, y, font) {
+    <span class="kw">this</span>.char = char; <span class="kw">this</span>.x = x; <span class="kw">this</span>.y = y;
+    <span class="kw">this</span>.fontData = { family: font, size: 12, weight: <span class="str">'normal'</span> }; <span class="cmt">// har character apna copy</span>
+  }
+}
+<span class="kw">const</span> text = <span class="str">'Hi'</span>;
+<span class="kw">const</span> chars = [...text].map((c, i) =&gt; <span class="kw">new</span> Character(c, i, 0, <span class="str">'Arial'</span>));
+console.log(chars.length, <span class="str">'characters, har ek apna fontData copy leke'</span>);
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `FontFactory` class banao (static Map + `getFont(family)` method)</span>
+<span class="cmt">//         jo same family ke liye same shared `{family, size, weight}` object</span>
+<span class="cmt">//         return kare (2-flyweight.js jaisa).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `Character` class ko refactor karo taaki woh apna `fontData`</span>
+<span class="cmt">//         khud na banaye, balki `FontFactory.getFont(font)` se le.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): dikhao ki 1000 characters banane par bhi sirf 1 shared</span>
+<span class="cmt">//         font object banta hai (console.log se count verify karo).</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-15-proxy">
+<div class="chapter-kicker">Structural Patterns</div>
+<h1 class="chapter-title">12. Proxy</h1>
+<p><strong>Problem:</strong> asli object expensive hai (load slow, network call), ya usmein</p>
+<p>access-control chahiye — lekin caller ko asli object jaisa hi interface</p>
+<p>chahiye, sirf "kab aur kaise access ho" pe control chahiye.</p>
+<p><strong>Idea:</strong> ek "stand-in" object banao jo asli object jaisa hi interface follow</p>
+<p>kare. Proxy decide karta hai — lazily load kare, cache kare, ya access allow/</p>
+<p>deny kare — phir kaam asli object ko delegate kare.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js   # ❌ eager load, no access control
+node 2-proxy.js   # ✅ lazy load + access control, same interface
+node exercise.js  # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Same interface as real object</strong> — caller ko fark nahi padta proxy hai</li>
+</ol>
+<p>   ya asli object.</p>
+<ol>
+<li><strong>Control before delegate</strong> — proxy pehle decide karta hai (load? cache?</li>
+</ol>
+<p>   allow?), phir kaam asli object ko sonpta hai.</p>
+<h2>When to skip</h2>
+<p>Agar object cheap hai aur access-control/caching/lazy-loading ki zaroorat</p>
+<p>nahi, seedha real object use karo — Proxy sirf tab kamaata hai jab "access</p>
+<p>ko control karna" genuinely valuable ho.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — heavy image har baar directly load hoti hai, chahe</span>
+<span class="cmt">// use ho ya na ho, aur koi access-control nahi.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> HighResImage {
+  <span class="kw">constructor</span>(file) {
+    <span class="kw">this</span>.file = file;
+    console.log(<span class="str">`⏳ loading heavy image: ${file} (pretend this is slow)`</span>);
+  }
+  display() { console.log(<span class="str">`🖼️ showing ${this.file}`</span>); }
+}
+
+console.log(<span class="str">'gallery created (but image already loaded even before display!)'</span>);
+<span class="kw">const</span> image = <span class="kw">new</span> HighResImage(<span class="str">'photo.png'</span>); <span class="cmt">// load turant ho gaya</span>
+image.display();
+image.display(); <span class="cmt">// dobara load nahi hota, but pehle hi ho chuka tha bina zaroorat</span>
+
+<span class="cmt">// PROBLEM: image object banate hi expensive load ho jaata hai, chahe display()</span>
+<span class="cmt">// kabhi call ho ya na ho. Aur koi bhi is object ko directly access kar sakta</span>
+<span class="cmt">// hai — permission check ka koi jagah nahi.</span>
+</code></pre>
+<h4 class="filename">✅ 2-proxy.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ PROXY PATTERN — asli object ke aage ek "stand-in" rakho jo access</span>
+<span class="cmt">// control kare, aur loading ko TAB tak taale jab tak genuinely zaroorat na</span>
+<span class="cmt">// ho (lazy loading).</span>
+<span class="cmt">// Chalao:  node 2-proxy.js</span>
+
+<span class="kw">class</span> HighResImage {
+  <span class="kw">constructor</span>(file) {
+    <span class="kw">this</span>.file = file;
+    console.log(<span class="str">`⏳ loading heavy image: ${file} (pretend this is slow)`</span>);
+  }
+  display() { console.log(<span class="str">`🖼️ showing ${this.file}`</span>); }
+}
+
+<span class="cmt">// Proxy — same interface (display()) but real object ko lazily banata hai</span>
+<span class="kw">class</span> ImageProxy {
+  #realImage = <span class="kw">null</span>;
+  <span class="kw">constructor</span>(file, userRole) { <span class="kw">this</span>.file = file; <span class="kw">this</span>.userRole = userRole; }
+  display() {
+    <span class="kw">if</span> (<span class="kw">this</span>.userRole !== <span class="str">'admin'</span>) {
+      console.log(<span class="str">'🚫 access denied — admin only'</span>);
+      <span class="kw">return</span>;
+    }
+    <span class="kw">if</span> (!<span class="kw">this</span>.#realImage) <span class="kw">this</span>.#realImage = <span class="kw">new</span> HighResImage(<span class="kw">this</span>.file); <span class="cmt">// pehli baar hi load</span>
+    <span class="kw">this</span>.#realImage.display();
+  }
+}
+
+console.log(<span class="str">'gallery created (image NOT loaded yet)'</span>);
+<span class="kw">const</span> image = <span class="kw">new</span> ImageProxy(<span class="str">'photo.png'</span>, <span class="str">'admin'</span>);
+image.display();   <span class="cmt">// ab load hota hai</span>
+image.display();   <span class="cmt">// cached — dobara load nahi hota</span>
+
+<span class="kw">const</span> guestImage = <span class="kw">new</span> ImageProxy(<span class="str">'secret.png'</span>, <span class="str">'guest'</span>);
+guestImage.display(); <span class="cmt">// access denied, load hi nahi hota</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — repeated API calls ko Proxy se cache karo taaki same request</span>
+<span class="cmt">// dobara network na kare.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">let</span> callCount = 0;
+<span class="kw">function</span> fetchWeather(city) {
+  callCount++;
+  console.log(<span class="str">`🌐 network call #${callCount} for ${city}`</span>);
+  <span class="kw">return</span> { city, tempC: 28 };
+}
+fetchWeather(<span class="str">'Delhi'</span>);
+fetchWeather(<span class="str">'Delhi'</span>); <span class="cmt">// same city — phir bhi naya network call</span>
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `WeatherProxy` class banao with internal `#cache` (Map).</span>
+<span class="cmt">//         `get(city)` method: agar cache mein hai to wahi return karo, warna</span>
+<span class="cmt">//         `fetchWeather(city)` call karke result cache mein daalo aur return</span>
+<span class="cmt">//         karo.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: proxy use karke dikhao ki 'Delhi' do baar maangne par network call</span>
+<span class="cmt">//         sirf EK baar ho.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): `invalidate(city)` method add karo jo cache se ek city</span>
+<span class="cmt">//         hata de — dikhao ki uske baad fresh network call hota hai.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-01-strategy">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">13. Strategy</h1>
+<p><strong>Problem:</strong> ek kaam kai tarikon se ho sakta hai, aur kaunsa tarika use karna hai</p>
+<p>woh runtime pe decide hota hai (payment method, export format, shipping cost...).</p>
+<p><strong>Idea:</strong> har variant ko apne function/object mein nikaalo jo ek *common contract*</p>
+<p>follow kare. Caller ko sirf woh reference pakdao jo use chahiye. Naya variant add</p>
+<p>karna = naya object likhna, purana code chhue bina.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js            # ❌ if/else wali problem
+node 2-strategy-class.js   # ✅ class + strategy objects
+node 3-strategy-registry.js# ✅ idiomatic JS: object as registry (best for JS)
+node exercise.js           # 🎯 tumhara turn</code></pre>
+<h2>Teen principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Encapsulate what varies</strong> — har payment method ka logic alag.</li>
+<li><strong>Program to an interface</strong> — sab <code>pay(amount)</code> contract follow karte hain.</li>
+<li><strong>Composition over inheritance</strong> — Checkout strategy ko *hold* karta hai,</li>
+</ol>
+<p>   inherit nahi karta.</p>
+<h2>When to skip</h2>
+<p>Sirf 2 variants hain jo kabhi badhenge nahi? Plain <code>if</code> behtar — pattern ki</p>
+<p>indirection ki cost mat uthao.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — sab kuch ek function mein if/else ke saath.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="cmt">// Mock payment services (pretend ye real APIs call karte hain)</span>
+<span class="kw">const</span> processStripe = (amt) =&gt; <span class="str">`✅ Charged ₹${amt} via Stripe`</span>;
+<span class="kw">const</span> processPaypal = (amt) =&gt; <span class="str">`✅ Charged ₹${amt} via PayPal`</span>;
+<span class="kw">const</span> processCrypto = (amt) =&gt; <span class="str">`✅ Charged ₹${amt} via Crypto`</span>;
+
+<span class="kw">function</span> checkout(cart, method) {
+  <span class="kw">if</span> (method === <span class="str">'card'</span>)   <span class="kw">return</span> processStripe(cart.total);
+  <span class="kw">if</span> (method === <span class="str">'paypal'</span>) <span class="kw">return</span> processPaypal(cart.total);
+  <span class="kw">if</span> (method === <span class="str">'crypto'</span>) <span class="kw">return</span> processCrypto(cart.total);
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown method: ${method}`</span>);
+}
+
+<span class="kw">const</span> cart = { total: 4999 };
+console.log(checkout(cart, <span class="str">'card'</span>));
+console.log(checkout(cart, <span class="str">'paypal'</span>));
+console.log(checkout(cart, <span class="str">'crypto'</span>));
+
+<span class="cmt">// PROBLEM: naya method (Apple Pay) add karne ke liye is function ko DOBARA</span>
+<span class="cmt">// kholna padega. Jitne payment ho sakte hain, utni jagah ye if/else copy hota</span>
+<span class="cmt">// hai. Ek path ko akele test karna bhi mushkil. =&gt; Strategy pattern isse theek karta hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-strategy-class.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ STRATEGY PATTERN (class form)</span>
+<span class="cmt">// Chalao:  node 2-strategy-class.js</span>
+
+<span class="kw">const</span> processStripe = (amt) =&gt; <span class="str">`✅ Charged ₹${amt} via Stripe`</span>;
+<span class="kw">const</span> processPaypal = (amt) =&gt; <span class="str">`✅ Charged ₹${amt} via PayPal`</span>;
+<span class="kw">const</span> processCrypto = (amt) =&gt; <span class="str">`✅ Charged ₹${amt} via Crypto`</span>;
+
+<span class="cmt">// Har strategy ek hi contract follow karti hai: pay(amount)</span>
+<span class="kw">const</span> cardStrategy   = { pay: (amount) =&gt; processStripe(amount) };
+<span class="kw">const</span> paypalStrategy = { pay: (amount) =&gt; processPaypal(amount) };
+<span class="kw">const</span> cryptoStrategy = { pay: (amount) =&gt; processCrypto(amount) };
+
+<span class="cmt">// "Context" sirf delegate karta hai — use pata nahi kaunsi strategy hai</span>
+<span class="kw">class</span> Checkout {
+  <span class="kw">constructor</span>(strategy) { <span class="kw">this</span>.strategy = strategy; }
+  setStrategy(strategy) { <span class="kw">this</span>.strategy = strategy; }
+  complete(amount)      { <span class="kw">return</span> <span class="kw">this</span>.strategy.pay(amount); }
+}
+
+<span class="kw">const</span> checkout = <span class="kw">new</span> Checkout(cardStrategy);
+console.log(checkout.complete(4999));
+
+<span class="cmt">// Runtime pe behavior swap:</span>
+checkout.setStrategy(cryptoStrategy);
+console.log(checkout.complete(4999));
+
+<span class="cmt">// Naya method add karna = naya object, Checkout ko CHHUE BINA:</span>
+<span class="kw">const</span> applePayStrategy = { pay: (amount) =&gt; <span class="str">`✅ Charged ₹${amount} via Apple Pay`</span> };
+checkout.setStrategy(applePayStrategy);
+console.log(checkout.complete(4999));
+</code></pre>
+<h4 class="filename">✅ 3-strategy-registry.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ IDIOMATIC JS: object-as-registry. JS mein aksar YEHI best hai.</span>
+<span class="cmt">// Chalao:  node 3-strategy-registry.js</span>
+
+<span class="kw">const</span> processStripe = (amt) =&gt; <span class="str">`✅ Charged ₹${amt} via Stripe`</span>;
+<span class="kw">const</span> processPaypal = (amt) =&gt; <span class="str">`✅ Charged ₹${amt} via PayPal`</span>;
+<span class="kw">const</span> processCrypto = (amt) =&gt; <span class="str">`✅ Charged ₹${amt} via Crypto`</span>;
+
+<span class="cmt">// Functions first-class hain =&gt; strategy bas ek function, registry bas ek object.</span>
+<span class="kw">const</span> strategies = {
+  card:   (amount) =&gt; processStripe(amount),
+  paypal: (amount) =&gt; processPaypal(amount),
+  crypto: (amount) =&gt; processCrypto(amount),
+};
+
+<span class="kw">function</span> checkout(method, amount) {
+  <span class="kw">const</span> pay = strategies[method];
+  <span class="kw">if</span> (!pay) <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown method: ${method}`</span>);
+  <span class="kw">return</span> pay(amount);
+}
+
+console.log(checkout(<span class="str">'card'</span>, 4999));
+console.log(checkout(<span class="str">'paypal'</span>, 4999));
+
+<span class="cmt">// Apple Pay add karna = EK line. if/else ko chhue bina:</span>
+strategies.applePay = (amount) =&gt; <span class="str">`✅ Charged ₹${amount} via Apple Pay`</span>;
+console.log(checkout(<span class="str">'applePay'</span>, 4999));
+
+<span class="cmt">// Yahi tarika hai jisse experienced JS dev naturally if/else chain khatam karta hai.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — ise Strategy pattern (registry form) mein refactor karo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// Rules:</span>
+<span class="cmt">//   'standard'  -&gt; flat ₹50</span>
+<span class="cmt">//   'express'   -&gt; ₹50 + ₹10 per kg</span>
+<span class="cmt">//   'overnight' -&gt; ₹200 flat</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> shippingCost(order, method) {
+  <span class="kw">if</span> (method === <span class="str">'standard'</span>)  <span class="kw">return</span> 50;
+  <span class="kw">if</span> (method === <span class="str">'express'</span>)   <span class="kw">return</span> 50 + 10 * order.weightKg;
+  <span class="kw">if</span> (method === <span class="str">'overnight'</span>) <span class="kw">return</span> 200;
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown method: ${method}`</span>);
+}
+
+<span class="kw">const</span> order = { weightKg: 3, total: 1200 };
+console.log(<span class="str">'standard :'</span>, shippingCost(order, <span class="str">'standard'</span>));
+console.log(<span class="str">'express  :'</span>, shippingCost(order, <span class="str">'express'</span>));
+console.log(<span class="str">'overnight:'</span>, shippingCost(order, <span class="str">'overnight'</span>));
+
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: upar wale ko `const strategies = { ... }` + chhote dispatch</span>
+<span class="cmt">//         function mein badlo. Har strategy ko (order) milega.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2 (bonus): 'express-free-above-1000' add karo — agar order.total &gt; 1000</span>
+<span class="cmt">//         to express free (₹0), warna normal express charge.</span>
+<span class="cmt">//         Sawaal: naya rule add karte waqt kya PURANI strategies ko chhuna pada?</span>
+<span class="cmt">//         (Sahi jawab: nahi. Yehi open/closed ka fayda hai.)</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+
+<span class="cmt">// const strategies = {</span>
+<span class="cmt">//   ...</span>
+<span class="cmt">// };</span>
+<span class="cmt">// function shipping(method, order) { ... }</span>
+<span class="cmt">// console.log(shipping('express', order));</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-02-observer">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">14. Observer</h1>
+<p><strong>Problem:</strong> ek object ki state badalti hai, aur *kai doosre* objects ko react</p>
+<p>karna hai — par source ko yeh nahi jaanna chahiye ki kaun sun raha hai.</p>
+<p>(order shipped → email + SMS + analytics + inventory...)</p>
+<p><strong>Idea:</strong> Subject sirf ek list rakhta hai interested logon ki (Observers), aur</p>
+<p>change pe unhe *notify* kar deta hai — bina jaane woh karte kya hain.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js         # ❌ Order har service se coupled
+node 2-observer.js      # ✅ subscribe / notify / unsubscribe khud banaya
+node 3-eventemitter.js  # ✅ Node ka built-in EventEmitter = Observer pattern
+node exercise.js        # 🎯 tumhara turn</code></pre>
+<h2>Ye JS mein built-in hai</h2>
+<ul>
+<li>Node: <code>EventEmitter</code> — <code>on</code> = subscribe, <code>emit</code> = notify, <code>off</code> = unsubscribe</li>
+<li>Browser: <code>addEventListener</code> / <code>dispatchEvent</code></li>
+</ul>
+<h2>2 khatre (exercise mein dhyaan do)</h2>
+<ol>
+<li><strong>Execution order guarantee nahi</strong> — agar B ko A ke baad chalna zaroori hai,</li>
+</ol>
+<p>   Observer galat tool hai.</p>
+<ol>
+<li><strong>Memory leak</strong> — <code>unsubscribe</code> bhoole to subject observer ko pakde rehta hai</li>
+</ol>
+<p>   aur woh garbage-collect nahi hota.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — Order khud sabko directly call karta hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">const</span> sendShippedEmail   = (o) =&gt; console.log(<span class="str">`📧 Email: order ${o.id} shipped`</span>);
+<span class="kw">const</span> smsNotify          = (o) =&gt; console.log(<span class="str">`📱 SMS: order ${o.id} shipped`</span>);
+<span class="kw">const</span> analyticsTrack     = (evt, o) =&gt; console.log(<span class="str">`📊 Analytics: ${evt} (${o.id})`</span>);
+<span class="kw">const</span> inventoryDecrement = (n) =&gt; console.log(<span class="str">`📦 Inventory down by ${n} items`</span>);
+
+<span class="kw">class</span> Order {
+  <span class="kw">constructor</span>(id, items) { <span class="kw">this</span>.id = id; <span class="kw">this</span>.items = items; }
+  ship() {
+    <span class="kw">this</span>.status = <span class="str">'shipped'</span>;
+    <span class="cmt">// Order ab in SAB services ke baare mein jaanta hai — tight coupling</span>
+    sendShippedEmail(<span class="kw">this</span>);
+    smsNotify(<span class="kw">this</span>);
+    analyticsTrack(<span class="str">'order_shipped'</span>, <span class="kw">this</span>);
+    inventoryDecrement(<span class="kw">this</span>.items);
+  }
+}
+
+<span class="kw">new</span> Order(<span class="str">'A1'</span>, 2).ship();
+
+<span class="cmt">// PROBLEM: naya reaction (loyalty points) add karna = Order.ship() ko dobara</span>
+<span class="cmt">// kholna. Order test karne ke liye ye sab mock karne padenge. Dependency ulti hai:</span>
+<span class="cmt">// core business object apne peripheral consumers ko jaanta hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-observer.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ OBSERVER PATTERN (khud banaya)</span>
+<span class="cmt">// Chalao:  node 2-observer.js</span>
+
+<span class="kw">class</span> Subject {
+  #observers = <span class="kw">new</span> Set();
+
+  <span class="cmt">// subscribe ek "unsubscribe" function return karta hai — cleanup aasan</span>
+  subscribe(observer) {
+    <span class="kw">this</span>.#observers.add(observer);
+    <span class="kw">return</span> () =&gt; <span class="kw">this</span>.unsubscribe(observer);
+  }
+  unsubscribe(observer) { <span class="kw">this</span>.#observers.delete(observer); }
+  notify(data) {
+    <span class="kw">for</span> (<span class="kw">const</span> observer <span class="kw">of</span> <span class="kw">this</span>.#observers) observer.update(data);
+  }
+}
+
+<span class="kw">class</span> Order <span class="kw">extends</span> Subject {
+  <span class="kw">constructor</span>(id, items) { <span class="kw">super</span>(); <span class="kw">this</span>.id = id; <span class="kw">this</span>.items = items; }
+  ship() {
+    <span class="kw">this</span>.status = <span class="str">'shipped'</span>;
+    <span class="kw">this</span>.notify({ event: <span class="str">'shipped'</span>, order: <span class="kw">this</span> }); <span class="cmt">// bas. kaun sun raha, pata nahi.</span>
+  }
+}
+
+<span class="cmt">// Har observer sirf ek contract follow karta hai: update(data)</span>
+<span class="kw">const</span> emailObserver     = { update: ({ order }) =&gt; console.log(<span class="str">`📧 Email: ${order.id}`</span>) };
+<span class="kw">const</span> inventoryObserver = { update: ({ order }) =&gt; console.log(<span class="str">`📦 Inventory: -${order.items}`</span>) };
+
+<span class="kw">const</span> order = <span class="kw">new</span> Order(<span class="str">'A1'</span>, 2);
+order.subscribe(emailObserver);
+<span class="kw">const</span> stopInventory = order.subscribe(inventoryObserver);
+
+order.ship();               <span class="cmt">// dono chalte hain</span>
+
+console.log(<span class="str">'--- inventory unsubscribe karne ke baad ---'</span>);
+stopInventory();            <span class="cmt">// ab inventory nahi sunega</span>
+order.ship();               <span class="cmt">// sirf email chalega</span>
+
+<span class="cmt">// Naya reaction add karna = naya observer + subscribe. Order ko CHHUE BINA.</span>
+</code></pre>
+<h4 class="filename">✅ 3-eventemitter.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ IDIOMATIC JS: Node ka EventEmitter = Observer pattern, built-in.</span>
+<span class="cmt">// Chalao:  node 3-eventemitter.js</span>
+
+<span class="kw">import</span> { EventEmitter } from <span class="str">'node:events'</span>;
+
+<span class="kw">class</span> Order <span class="kw">extends</span> EventEmitter {
+  <span class="kw">constructor</span>(id, items) { <span class="kw">super</span>(); <span class="kw">this</span>.id = id; <span class="kw">this</span>.items = items; }
+  ship() {
+    <span class="kw">this</span>.status = <span class="str">'shipped'</span>;
+    <span class="kw">this</span>.emit(<span class="str">'shipped'</span>, <span class="kw">this</span>);   <span class="cmt">// notify()</span>
+  }
+}
+
+<span class="kw">const</span> order = <span class="kw">new</span> Order(<span class="str">'A1'</span>, 2);
+
+order.on(<span class="str">'shipped'</span>, (o) =&gt; console.log(<span class="str">`📧 Email: ${o.id}`</span>));       <span class="cmt">// subscribe</span>
+order.on(<span class="str">'shipped'</span>, (o) =&gt; console.log(<span class="str">`📦 Inventory: -${o.items}`</span>)); <span class="cmt">// subscribe</span>
+
+<span class="kw">const</span> analytics = (o) =&gt; console.log(<span class="str">`📊 Analytics: ${o.id}`</span>);
+order.on(<span class="str">'shipped'</span>, analytics);
+
+order.ship();
+
+console.log(<span class="str">'--- analytics off karne ke baad ---'</span>);
+order.off(<span class="str">'shipped'</span>, analytics);   <span class="cmt">// unsubscribe</span>
+order.ship();
+
+<span class="cmt">// on = subscribe, emit = notify, off = unsubscribe. Naam alag, pattern wahi.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — ek StockPrice subject banao Observer pattern se.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+<span class="cmt">//</span>
+<span class="cmt">// Chahiye:</span>
+<span class="cmt">//   - logger:  har price change print kare       ("💹 Price: 105")</span>
+<span class="cmt">//   - alerter: sirf tab print kare jab price 100 ke UPAR cross kare ("⚠️ ALERT: 105")</span>
+<span class="cmt">//</span>
+<span class="cmt">// Do tarike se try karo (dono seekhne layak):</span>
+<span class="cmt">//   A) khud Subject class banake (dekho 2-observer.js)</span>
+<span class="cmt">//   B) EventEmitter extend karke (dekho 3-eventemitter.js)</span>
+
+<span class="cmt">// ---- yahan implement karo ----</span>
+<span class="kw">class</span> StockPrice /* <span class="kw">extends</span> ??? */ {
+  <span class="kw">constructor</span>() {
+    <span class="kw">this</span>.price = 0;
+  }
+  setPrice(newPrice) {
+    <span class="cmt">// TODO: purani price yaad rakho (cross detect karne ke liye)</span>
+    <span class="cmt">// TODO: price update karo</span>
+    <span class="cmt">// TODO: observers ko notify karo</span>
+  }
+}
+
+<span class="cmt">// ---- test (implement karne ke baad uncomment karo) ----</span>
+<span class="cmt">// const stock = new StockPrice();</span>
+<span class="cmt">// stock.subscribe(/* logger */);</span>
+<span class="cmt">// stock.subscribe(/* alerter */);</span>
+<span class="cmt">// stock.setPrice(95);   // logger: 95</span>
+<span class="cmt">// stock.setPrice(105);  // logger: 105  + alerter: ⚠️ ALERT (100 cross hua)</span>
+<span class="cmt">// stock.setPrice(110);  // logger: 110  (koi alert nahi — pehle se upar tha)</span>
+
+console.log(<span class="str">'Exercise file — apna code likho aur test uncomment karo.'</span>);
+</code></pre>
+</section>
+<section class="chapter" id="ch-03-command">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">15. Command</h1>
+<p><strong>Problem:</strong> ek "action" (button press, menu click, editor edit) ko turant</p>
+<p>execute karna hai, lekin baad mein <strong>undo karna</strong>, <strong>queue mein daalna</strong>, ya</p>
+<p><strong>log karke replay karna</strong> bhi chahiye — aur caller (remote/UI) ko device ke</p>
+<p>internals nahi pata hone chahiye.</p>
+<p><strong>Idea:</strong> action ko khud ek object bana do — <code>execute()</code> aur <code>undo()</code> wala.</p>
+<p>Invoker (remote/menu) sirf command ko *hold* karta hai aur call karta hai,</p>
+<p>uska implementation nahi jaanta.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js         # ❌ direct method calls, undo impossible
+node 2-command.js       # ✅ Command objects + undo
+node 3-command-queue.js # ✅ macro, queue, replay
+node exercise.js        # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Encapsulate a request as an object</strong> — action + uska undo ek jagah.</li>
+<li><strong>Decouple invoker from receiver</strong> — RemoteControl ko Light ka pata nahi.</li>
+<li>Ek baar action object ban jaaye to use <strong>queue, log, ya batch</strong> kar sakte ho.</li>
+</ol>
+<h2>When to skip</h2>
+<p>Agar undo/queue/log kabhi chahiye hi nahi, aur action seedha ek function call</p>
+<p>hai — seedha call karo. Command ki indirection tabhi kamaati hai jab in</p>
+<p>extra powers (undo/redo, macros, replay) ki zaroorat ho.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — remote directly calls device methods, no undo.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">const</span> light = {
+  on: () =&gt; console.log(<span class="str">'💡 Light: ON'</span>),
+  off: () =&gt; console.log(<span class="str">'💡 Light: OFF'</span>),
+};
+
+<span class="kw">function</span> pressButton(action) {
+  <span class="kw">if</span> (action === <span class="str">'light-on'</span>) <span class="kw">return</span> light.on();
+  <span class="kw">if</span> (action === <span class="str">'light-off'</span>) <span class="kw">return</span> light.off();
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`Unknown action: ${action}`</span>);
+}
+
+pressButton(<span class="str">'light-on'</span>);
+pressButton(<span class="str">'light-off'</span>);
+
+<span class="cmt">// PROBLEM: remote ko device ke internals pata hone chahiye. Undo impossible —</span>
+<span class="cmt">// last action record nahi ho raha. Naya device (fan, AC) add karo to</span>
+<span class="cmt">// pressButton() dobara edit karna padega. Command pattern isse theek karta hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-command.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ COMMAND PATTERN — action ko object bana do (execute + undo).</span>
+<span class="cmt">// Chalao:  node 2-command.js</span>
+
+<span class="kw">const</span> light = {
+  on: () =&gt; console.log(<span class="str">'💡 Light: ON'</span>),
+  off: () =&gt; console.log(<span class="str">'💡 Light: OFF'</span>),
+};
+
+<span class="cmt">// Har command ek hi contract follow karta hai: execute() aur undo()</span>
+<span class="kw">class</span> LightOnCommand {
+  execute() { light.on(); }
+  undo()    { light.off(); }
+}
+<span class="kw">class</span> LightOffCommand {
+  execute() { light.off(); }
+  undo()    { light.on(); }
+}
+
+<span class="cmt">// Invoker — kisi command ke internals nahi jaanta, bas execute/undo call karta hai</span>
+<span class="kw">class</span> RemoteControl {
+  #history = [];
+  press(command) {
+    command.execute();
+    <span class="kw">this</span>.#history.push(command);
+  }
+  undoLast() {
+    <span class="kw">const</span> command = <span class="kw">this</span>.#history.pop();
+    <span class="kw">if</span> (command) command.undo();
+  }
+}
+
+<span class="kw">const</span> remote = <span class="kw">new</span> RemoteControl();
+remote.press(<span class="kw">new</span> LightOnCommand());
+remote.press(<span class="kw">new</span> LightOffCommand());
+remote.undoLast();   <span class="cmt">// last action (off) undo -&gt; light wapas ON</span>
+
+<span class="cmt">// Naya device (fan) add karna = naye Command classes, RemoteControl ko CHHUE BINA.</span>
+</code></pre>
+<h4 class="filename">✅ 3-command-queue.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ COMMAND PATTERN — queue, macro aur replay (log ke through).</span>
+<span class="cmt">// Chalao:  node 3-command-queue.js</span>
+
+<span class="kw">const</span> light = { on: () =&gt; console.log(<span class="str">'💡 Light: ON'</span>), off: () =&gt; console.log(<span class="str">'💡 Light: OFF'</span>) };
+<span class="kw">const</span> fan   = { on: () =&gt; console.log(<span class="str">'🌀 Fan: ON'</span>),   off: () =&gt; console.log(<span class="str">'🌀 Fan: OFF'</span>) };
+
+<span class="kw">const</span> cmd = (device, action) =&gt; ({
+  execute: () =&gt; device[action](),
+  label: <span class="str">`${action} ${device === light ? 'light' : 'fan'}`</span>,
+});
+
+<span class="cmt">// Macro command = kai commands ka ek hi command</span>
+<span class="kw">class</span> MacroCommand {
+  <span class="kw">constructor</span>(commands) { <span class="kw">this</span>.commands = commands; }
+  execute() { <span class="kw">this</span>.commands.forEach((c) =&gt; c.execute()); }
+}
+
+<span class="kw">const</span> goodMorning = <span class="kw">new</span> MacroCommand([
+  cmd(light, <span class="str">'on'</span>),
+  cmd(fan, <span class="str">'on'</span>),
+]);
+
+console.log(<span class="str">'-- Good morning macro --'</span>);
+goodMorning.execute();
+
+<span class="cmt">// Queue — commands ko turant execute karne ke bajaye baad ke liye rakho</span>
+<span class="kw">const</span> queue = [];
+queue.push(cmd(light, <span class="str">'off'</span>));
+queue.push(cmd(fan, <span class="str">'off'</span>));
+
+console.log(<span class="str">'-- Draining queue (e.g. batch job / scheduled task) --'</span>);
+<span class="kw">while</span> (queue.length) queue.shift().execute();
+
+<span class="cmt">// Replay — har executed command ka log rakho, baad mein wahi sequence dobara chalao</span>
+<span class="kw">const</span> log = [cmd(light, <span class="str">'on'</span>), cmd(fan, <span class="str">'on'</span>), cmd(light, <span class="str">'off'</span>)];
+console.log(<span class="str">'-- Replaying log --'</span>);
+log.forEach((c) =&gt; c.execute());
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — text editor ke type/delete actions ko Command pattern mein</span>
+<span class="cmt">// refactor karo taaki undo() kaam kare.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">let</span> text = <span class="str">''</span>;
+<span class="kw">function</span> type(chars) { text += chars; console.log(<span class="str">'text:'</span>, JSON.stringify(text)); }
+<span class="kw">function</span> deleteLast(n) { text = text.slice(0, -n); console.log(<span class="str">'text:'</span>, JSON.stringify(text)); }
+
+type(<span class="str">'Hello'</span>);
+type(<span class="str">', world'</span>);
+deleteLast(7);   <span class="cmt">// 'undo' karna ho to yaad nahi ki kitna delete hua tha</span>
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: TypeCommand aur DeleteCommand classes banao, dono mein execute()</span>
+<span class="cmt">//         aur undo() ho. TypeCommand.undo() = wahi characters hata de jo</span>
+<span class="cmt">//         type kiye the. DeleteCommand.undo() = jo delete hua wapas jod de</span>
+<span class="cmt">//         (execute se pehle un characters ko save kar lo).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: Editor class banao jisme history array ho, type()/deleteLast()</span>
+<span class="cmt">//         commands create/execute/push karein, aur undo() history se pop</span>
+<span class="cmt">//         karke us command ka undo() chalaye.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): redo() add karo — undo kiye hue commands ek "redo stack"</span>
+<span class="cmt">//         mein daalo, redo() unhe wapas execute kare.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-16-chain-of-responsibility">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">16. Chain of Responsibility</h1>
+<p><strong>Problem:</strong> ek request ko kai possible handlers mein se koi ek handle kar</p>
+<p>sakta hai (approval levels, support ticket routing, middleware), aur "kaun</p>
+<p>handle karega" ka decision nested if/else mein tightly coupled hai.</p>
+<p><strong>Idea:</strong> har handler ko ek chain mein jodo. Har handler khud decide kare —</p>
+<p>"main isse handle kar sakta hoon?" Agar haan, kaam khatam. Agar nahi, request</p>
+<p>ko <strong>agle handler</strong> ko pass kar do.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js                     # ❌ ek function, nested if/else levels
+node 2-chain-of-responsibility.js   # ✅ handlers ki chain, har ek apna decision leta hai
+node exercise.js                    # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Decouple sender from receiver</strong> — sender ko pata nahi kaun final handle</li>
+</ol>
+<p>   karega.</p>
+<ol>
+<li><strong>Open/closed</strong> — naya handler = chain mein ek naya link, existing</li>
+</ol>
+<p>   handlers ko CHHUE BINA.</p>
+<h2>When to skip</h2>
+<p>Agar handlers ka order/set fixed hai aur kabhi badlega nahi, seedha if/else</p>
+<p>ya switch simpler hai — chain tabhi kamaati hai jab handlers **dynamically</p>
+<p>configure/reorder** hone chahiye.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — approval levels ek hi function mein nested if/else,</span>
+<span class="cmt">// naya level add karna is function ko dobara edit karna hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">function</span> approveExpense(amount) {
+  <span class="kw">if</span> (amount &lt;= 1000) {
+    console.log(<span class="str">`✅ Manager approved ₹${amount}`</span>);
+  } <span class="kw">else</span> <span class="kw">if</span> (amount &lt;= 10000) {
+    console.log(<span class="str">`✅ Director approved ₹${amount}`</span>);
+  } <span class="kw">else</span> <span class="kw">if</span> (amount &lt;= 100000) {
+    console.log(<span class="str">`✅ VP approved ₹${amount}`</span>);
+  } <span class="kw">else</span> {
+    console.log(<span class="str">`❌ ₹${amount} needs CEO approval — not implemented here`</span>);
+  }
+}
+
+approveExpense(500);
+approveExpense(5000);
+approveExpense(50000);
+
+<span class="cmt">// PROBLEM: naya approval level (CEO) ya level ke thresholds badalne ke liye</span>
+<span class="cmt">// is function ko dobara edit karna padega. Poora "kaun approve karta hai"</span>
+<span class="cmt">// logic ek hi jagah tightly coupled hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-chain-of-responsibility.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ CHAIN OF RESPONSIBILITY — har approver apna "handle kar sakta hoon ya</span>
+<span class="cmt">// nahi" khud decide kare, nahi to REQUEST ko agle handler ko pass kar de.</span>
+<span class="cmt">// Chalao:  node 2-chain-of-responsibility.js</span>
+
+<span class="kw">class</span> Approver {
+  <span class="kw">constructor</span>(name, limit) { <span class="kw">this</span>.name = name; <span class="kw">this</span>.limit = limit; <span class="kw">this</span>.next = <span class="kw">null</span>; }
+  setNext(approver) { <span class="kw">this</span>.next = approver; <span class="kw">return</span> approver; }
+  handle(amount) {
+    <span class="kw">if</span> (amount &lt;= <span class="kw">this</span>.limit) {
+      console.log(<span class="str">`✅ ${this.name} approved ₹${amount}`</span>);
+    } <span class="kw">else</span> <span class="kw">if</span> (<span class="kw">this</span>.next) {
+      <span class="kw">this</span>.next.handle(amount); <span class="cmt">// apne bas ka nahi, agle ko pass kar do</span>
+    } <span class="kw">else</span> {
+      console.log(<span class="str">`❌ ₹${amount} — koi bhi approve nahi kar saka`</span>);
+    }
+  }
+}
+
+<span class="kw">const</span> manager  = <span class="kw">new</span> Approver(<span class="str">'Manager'</span>, 1000);
+<span class="kw">const</span> director = <span class="kw">new</span> Approver(<span class="str">'Director'</span>, 10000);
+<span class="kw">const</span> vp       = <span class="kw">new</span> Approver(<span class="str">'VP'</span>, 100000);
+manager.setNext(director).setNext(vp); <span class="cmt">// chain banao</span>
+
+manager.handle(500);
+manager.handle(5000);
+manager.handle(50000);
+manager.handle(500000); <span class="cmt">// koi handle nahi kar sakta</span>
+
+<span class="cmt">// Naya level (CEO, unlimited) add karna = ek naya Approver, chain mein jodo,</span>
+<span class="cmt">// baaki approvers ko CHHUE BINA.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — support ticket routing ko Chain of Responsibility se</span>
+<span class="cmt">// refactor karo (bot -&gt; junior agent -&gt; senior agent).</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> routeTicket(ticket) {
+  <span class="kw">if</span> (ticket.type === <span class="str">'faq'</span>) console.log(<span class="str">'🤖 Bot answered:'</span>, ticket.question);
+  <span class="kw">else</span> <span class="kw">if</span> (ticket.priority === <span class="str">'low'</span>) console.log(<span class="str">'🧑 Junior agent handling:'</span>, ticket.question);
+  <span class="kw">else</span> console.log(<span class="str">'🧑‍💼 Senior agent handling:'</span>, ticket.question);
+}
+routeTicket({ type: <span class="str">'faq'</span>, question: <span class="str">'What are your hours?'</span> });
+routeTicket({ type: <span class="str">'issue'</span>, priority: <span class="str">'high'</span>, question: <span class="str">'Server is down!'</span> });
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `Handler` base class banao (jaisa Approver 2-chain-of-</span>
+<span class="cmt">//         responsibility.js mein tha) with setNext(), aur `handle(ticket)`</span>
+<span class="cmt">//         jo `canHandle(ticket)` check kare, warna next ko pass kare.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `BotHandler` (canHandle: type === 'faq'), `JuniorHandler`</span>
+<span class="cmt">//         (canHandle: priority === 'low'), `SeniorHandler` (canHandle:</span>
+<span class="cmt">//         hamesha true — akhri fallback) banao.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): chain build karo aur dono example tickets route karo,</span>
+<span class="cmt">//         verify karo ki sahi handler pick ho raha hai.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-17-iterator">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">17. Iterator</h1>
+<p><strong>Problem:</strong> alag-alag collections (array, linked list, tree) ka internal</p>
+<p>structure alag hota hai. Agar caller ko har collection traverse karne ke</p>
+<p>liye uska internal shape jaanna pade, to generic "loop over anything" code</p>
+<p>likhna mushkil ho jaata hai.</p>
+<p><strong>Idea:</strong> har collection apna traversal khud implement kare, lekin bahar se</p>
+<p>ek <strong>uniform interface</strong> (<code>next()</code> / JS ka <code>Symbol.iterator</code>) dikhaye. Caller</p>
+<p>sirf <code>for...of</code> use karta hai — collection array hai ya linked list, usse</p>
+<p>fark nahi padta.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js      # ❌ har collection ka traversal alag, caller ko internals pata hone chahiye
+node 2-iterator.js   # ✅ Symbol.iterator — uniform `for...of` sabke liye
+node exercise.js     # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Uniform traversal interface</strong> — caller collection ke internals se</li>
+</ol>
+<p>   decouple ho jaata hai.</p>
+<ol>
+<li>JS mein <code>Symbol.iterator</code> implement karna matlab tumhara custom type</li>
+</ol>
+<p>   <code>for...of</code>, spread (<code>[...x]</code>), <code>Array.from()</code> sab ke saath kaam karta hai.</p>
+<h2>When to skip</h2>
+<p>JS ke built-in collections (Array, Map, Set) already iterable hain — apna</p>
+<p>Iterator sirf tab likho jab tumhara <strong>custom data structure</strong> (linked list,</p>
+<p>tree, graph) ho jise <code>for...of</code> se traverse karna ho.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — caller ko har collection ke internal structure ka</span>
+<span class="cmt">// pata hona chahiye, taaki sahi tarike se loop kare.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">const</span> arrayCollection = [1, 2, 3];
+<span class="kw">const</span> linkedList = { head: { value: <span class="str">'a'</span>, next: { value: <span class="str">'b'</span>, next: { value: <span class="str">'c'</span>, next: <span class="kw">null</span> } } } };
+
+<span class="cmt">// Array ke liye ek tarika</span>
+<span class="kw">for</span> (<span class="kw">const</span> item <span class="kw">of</span> arrayCollection) console.log(<span class="str">'array item:'</span>, item);
+
+<span class="cmt">// Linked list ke liye BILKUL alag tarika — caller ko internal shape pata hona zaroori</span>
+<span class="kw">let</span> node = linkedList.head;
+<span class="kw">while</span> (node) { console.log(<span class="str">'list item:'</span>, node.value); node = node.next; }
+
+<span class="cmt">// PROBLEM: caller ko har collection type ka internal structure yaad rakhna</span>
+<span class="cmt">// padta hai. Ek generic function jo "kisi bhi collection" pe kaam kare —</span>
+<span class="cmt">// likhna mushkil hai kyunki traversal logic collection ke saath tightly</span>
+<span class="cmt">// coupled hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-iterator.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ ITERATOR PATTERN — har collection apna traversal khud implement kare,</span>
+<span class="cmt">// lekin BAHAR se ek hi uniform interface (`next()`) dikhaye. Caller ko</span>
+<span class="cmt">// internal structure jaanne ki zaroorat nahi.</span>
+<span class="cmt">// Chalao:  node 2-iterator.js</span>
+
+<span class="kw">class</span> LinkedList {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.head = <span class="kw">null</span>; }
+  push(value) {
+    <span class="kw">const</span> node = { value, next: <span class="kw">null</span> };
+    <span class="kw">if</span> (!<span class="kw">this</span>.head) { <span class="kw">this</span>.head = node; <span class="kw">return</span> <span class="kw">this</span>; }
+    <span class="kw">let</span> cur = <span class="kw">this</span>.head;
+    <span class="kw">while</span> (cur.next) cur = cur.next;
+    cur.next = node;
+    <span class="kw">return</span> <span class="kw">this</span>;
+  }
+  <span class="cmt">// Iterator protocol — JS ke `for...of` se compatible!</span>
+  [Symbol.iterator]() {
+    <span class="kw">let</span> current = <span class="kw">this</span>.head;
+    <span class="kw">return</span> {
+      next: () =&gt; {
+        <span class="kw">if</span> (!current) <span class="kw">return</span> { done: <span class="kw">true</span>, value: <span class="kw">undefined</span> };
+        <span class="kw">const</span> value = current.value;
+        current = current.next;
+        <span class="kw">return</span> { done: <span class="kw">false</span>, value };
+      },
+    };
+  }
+}
+
+<span class="kw">const</span> list = <span class="kw">new</span> LinkedList().push(<span class="str">'a'</span>).push(<span class="str">'b'</span>).push(<span class="str">'c'</span>);
+
+<span class="cmt">// Ab caller ko linked-list ke internals (head/next) ka pata hi nahi —</span>
+<span class="cmt">// array ki tarah hi `for...of` use karta hai:</span>
+<span class="kw">for</span> (<span class="kw">const</span> item <span class="kw">of</span> list) console.log(<span class="str">'list item:'</span>, item);
+
+<span class="kw">function</span> printAll(collection) {
+  <span class="kw">for</span> (<span class="kw">const</span> item <span class="kw">of</span> collection) console.log(<span class="str">'  -&gt;'</span>, item);
+}
+printAll([1, 2, 3]);   <span class="cmt">// array</span>
+printAll(list);        <span class="cmt">// linked list — SAME function, dono pe kaam karta hai!</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — ek binary tree ko Iterator pattern se traverse-able banao,</span>
+<span class="cmt">// taaki `for...of` se depth-first traverse ho sake.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- given structure (isse badalna nahi hai) -----</span>
+<span class="kw">const</span> tree = {
+  value: 1,
+  left:  { value: 2, left: { value: 4, left: <span class="kw">null</span>, right: <span class="kw">null</span> }, right: <span class="kw">null</span> },
+  right: { value: 3, left: <span class="kw">null</span>, right: <span class="kw">null</span> },
+};
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> printTree(node) {
+  <span class="kw">if</span> (!node) <span class="kw">return</span>;
+  console.log(node.value);
+  printTree(node.left);
+  printTree(node.right);
+}
+printTree(tree);
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `TreeNode` class banao (value, left, right) jismein</span>
+<span class="cmt">//         `[Symbol.iterator]()` method ho jo depth-first (pre-order:</span>
+<span class="cmt">//         self -&gt; left -&gt; right) traversal kare aur `{done, value}` objects</span>
+<span class="cmt">//         de (2-iterator.js jaisa pattern).</span>
+<span class="cmt">//         Hint: recursion se ek array collect karke uska iterator return</span>
+<span class="cmt">//         karna sabse simple hoga.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: upar wale plain-object `tree` ko TreeNode instances se dobara</span>
+<span class="cmt">//         banao, phir `for (const v of root) console.log(v)` se print karo.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): ek "breadth-first" iterator variant socho — kya isse bhi</span>
+<span class="cmt">//         `Symbol.iterator` ke through expose kiya jaa sakta hai? (Hint:</span>
+<span class="cmt">//         alag method naam do, jaise `bfs()`, jo khud ek iterable return kare.)</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-18-mediator">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">18. Mediator</h1>
+<p><strong>Problem:</strong> components (UI fields, chat users, game objects) ek doosre ko</p>
+<p>DIRECTLY reference karte hain taaki interact kar sakein. Jitne components,</p>
+<p>wiring utni hi complex (many-to-many) ho jaati hai — naya component add karna</p>
+<p>sabko touch karwata hai.</p>
+<p><strong>Idea:</strong> components ek doosre ko na jaanein, sab sirf ek <strong>central mediator</strong></p>
+<p>se baat karein. Mediator hi decide karta hai ki kisi event pe kaun kya</p>
+<p>karega.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js     # ❌ components ek doosre ko directly reference karte hain
+node 2-mediator.js  # ✅ sab sirf mediator se baat karte hain
+node exercise.js    # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Decouple components from each other</strong> — koi bhi component doosre ka</li>
+</ol>
+<p>   naam tak nahi jaanta.</p>
+<ol>
+<li><strong>Centralize interaction logic</strong> — "kaun kisse affect hota hai" ka rule</li>
+</ol>
+<p>   ek hi jagah (mediator) rehta hai.</p>
+<h2>When to skip</h2>
+<p>Agar sirf 2 components hain jinka relationship simple aur permanent hai,</p>
+<p>direct reference likhna hi simpler hai — Mediator tabhi kamaata hai jab</p>
+<p><strong>kai components ka wiring complex/changing</strong> ho.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — form fields ek doosre ko DIRECTLY reference karte</span>
+<span class="cmt">// hain — many-to-many wiring, naya field add karna sabko edit karwata hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> Checkbox {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.checked = <span class="kw">false</span>; }
+  toggle(submitButton) {
+    <span class="kw">this</span>.checked = !<span class="kw">this</span>.checked;
+    console.log(<span class="str">'checkbox:'</span>, <span class="kw">this</span>.checked);
+    submitButton.setEnabled(<span class="kw">this</span>.checked); <span class="cmt">// checkbox ko SubmitButton ka pata hai</span>
+  }
+}
+<span class="kw">class</span> SubmitButton {
+  setEnabled(enabled) { console.log(<span class="str">'submit button enabled:'</span>, enabled); }
+}
+
+<span class="kw">const</span> submitButton = <span class="kw">new</span> SubmitButton();
+<span class="kw">const</span> checkbox = <span class="kw">new</span> Checkbox();
+checkbox.toggle(submitButton);
+checkbox.toggle(submitButton);
+
+<span class="cmt">// PROBLEM: Checkbox ko SubmitButton ke baare mein directly pata hai. Ek</span>
+<span class="cmt">// teesra field (dropdown) add karo jo bhi submit ko affect kare — ab</span>
+<span class="cmt">// Checkbox aur Dropdown dono ko ek doosre + SubmitButton sabka pata hona</span>
+<span class="cmt">// padega. Components ka wiring O(n²) ho jaata hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-mediator.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ MEDIATOR PATTERN — components ek doosre ko directly nahi jaante, sab</span>
+<span class="cmt">// ek CENTRAL mediator se baat karte hain. Mediator decide karta hai "kisko</span>
+<span class="cmt">// kya karna hai".</span>
+<span class="cmt">// Chalao:  node 2-mediator.js</span>
+
+<span class="kw">class</span> FormMediator {
+  #components = {};
+  register(name, component) { <span class="kw">this</span>.#components[name] = component; component.mediator = <span class="kw">this</span>; }
+  notify(sender, event) {
+    <span class="kw">if</span> (sender === <span class="str">'checkbox'</span> &amp;&amp; event === <span class="str">'toggled'</span>) {
+      <span class="kw">const</span> checked = <span class="kw">this</span>.#components.checkbox.checked;
+      <span class="kw">this</span>.#components.submitButton.setEnabled(checked);
+    }
+    <span class="cmt">// naya field/rule add karna = yahan ek naya `if`, components ko chhue bina</span>
+  }
+}
+
+<span class="kw">class</span> Checkbox {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.checked = <span class="kw">false</span>; }
+  toggle() {
+    <span class="kw">this</span>.checked = !<span class="kw">this</span>.checked;
+    console.log(<span class="str">'checkbox:'</span>, <span class="kw">this</span>.checked);
+    <span class="kw">this</span>.mediator.notify(<span class="str">'checkbox'</span>, <span class="str">'toggled'</span>); <span class="cmt">// sirf mediator ko batata hai, SubmitButton ko nahi jaanta</span>
+  }
+}
+<span class="kw">class</span> SubmitButton {
+  setEnabled(enabled) { console.log(<span class="str">'submit button enabled:'</span>, enabled); }
+}
+
+<span class="kw">const</span> mediator = <span class="kw">new</span> FormMediator();
+<span class="kw">const</span> checkbox = <span class="kw">new</span> Checkbox();
+<span class="kw">const</span> submitButton = <span class="kw">new</span> SubmitButton();
+mediator.register(<span class="str">'checkbox'</span>, checkbox);
+mediator.register(<span class="str">'submitButton'</span>, submitButton);
+
+checkbox.toggle();
+checkbox.toggle();
+
+<span class="cmt">// Naya field (dropdown) add karna = mediator mein ek naya `if`/register call,</span>
+<span class="cmt">// Checkbox aur SubmitButton ko ek doosre ke baare mein KUCH pata nahi hona chahiye.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — chat users ko Mediator (ChatRoom) se connect karo taaki wo</span>
+<span class="cmt">// ek doosre ko directly reference na karein.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">class</span> User {
+  <span class="kw">constructor</span>(name) { <span class="kw">this</span>.name = name; }
+  sendDirect(otherUser, msg) { <span class="cmt">// har user ko doosre users ka direct reference chahiye</span>
+    console.log(<span class="str">`[${this.name} -&gt; ${otherUser.name}]: ${msg}`</span>);
+  }
+}
+<span class="kw">const</span> alice = <span class="kw">new</span> User(<span class="str">'Alice'</span>);
+<span class="kw">const</span> bob = <span class="kw">new</span> User(<span class="str">'Bob'</span>);
+alice.sendDirect(bob, <span class="str">'Hi Bob!'</span>);
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `ChatRoom` class banao with `register(user)` (users array mein</span>
+<span class="cmt">//         add + user.room = this set kare) aur `broadcast(sender, msg)`</span>
+<span class="cmt">//         (sender ke alawa sabko print kare: `[sender -&gt; everyone]: msg`).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `User` class ko refactor karo — `send(msg)` method ho jo</span>
+<span class="cmt">//         `this.room.broadcast(this, msg)` call kare, koi doosre User ka</span>
+<span class="cmt">//         direct reference na ho.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): teesra user 'Carol' add karo, dikhao ki Alice ka message</span>
+<span class="cmt">//         Bob aur Carol dono ko milta hai — Alice ko unka direct reference</span>
+<span class="cmt">//         kabhi nahi pata.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-19-memento">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">19. Memento</h1>
+<p><strong>Problem:</strong> ek object ka state kabhi-kabhi save aur baad mein restore karna</p>
+<p>hai (undo, save-game, checkpoints) — lekin caller ko object ke internal</p>
+<p>fields khud copy/restore karne padte hain, jo encapsulation todta hai aur</p>
+<p>internals badalne par toot jaata hai.</p>
+<p><strong>Idea:</strong> object khud apna snapshot banaye (<code>save()</code>) aur khud restore kare</p>
+<p>(<code>restore()</code>). Caller sirf snapshot ko *opaque* tareeke se hold karta hai —</p>
+<p>uske andar kya hai, usse matlab nahi.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js    # ❌ caller directly internal fields copy/restore karta hai
+node 2-memento.js  # ✅ object khud save()/restore() implement karta hai
+node exercise.js   # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Encapsulation preserved</strong> — internals sirf object khud dekhta/badalta</li>
+</ol>
+<p>   hai, caller nahi.</p>
+<ol>
+<li><strong>Snapshot is opaque to the caller</strong> — History/SaveSlot bas snapshot ko</li>
+</ol>
+<p>   store karte hain, uske andar jhaankte nahi.</p>
+<h2>Related: Command se fark</h2>
+<p>Command "actions" ko undo karta hai (execute/undo pairs). Memento "state" ko</p>
+<p>undo karta hai (poora snapshot save/restore). Command tab better hai jab</p>
+<p>undo logic simple ho; Memento tab better hai jab state complex ho aur</p>
+<p>"reverse action" likhna mushkil ho.</p>
+<h2>When to skip</h2>
+<p>Agar state bohot chhota/simple hai (1-2 primitive fields), seedha ek</p>
+<p>variable mein copy rakhna kaafi hai — Memento tabhi kamaata hai jab state</p>
+<p>complex ho aur encapsulation todna avoid karna ho.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — state ko bahar se directly copy/restore kiya ja</span>
+<span class="cmt">// raha hai — editor ke internal fields sabko expose karne padte hain.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> Editor {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.text = <span class="str">''</span>; }
+  type(chars) { <span class="kw">this</span>.text += chars; }
+}
+
+<span class="kw">const</span> editor = <span class="kw">new</span> Editor();
+editor.type(<span class="str">'Hello'</span>);
+
+<span class="cmt">// Undo ke liye caller khud state copy kar raha hai — editor ke internals</span>
+<span class="cmt">// (this.text) directly access ho rahe hain</span>
+<span class="kw">const</span> backup = editor.text; <span class="cmt">// agar Editor mein aur fields add ho (cursor, formatting)</span>
+                             <span class="cmt">// to yeh backup INCOMPLETE ho jaayega</span>
+editor.type(<span class="str">', world'</span>);
+console.log(<span class="str">'before undo:'</span>, editor.text);
+editor.text = backup; <span class="cmt">// caller directly internal field ko overwrite kar raha hai</span>
+console.log(<span class="str">'after undo:'</span>, editor.text);
+
+<span class="cmt">// PROBLEM: caller ko Editor ke internal fields ka pata hona chahiye aur</span>
+<span class="cmt">// undo logic khud implement karna padta hai. Editor ke internals badle</span>
+<span class="cmt">// (naya field add ho) to yeh backup/restore code bhi TOOT sakta hai.</span>
+</code></pre>
+<h4 class="filename">✅ 2-memento.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ MEMENTO PATTERN — object khud apna "snapshot" banaye aur khud restore</span>
+<span class="cmt">// kare. Caller ko internal fields ka pata nahi hona chahiye, sirf ek opaque</span>
+<span class="cmt">// snapshot object hold karta hai.</span>
+<span class="cmt">// Chalao:  node 2-memento.js</span>
+
+<span class="kw">class</span> Editor {
+  #text = <span class="str">''</span>;
+  type(chars) { <span class="kw">this</span>.#text += chars; }
+  <span class="kw">get</span> text() { <span class="kw">return</span> <span class="kw">this</span>.#text; }
+
+  save() {
+    <span class="kw">return</span> { text: <span class="kw">this</span>.#text }; <span class="cmt">// memento — apna hi state, khud banaya</span>
+  }
+  restore(memento) {
+    <span class="kw">this</span>.#text = memento.text; <span class="cmt">// sirf Editor khud jaanta hai kaise restore kare</span>
+  }
+}
+
+<span class="kw">class</span> History {
+  #snapshots = [];
+  push(memento) { <span class="kw">this</span>.#snapshots.push(memento); }
+  pop() { <span class="kw">return</span> <span class="kw">this</span>.#snapshots.pop(); }
+}
+
+<span class="kw">const</span> editor = <span class="kw">new</span> Editor();
+<span class="kw">const</span> history = <span class="kw">new</span> History();
+
+editor.type(<span class="str">'Hello'</span>);
+history.push(editor.save()); <span class="cmt">// undo point save</span>
+
+editor.type(<span class="str">', world'</span>);
+console.log(<span class="str">'before undo:'</span>, editor.text);
+
+editor.restore(history.pop()); <span class="cmt">// caller ko Editor ke internals ka pata hi nahi</span>
+console.log(<span class="str">'after undo:'</span>, editor.text);
+
+<span class="cmt">// Editor mein naya field (cursor position) add karo — sirf save()/restore()</span>
+<span class="cmt">// badlenge, caller ka History code CHHUE BINA rahega.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — game character ke state ko Memento se save/restore karo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">class</span> Character {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.hp = 100; <span class="kw">this</span>.level = 1; }
+  takeDamage(dmg) { <span class="kw">this</span>.hp -= dmg; }
+  levelUp() { <span class="kw">this</span>.level++; <span class="kw">this</span>.hp = 100; }
+}
+<span class="kw">const</span> hero = <span class="kw">new</span> Character();
+<span class="kw">const</span> backup = { hp: hero.hp, level: hero.level }; <span class="cmt">// manual, error-prone</span>
+hero.takeDamage(80);
+hero.levelUp();
+console.log(<span class="str">'current:'</span>, hero.hp, hero.level);
+<span class="cmt">// "backup" restore karna hai to caller ko khud `hero.hp = backup.hp` likhna padega</span>
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `Character` class mein `save()` method add karo jo current state</span>
+<span class="cmt">//         ka snapshot object return kare, aur `restore(memento)` method jo</span>
+<span class="cmt">//         usse wapas apply kare (2-memento.js jaisa).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `SaveSlot` class (ya simple array) banao jo mementos store kare</span>
+<span class="cmt">//         — `save(memento)` aur `load()` methods.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): level up hone se pehle auto-save karo, dikhao ki</span>
+<span class="cmt">//         `takeDamage` + `levelUp` ke baad bhi purane save pe restore ho</span>
+<span class="cmt">//         sakta hai.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-20-state">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">20. State</h1>
+<p><strong>Problem:</strong> ek object ka behavior uske <strong>current status</strong> pe depend karta</p>
+<p>hai (order: placed/paid/shipped; traffic light: red/green/yellow), aur har</p>
+<p>method mein "abhi is status mein kya allowed hai" wala if/else duplicate</p>
+<p>hota hai. Invalid transitions rokna bhi mushkil hai.</p>
+<p><strong>Idea:</strong> har status ko ek object bana do jo khud jaanta ho — "is state mein</p>
+<p>kaunsa action allowed hai, aur uske baad next state kya hoga". Main object</p>
+<p>(Order/Light) sirf current state ko delegate karta hai.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js   # ❌ har method mein status if/else duplicate
+node 2-state.js   # ✅ har status apna hi object, khud transitions decide karta hai
+node exercise.js  # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Behavior depends on state, delegate it</strong> — Strategy jaisa hi mechanism</li>
+</ol>
+<p>   (delegation), lekin state *khud badalta hai* (self-transition), Strategy</p>
+<p>   mein caller badalta hai.</p>
+<ol>
+<li><strong>Invalid transitions naturally blocked</strong> — jo state jis action ko</li>
+</ol>
+<p>   support nahi karta, uska handler khud "not allowed" bol deta hai.</p>
+<h2>When to skip</h2>
+<p>Agar sirf 2 states hain ya transitions kabhi badhenge nahi, simple boolean</p>
+<p>flag + if/else kaafi hai — State pattern tabhi kamaata hai jab **kai states</p>
+<p>aur transitions** ho jo complex ho rahe hon.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — order status ek string hai, har jagah if/else se</span>
+<span class="cmt">// check hota hai, invalid transitions (delivered -&gt; paid) rokta koi nahi.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> Order {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.status = <span class="str">'placed'</span>; }
+  pay() {
+    <span class="kw">if</span> (<span class="kw">this</span>.status === <span class="str">'placed'</span>) { <span class="kw">this</span>.status = <span class="str">'paid'</span>; console.log(<span class="str">'✅ paid'</span>); }
+    <span class="kw">else</span> console.log(<span class="str">`❌ cannot pay from status: ${this.status}`</span>);
+  }
+  ship() {
+    <span class="kw">if</span> (<span class="kw">this</span>.status === <span class="str">'paid'</span>) { <span class="kw">this</span>.status = <span class="str">'shipped'</span>; console.log(<span class="str">'✅ shipped'</span>); }
+    <span class="kw">else</span> console.log(<span class="str">`❌ cannot ship from status: ${this.status}`</span>);
+  }
+  deliver() {
+    <span class="kw">if</span> (<span class="kw">this</span>.status === <span class="str">'shipped'</span>) { <span class="kw">this</span>.status = <span class="str">'delivered'</span>; console.log(<span class="str">'✅ delivered'</span>); }
+    <span class="kw">else</span> console.log(<span class="str">`❌ cannot deliver from status: ${this.status}`</span>);
+  }
+}
+
+<span class="kw">const</span> order = <span class="kw">new</span> Order();
+order.ship();   <span class="cmt">// invalid — abhi paid nahi hua</span>
+order.pay();
+order.ship();
+order.deliver();
+
+<span class="cmt">// PROBLEM: har method mein "current status ke hisaab se kya allowed hai"</span>
+<span class="cmt">// wala if/else duplicate hai. Naya status (e.g. 'cancelled') add karo to</span>
+<span class="cmt">// HAR method dobara edit karna padega.</span>
+</code></pre>
+<h4 class="filename">✅ 2-state.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ STATE PATTERN — har status ko ek object bana do jo khud decide kare</span>
+<span class="cmt">// "is status mein kya allowed hai". Order sirf current state ko delegate</span>
+<span class="cmt">// karta hai.</span>
+<span class="cmt">// Chalao:  node 2-state.js</span>
+
+<span class="kw">const</span> placedState = {
+  name: <span class="str">'placed'</span>,
+  pay: (order) =&gt; { console.log(<span class="str">'✅ paid'</span>); order.setState(paidState); },
+  ship: () =&gt; console.log(<span class="str">'❌ cannot ship — not paid yet'</span>),
+  deliver: () =&gt; console.log(<span class="str">'❌ cannot deliver — not shipped yet'</span>),
+};
+<span class="kw">const</span> paidState = {
+  name: <span class="str">'paid'</span>,
+  pay: () =&gt; console.log(<span class="str">'❌ already paid'</span>),
+  ship: (order) =&gt; { console.log(<span class="str">'✅ shipped'</span>); order.setState(shippedState); },
+  deliver: () =&gt; console.log(<span class="str">'❌ cannot deliver — not shipped yet'</span>),
+};
+<span class="kw">const</span> shippedState = {
+  name: <span class="str">'shipped'</span>,
+  pay: () =&gt; console.log(<span class="str">'❌ already paid'</span>),
+  ship: () =&gt; console.log(<span class="str">'❌ already shipped'</span>),
+  deliver: (order) =&gt; { console.log(<span class="str">'✅ delivered'</span>); order.setState(deliveredState); },
+};
+<span class="kw">const</span> deliveredState = {
+  name: <span class="str">'delivered'</span>,
+  pay: () =&gt; console.log(<span class="str">'❌ order already delivered'</span>),
+  ship: () =&gt; console.log(<span class="str">'❌ order already delivered'</span>),
+  deliver: () =&gt; console.log(<span class="str">'❌ already delivered'</span>),
+};
+
+<span class="kw">class</span> Order {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.state = placedState; }
+  setState(state) { <span class="kw">this</span>.state = state; }
+  pay()      { <span class="kw">this</span>.state.pay(<span class="kw">this</span>); }
+  ship()     { <span class="kw">this</span>.state.ship(<span class="kw">this</span>); }
+  deliver()  { <span class="kw">this</span>.state.deliver(<span class="kw">this</span>); }
+}
+
+<span class="kw">const</span> order = <span class="kw">new</span> Order();
+order.ship();   <span class="cmt">// invalid — placedState.ship() khud "not paid" bolta hai</span>
+order.pay();
+order.ship();
+order.deliver();
+
+<span class="cmt">// Naya status (cancelled) add karna = ek naya state object, Order class</span>
+<span class="cmt">// ko CHHUE BINA.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — traffic light (red -&gt; green -&gt; yellow -&gt; red) ko State</span>
+<span class="cmt">// pattern se refactor karo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">class</span> TrafficLight {
+  <span class="kw">constructor</span>() { <span class="kw">this</span>.color = <span class="str">'red'</span>; }
+  next() {
+    <span class="kw">if</span> (<span class="kw">this</span>.color === <span class="str">'red'</span>) <span class="kw">this</span>.color = <span class="str">'green'</span>;
+    <span class="kw">else</span> <span class="kw">if</span> (<span class="kw">this</span>.color === <span class="str">'green'</span>) <span class="kw">this</span>.color = <span class="str">'yellow'</span>;
+    <span class="kw">else</span> <span class="kw">if</span> (<span class="kw">this</span>.color === <span class="str">'yellow'</span>) <span class="kw">this</span>.color = <span class="str">'red'</span>;
+    console.log(<span class="str">'now:'</span>, <span class="kw">this</span>.color);
+  }
+}
+<span class="kw">const</span> light = <span class="kw">new</span> TrafficLight();
+light.next(); light.next(); light.next();
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `redState`, `greenState`, `yellowState` objects banao, har ek</span>
+<span class="cmt">//         mein `name` aur `next(light)` method (jo light.setState(...)</span>
+<span class="cmt">//         call kare next color ke state pe — 2-state.js jaisa).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `TrafficLight` class ko refactor karo — constructor mein</span>
+<span class="cmt">//         `this.state = redState`, `next()` method `this.state.next(this)`</span>
+<span class="cmt">//         call kare, `setState(state)` method ho.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): socho — is design mein naya rule "yellow se seedha red,</span>
+<span class="cmt">//         par sirf agar pedestrian button dabaya ho" add karna kitna easy</span>
+<span class="cmt">//         hai naive version ke mukable?</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-21-template-method">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">21. Template Method</h1>
+<p><strong>Problem:</strong> kai variants mein ek SAME skeleton/sequence hota hai (load -&gt;</p>
+<p>process -&gt; export; welcome -&gt; setup -&gt; notify), lekin beech ka 1-2 step alag</p>
+<p>hota hai. Naive tareeke mein poora skeleton har variant mein duplicate hota</p>
+<p>hai.</p>
+<p><strong>Idea:</strong> skeleton ko ek base class mein <strong>ek baar</strong> fix karo (template</p>
+<p>method). Jo steps variant-specific hain, unhe abstract/overridable methods</p>
+<p>banao — subclasses sirf unhi ko implement karein, skeleton ko nahi chhuein.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js             # ❌ poora skeleton har report mein duplicate
+node 2-template-method.js   # ✅ skeleton ek jagah, sirf steps override hote hain
+node exercise.js            # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Don't repeat the skeleton</strong> — sequence/order ek hi jagah likha jaata</li>
+</ol>
+<p>   hai.</p>
+<ol>
+<li><strong>Hollywood Principle</strong> — "don't call us, we'll call you": base class</li>
+</ol>
+<p>   subclass ke methods ko sahi order mein khud call karta hai.</p>
+<h2>When to skip</h2>
+<p>Agar variants ke beech skeleton hi alag hai (sirf 1-2 steps common hain,</p>
+<p>poora flow nahi), Template Method zabardasti fit karoge to rigid ho jaayega</p>
+<p>— tab Strategy (poora behavior swap) ya plain functions behtar hain.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — poora "load -&gt; process -&gt; export" skeleton har</span>
+<span class="cmt">// report type mein DUPLICATE hota hai, sirf beech ke steps alag hain.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">function</span> generateCsvReport(data) {
+  console.log(<span class="str">'📂 loading data...'</span>);
+  <span class="kw">const</span> rows = data.map((d) =&gt; <span class="str">`${d.name},${d.value}`</span>);
+  console.log(<span class="str">'⚙️ processing...'</span>);
+  <span class="kw">const</span> processed = rows.join(<span class="str">'\n'</span>);
+  console.log(<span class="str">'💾 exporting...'</span>);
+  console.log(<span class="str">'CSV OUTPUT:\n'</span> + processed);
+}
+
+<span class="kw">function</span> generateJsonReport(data) {
+  console.log(<span class="str">'📂 loading data...'</span>);           <span class="cmt">// duplicate</span>
+  <span class="kw">const</span> processed = JSON.stringify(data);
+  console.log(<span class="str">'⚙️ processing...'</span>);              <span class="cmt">// duplicate</span>
+  console.log(<span class="str">'💾 exporting...'</span>);               <span class="cmt">// duplicate</span>
+  console.log(<span class="str">'JSON OUTPUT:\n'</span> + processed);
+}
+
+generateCsvReport([{ name: <span class="str">'A'</span>, value: 1 }]);
+generateJsonReport([{ name: <span class="str">'A'</span>, value: 1 }]);
+
+<span class="cmt">// PROBLEM: "load -&gt; process -&gt; export" ka skeleton har report function mein</span>
+<span class="cmt">// copy-paste hua hai. Skeleton mein koi step add/change karna ho (e.g. ek</span>
+<span class="cmt">// validation step) to HAR report function edit karna padega.</span>
+</code></pre>
+<h4 class="filename">✅ 2-template-method.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ TEMPLATE METHOD — algorithm ka SKELETON base class mein ek baar likho,</span>
+<span class="cmt">// sirf jo steps subtype-specific hain unhe subclass override kare.</span>
+<span class="cmt">// Chalao:  node 2-template-method.js</span>
+
+<span class="kw">class</span> ReportGenerator {
+  <span class="cmt">// Template method — skeleton FIXED hai, subclass isse override nahi karti</span>
+  generate(data) {
+    console.log(<span class="str">'📂 loading data...'</span>);
+    <span class="kw">const</span> processed = <span class="kw">this</span>.process(data); <span class="cmt">// yahi step subclass-specific hai</span>
+    console.log(<span class="str">'⚙️ processing done'</span>);
+    console.log(<span class="str">'💾 exporting...'</span>);
+    console.log(<span class="str">`${this.format()} OUTPUT:\n${processed}`</span>);
+  }
+  process(data) { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'subclass must implement process()'</span>); }
+  format() { <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">'subclass must implement format()'</span>); }
+}
+
+<span class="kw">class</span> CsvReport <span class="kw">extends</span> ReportGenerator {
+  format() { <span class="kw">return</span> <span class="str">'CSV'</span>; }
+  process(data) { <span class="kw">return</span> data.map((d) =&gt; <span class="str">`${d.name},${d.value}`</span>).join(<span class="str">'\n'</span>); }
+}
+<span class="kw">class</span> JsonReport <span class="kw">extends</span> ReportGenerator {
+  format() { <span class="kw">return</span> <span class="str">'JSON'</span>; }
+  process(data) { <span class="kw">return</span> JSON.stringify(data); }
+}
+
+<span class="kw">new</span> CsvReport().generate([{ name: <span class="str">'A'</span>, value: 1 }]);
+<span class="kw">new</span> JsonReport().generate([{ name: <span class="str">'A'</span>, value: 1 }]);
+
+<span class="cmt">// Skeleton mein naya step (validation) add karna = ek jagah, generate() mein.</span>
+<span class="cmt">// Naya format (XML) add karna = bas process()+format() override karne wali</span>
+<span class="cmt">// ek nayi subclass, skeleton ko CHHUE BINA.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — do onboarding flows (free user vs paid user) ke duplicate</span>
+<span class="cmt">// skeleton ko Template Method se nikalo.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> onboardFreeUser(name) {
+  console.log(<span class="str">`📧 welcome email to ${name}`</span>);
+  console.log(<span class="str">'🎁 free plan setup'</span>);
+  console.log(<span class="str">`🔔 notifying team: ${name} joined (free)`</span>);
+}
+<span class="kw">function</span> onboardPaidUser(name) {
+  console.log(<span class="str">`📧 welcome email to ${name}`</span>);   <span class="cmt">// duplicate</span>
+  console.log(<span class="str">'💳 paid plan setup + billing'</span>);
+  console.log(<span class="str">`🔔 notifying team: ${name} joined (paid)`</span>); <span class="cmt">// near-duplicate</span>
+}
+onboardFreeUser(<span class="str">'Asha'</span>);
+onboardPaidUser(<span class="str">'Rohit'</span>);
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `Onboarding` base class banao with template method `run(name)`</span>
+<span class="cmt">//         jo: welcome email (fixed) -&gt; `this.setup(name)` (subclass-specific)</span>
+<span class="cmt">//         -&gt; `this.notifyTeam(name)` (fixed, lekin plan naam ke liye</span>
+<span class="cmt">//         `this.planName()` ko call kare).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `FreeOnboarding` aur `PaidOnboarding` subclasses banao jo</span>
+<span class="cmt">//         `setup(name)` aur `planName()` override karein.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): naya `TrialOnboarding` add karo — dikhao ki base class</span>
+<span class="cmt">//         `run()` ko CHHUE BINA kaam karta hai.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-22-visitor">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">22. Visitor</h1>
+<p><strong>Problem:</strong> classes ka ek fixed set hai (shapes, AST nodes), aur unpe naye</p>
+<p><strong>operations</strong> add karte rehna hai (area, export, evaluate, print). Har naye</p>
+<p>operation ke liye har class ko edit karna padta hai — aur agar classes</p>
+<p>third-party se aayi ho to edit karna possible hi nahi.</p>
+<p><strong>Idea:</strong> naye operation ko class ke andar method ke bajaye ek alag "visitor"</p>
+<p>object mein rakho. Har class mein bas ek chhota, kabhi-na-badalne wala</p>
+<p><code>accept(visitor)</code> method rehta hai jo sahi visitor-method ko call karta hai.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js     # ❌ naya operation = har shape class edit
+node 2-visitor.js   # ✅ naya operation = naya visitor object, classes untouched
+node exercise.js    # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Add operations without modifying classes</strong> — Open/Closed principle,</li>
+</ol>
+<p>   operations ke perspective se.</p>
+<ol>
+<li><strong>Double dispatch</strong> — <code>shape.accept(visitor)</code> shape ka type decide karta</li>
+</ol>
+<p>   hai, andar <code>visitor.visitX(this)</code> operation decide karta hai.</p>
+<h2>When to skip</h2>
+<p>Agar classes ka set frequently badalta hai (naya shape type baar-baar add</p>
+<p>hota hai) lekin operations stable hain, Visitor ulta pain hai — har naya</p>
+<p>shape ke liye HAR visitor ko edit karna padega. Visitor tab kamaata hai jab</p>
+<p><strong>classes stable hain, operations badalte rehte hain</strong> (ulta scenario).</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — naya operation (e.g. "export to SVG") add karne ke</span>
+<span class="cmt">// liye HAR shape class ko edit karna padta hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">class</span> Circle {
+  <span class="kw">constructor</span>(r) { <span class="kw">this</span>.r = r; }
+  area() { <span class="kw">return</span> Math.PI * <span class="kw">this</span>.r * <span class="kw">this</span>.r; }
+  <span class="cmt">// naya operation chahiye? yahan naya method jodo... har shape mein.</span>
+}
+<span class="kw">class</span> Square {
+  <span class="kw">constructor</span>(s) { <span class="kw">this</span>.s = s; }
+  area() { <span class="kw">return</span> <span class="kw">this</span>.s * <span class="kw">this</span>.s; }
+}
+
+<span class="kw">const</span> shapes = [<span class="kw">new</span> Circle(2), <span class="kw">new</span> Square(3)];
+shapes.forEach((s) =&gt; console.log(s.<span class="kw">constructor</span>.name, <span class="str">'area:'</span>, s.area().toFixed(2)));
+
+<span class="cmt">// PROBLEM: agar kal "toSvg()" operation chahiye har shape ke liye, to Circle</span>
+<span class="cmt">// AUR Square dono classes ko edit karna padega. Jitne shapes utni jagah edit.</span>
+<span class="cmt">// Aur agar shapes third-party library se aayi hon (edit hi nahi kar sakte)?</span>
+</code></pre>
+<h4 class="filename">✅ 2-visitor.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ VISITOR PATTERN — naye operations ko shape classes ke BAHAR, alag</span>
+<span class="cmt">// "visitor" objects mein rakho. Shapes sirf ek chhota `accept(visitor)`</span>
+<span class="cmt">// method rakhte hain — naya operation add karne ke liye unhe edit nahi</span>
+<span class="cmt">// karna padta.</span>
+<span class="cmt">// Chalao:  node 2-visitor.js</span>
+
+<span class="kw">class</span> Circle {
+  <span class="kw">constructor</span>(r) { <span class="kw">this</span>.r = r; }
+  accept(visitor) { <span class="kw">return</span> visitor.visitCircle(<span class="kw">this</span>); } <span class="cmt">// fixed, kabhi nahi badalta</span>
+}
+<span class="kw">class</span> Square {
+  <span class="kw">constructor</span>(s) { <span class="kw">this</span>.s = s; }
+  accept(visitor) { <span class="kw">return</span> visitor.visitSquare(<span class="kw">this</span>); }
+}
+
+<span class="cmt">// Operation #1: area calculation — ek visitor object</span>
+<span class="kw">const</span> areaVisitor = {
+  visitCircle: (c) =&gt; Math.PI * c.r * c.r,
+  visitSquare: (s) =&gt; s.s * s.s,
+};
+
+<span class="cmt">// Operation #2 (naya!): SVG export — shapes ko CHHUE BINA add hua</span>
+<span class="kw">const</span> svgVisitor = {
+  visitCircle: (c) =&gt; <span class="str">`&lt;circle r="${c.r}" /&gt;`</span>,
+  visitSquare: (s) =&gt; <span class="str">`&lt;rect width="${s.s}" height="${s.s}" /&gt;`</span>,
+};
+
+<span class="kw">const</span> shapes = [<span class="kw">new</span> Circle(2), <span class="kw">new</span> Square(3)];
+shapes.forEach((s) =&gt; console.log(<span class="str">'area:'</span>, s.accept(areaVisitor).toFixed(2)));
+shapes.forEach((s) =&gt; console.log(<span class="str">'svg:'</span>, s.accept(svgVisitor)));
+
+<span class="cmt">// Naya operation (e.g. perimeter) add karna = ek naya visitor object,</span>
+<span class="cmt">// Circle/Square classes ko CHHUE BINA.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — simple expression tree (Number, Add nodes) ke liye</span>
+<span class="cmt">// evaluate() aur print() operations ko Visitor se add karo, node classes ko</span>
+<span class="cmt">// chhue bina.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="cmt">// ----- given node classes (accept() already fixed hai, inhe mat badlo) -----</span>
+<span class="kw">class</span> NumberNode {
+  <span class="kw">constructor</span>(value) { <span class="kw">this</span>.value = value; }
+  accept(visitor) { <span class="kw">return</span> visitor.visitNumber(<span class="kw">this</span>); }
+}
+<span class="kw">class</span> AddNode {
+  <span class="kw">constructor</span>(left, right) { <span class="kw">this</span>.left = left; <span class="kw">this</span>.right = right; }
+  accept(visitor) { <span class="kw">return</span> visitor.visitAdd(<span class="kw">this</span>); }
+}
+
+<span class="cmt">// (2 + 3)</span>
+<span class="kw">const</span> tree = <span class="kw">new</span> AddNode(<span class="kw">new</span> NumberNode(2), <span class="kw">new</span> NumberNode(3));
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `evaluateVisitor` object banao with `visitNumber(node)` (return</span>
+<span class="cmt">//         node.value) aur `visitAdd(node)` (return node.left.accept(this) +</span>
+<span class="cmt">//         node.right.accept(this) — recursive!).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `tree.accept(evaluateVisitor)` call karke result print karo</span>
+<span class="cmt">//         (chahiye: 5).</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): `printVisitor` banao jo expression ko string mein convert</span>
+<span class="cmt">//         kare (`"(2 + 3)"`), NumberNode/AddNode classes ko CHHUE BINA.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+<section class="chapter" id="ch-23-interpreter">
+<div class="chapter-kicker">Behavioral Patterns</div>
+<h1 class="chapter-title">23. Interpreter</h1>
+<p><strong>Problem:</strong> ek chhoti "language"/grammar hai (math expressions, boolean</p>
+<p>rules, filter queries) jise evaluate karna hai. String-parsing + if/else se</p>
+<p>karo to nested/composed expressions handle karna mushkil ho jaata hai.</p>
+<p><strong>Idea:</strong> grammar ke har rule (number, operator) ko ek chhoti class banao</p>
+<p>jismein <code>interpret()</code> method ho. Complex expressions in chhote nodes ko</p>
+<p>compose karke (tree ki tarah) banti hain — Composite pattern ka special use-case.</p>
+<h2>Files — is order mein chalao</h2>
+<pre class="mdcode"><code>node 1-naive.js        # ❌ string-parsing + if/else, sirf flat expressions
+node 2-interpreter.js  # ✅ chhoti composable classes, nested expressions natural
+node exercise.js       # 🎯 tumhara turn</code></pre>
+<h2>Principles yahan dikh rahe hain</h2>
+<ol>
+<li><strong>Grammar as objects</strong> — har rule apna node-type, evaluation logic</li>
+</ol>
+<p>   uske andar.</p>
+<ol>
+<li><strong>Composable via recursion</strong> — Composite jaisa hi idea, yahan operation</li>
+</ol>
+<p>   ka naam <code>interpret()</code> hai.</p>
+<h2>When to skip</h2>
+<p>Agar grammar simple/fixed hai ya rarely change hoti hai, ek proper</p>
+<p>parser library (ya even <code>eval</code>-jaisa safe alternative) use karna behtar hai.</p>
+<p>Interpreter tab kamaata hai jab grammar **chhoti ho aur custom rules</p>
+<p>frequently badalte/badhte** hon.</p>
+<h4 class="filename">❌ 1-naive.js — the naive approach</h4>
+<pre class="code"><code><span class="cmt">// ❌ THE NAIVE VERSION — simple math expressions ("3 + 4") ko ek hi function</span>
+<span class="cmt">// mein string-parsing + hardcoded if/else se evaluate kiya ja raha hai.</span>
+<span class="cmt">// Chalao:  node 1-naive.js</span>
+
+<span class="kw">function</span> evaluate(expr) {
+  <span class="kw">const</span> parts = expr.split(<span class="str">' '</span>);
+  <span class="kw">if</span> (parts.length === 3 &amp;&amp; parts[1] === <span class="str">'+'</span>) <span class="kw">return</span> Number(parts[0]) + Number(parts[2]);
+  <span class="kw">if</span> (parts.length === 3 &amp;&amp; parts[1] === <span class="str">'-'</span>) <span class="kw">return</span> Number(parts[0]) - Number(parts[2]);
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`cannot evaluate: ${expr}`</span>);
+}
+
+console.log(evaluate(<span class="str">'3 + 4'</span>));
+console.log(evaluate(<span class="str">'10 - 6'</span>));
+
+<span class="cmt">// PROBLEM: sirf DO numbers wale simple expressions handle hote hain.</span>
+<span class="cmt">// Nested expressions ("3 + 4 - 2") ya naya operator add karna is function</span>
+<span class="cmt">// ko bade if/else mein aur uljha dega — grammar aur evaluation mixed hain.</span>
+</code></pre>
+<h4 class="filename">✅ 2-interpreter.js — the pattern</h4>
+<pre class="code"><code><span class="cmt">// ✅ INTERPRETER PATTERN — grammar ke har "rule" ko ek chhoti class banao</span>
+<span class="cmt">// jismein `interpret()` method ho. Complex expressions in chhote nodes ko</span>
+<span class="cmt">// COMPOSE karke banti hain (jaisa Composite pattern).</span>
+<span class="cmt">// Chalao:  node 2-interpreter.js</span>
+
+<span class="kw">class</span> NumberExpr {
+  <span class="kw">constructor</span>(value) { <span class="kw">this</span>.value = value; }
+  interpret() { <span class="kw">return</span> <span class="kw">this</span>.value; }
+}
+<span class="kw">class</span> AddExpr {
+  <span class="kw">constructor</span>(left, right) { <span class="kw">this</span>.left = left; <span class="kw">this</span>.right = right; }
+  interpret() { <span class="kw">return</span> <span class="kw">this</span>.left.interpret() + <span class="kw">this</span>.right.interpret(); }
+}
+<span class="kw">class</span> SubtractExpr {
+  <span class="kw">constructor</span>(left, right) { <span class="kw">this</span>.left = left; <span class="kw">this</span>.right = right; }
+  interpret() { <span class="kw">return</span> <span class="kw">this</span>.left.interpret() - <span class="kw">this</span>.right.interpret(); }
+}
+
+<span class="cmt">// "3 + 4 - 2" ko tree se build karo — har node grammar ka ek rule hai</span>
+<span class="kw">const</span> expr = <span class="kw">new</span> SubtractExpr(
+  <span class="kw">new</span> AddExpr(<span class="kw">new</span> NumberExpr(3), <span class="kw">new</span> NumberExpr(4)),
+  <span class="kw">new</span> NumberExpr(2),
+);
+console.log(<span class="str">'3 + 4 - 2 ='</span>, expr.interpret());
+
+<span class="cmt">// Naya operator (multiply) add karna = ek nayi chhoti class, existing</span>
+<span class="cmt">// classes ko CHHUE BINA. Nested expressions naturally kaam karte hain</span>
+<span class="cmt">// kyunki har node bas .interpret() call karta hai apne children pe.</span>
+</code></pre>
+<h4 class="filename">🎯 exercise.js — your turn</h4>
+<pre class="code"><code><span class="cmt">// 🎯 EXERCISE — feature-flag rules ("isAdmin AND isBeta") ko Interpreter</span>
+<span class="cmt">// pattern se evaluate-able banao.</span>
+<span class="cmt">// Chalao:  node exercise.js</span>
+
+<span class="kw">const</span> context = { isAdmin: <span class="kw">true</span>, isBeta: <span class="kw">false</span>, isPremium: <span class="kw">true</span> };
+
+<span class="cmt">// ----- naive version (isse refactor karna hai) -----</span>
+<span class="kw">function</span> evalRule(rule, ctx) {
+  <span class="cmt">// sirf yeh ek hardcoded case handle karta hai:</span>
+  <span class="kw">if</span> (rule === <span class="str">'isAdmin AND isBeta'</span>) <span class="kw">return</span> ctx.isAdmin &amp;&amp; ctx.isBeta;
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">`cannot evaluate: ${rule}`</span>);
+}
+console.log(evalRule(<span class="str">'isAdmin AND isBeta'</span>, context));
+
+<span class="cmt">// ============================================================</span>
+<span class="cmt">// TODO 1: `VarExpr` class banao (constructor: name) with `interpret(ctx)`</span>
+<span class="cmt">//         jo `ctx[this.name]` return kare.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 2: `AndExpr` aur `OrExpr` classes banao (constructor: left, right)</span>
+<span class="cmt">//         with `interpret(ctx)` jo `left.interpret(ctx) &amp;&amp; right.interpret(ctx)`</span>
+<span class="cmt">//         (ya `||`) return karein.</span>
+<span class="cmt">//</span>
+<span class="cmt">// TODO 3 (bonus): `NotExpr` class banao (constructor: expr) with</span>
+<span class="cmt">//         `interpret(ctx)` jo `!expr.interpret(ctx)` return kare. Phir</span>
+<span class="cmt">//         "isAdmin AND NOT isBeta" jaisa tree bana kar evaluate karo.</span>
+<span class="cmt">//</span>
+<span class="cmt">// Neeche apna solution likho, phir `node exercise.js` chala kar verify karo.</span>
+<span class="cmt">// ============================================================</span>
+</code></pre>
+</section>
+
+
+</body>
+</html>
