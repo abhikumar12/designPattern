@@ -58,6 +58,11 @@ design-patterns-course/
 └── package.json                    ← shortcut scripts (optional)
 ```
 
+### SOLID Principles — the WHY behind the patterns
+5 principles jo batate hain ki achha OO design **kyun** achha hota hai — har principle ek
+❌ violation aur ✅ fix ke saath, aur kaunse patterns usi principle ko satisfy karne ke liye
+exist karte hain. Poora index: [`solid-principles/README.md`](solid-principles/README.md).
+
 ### LLD Practice — interview machine-coding problems
 Patterns seekhne ke baad **use** karna practice karo — 6 classic "design X" interview
 questions (Parking Lot, Splitwise, Elevator, Rate Limiter, Movie Booking, Notification

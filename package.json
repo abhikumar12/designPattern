@@ -105,6 +105,26 @@
     "lld:elevator": "node lld-practice/03-elevator-system/design.js",
     "lld:rate-limiter": "node lld-practice/04-rate-limiter/design.js",
     "lld:movie-booking": "node lld-practice/05-movie-ticket-booking/design.js",
-    "lld:notification": "node lld-practice/06-notification-service/design.js"
+    "lld:notification": "node lld-practice/06-notification-service/design.js",
+
+    "solid:srp-violation": "node solid-principles/01-single-responsibility/1-violation.js",
+    "solid:srp-fixed": "node solid-principles/01-single-responsibility/2-fixed.js",
+    "solid:srp-exercise": "node solid-principles/01-single-responsibility/exercise.js",
+
+    "solid:ocp-violation": "node solid-principles/02-open-closed/1-violation.js",
+    "solid:ocp-fixed": "node solid-principles/02-open-closed/2-fixed.js",
+    "solid:ocp-exercise": "node solid-principles/02-open-closed/exercise.js",
+
+    "solid:lsp-violation": "node solid-principles/03-liskov-substitution/1-violation.js",
+    "solid:lsp-fixed": "node solid-principles/03-liskov-substitution/2-fixed.js",
+    "solid:lsp-exercise": "node solid-principles/03-liskov-substitution/exercise.js",
+
+    "solid:isp-violation": "node solid-principles/04-interface-segregation/1-violation.js",
+    "solid:isp-fixed": "node solid-principles/04-interface-segregation/2-fixed.js",
+    "solid:isp-exercise": "node solid-principles/04-interface-segregation/exercise.js",
+
+    "solid:dip-violation": "node solid-principles/05-dependency-inversion/1-violation.js",
+    "solid:dip-fixed": "node solid-principles/05-dependency-inversion/2-fixed.js",
+    "solid:dip-exercise": "node solid-principles/05-dependency-inversion/exercise.js"
   }
 }
